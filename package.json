@@ -34,7 +34,7 @@
     "parallelshell": "^2.0.0",
     "postcss": "^5.2.4",
     "postcss-cssnext": "^2.8.0",
-    "postcss-import": "^8.1.2",
+    "postcss-easy-import": "^1.0.1",
     "postcss-utilities": "^0.5.1",
     "rimraf": "^2.5.4",
     "underscore": "^1.8.3",

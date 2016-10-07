@@ -19,12 +19,18 @@
         <![endif]-->
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
 
-        <p>{{attributes.title}}</p>
-        <script src="js/app.bundle.js" charset="utf-8"></script>
-        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+        {% block header %}
+ 
+        {% endblock %}
+
+        {% block main %}
+ 
+        {% endblock %}
+
+        {% block footer %}
+            <script src="js/app.bundle.js" charset="utf-8"></script>
+            <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+        {% endblock %}
     </body>
 </html>

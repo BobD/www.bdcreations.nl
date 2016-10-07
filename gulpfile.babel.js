@@ -55,7 +55,9 @@ gulp.task('twig', () => {
     return gulp.src(`${sourceDir}/html/**/*.twig`)
     	.pipe(changed(destinationDir))
         .pipe(data((file) => getContent(file)))
-        .pipe(twig())
+        .pipe(twig({
+            base: `${sourceDir}/html/`
+        }))
         .pipe(gulp.dest(destinationDir))
         .pipe(livereload({ }));
 });
@@ -69,10 +71,9 @@ gulp.task('styles', function () {
 	const cssnano = require('cssnano');
 	const utilities = require('postcss-utilities');
 	const cssnext = require('postcss-cssnext');
-	const imports = require("postcss-import");
-
+    const easyImports = require("postcss-easy-import");
 	const processors = [
-	    imports,
+	    easyImports({glob: true}),
         cssnext({browsers: ['last 2 version']}),
         utilities,
         cssnano

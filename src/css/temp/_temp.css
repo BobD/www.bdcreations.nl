@@ -1,6 +1,0 @@
-body{
-    display: flex;
-    @util clearfix;
-
-    background: yellow;
-}
