@@ -20,21 +20,13 @@
     </head>
     <body>
 
-        {% block header %}
- 
-        {% endblock %}
+         
+        
+         
+        
+                    <script src="js/app.bundle.js" charset="utf-8"></script>
 
-        {% block main %}
- 
-        {% endblock %}
-
-        {% block footer %}
-            <script src="js/app.bundle.js" charset="utf-8"></script>
-
-            {% if env == 'development' %}
-                <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-            {% endif %}
-            
-        {% endblock %}
-    </body>
+                            <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+                        
+            </body>
 </html>

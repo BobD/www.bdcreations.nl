@@ -14,8 +14,7 @@ import {argv as args} from 'yargs';
 
 const sourceDir = './src';
 const contentDir = './content';
-const destinationDir = './dist';
-const isDevelopment = args.env === 'development';
+const destinationDir = (args.env === 'development') ? './build' : './dist';
 
 // https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
 gulp.task('clean', () => {
@@ -46,6 +45,8 @@ function getContent(file){
         twigData = _.extend(twigData, content);
     } catch (err) {}
 
+
+    _.extend(twigData, {env: args.env});
     return twigData;
 }
 
@@ -81,9 +82,9 @@ gulp.task('styles', function () {
 
   	return gulp.src([`${sourceDir}/css/**/[^_]*.css`])
   		.pipe(changed(destinationDir))
-  		.pipe(gulpif(isDevelopment, sourcemaps.init()))
+  		.pipe(gulpif(args.env == 'development', sourcemaps.init()))
     	.pipe(postcss(processors))
-    	.pipe(gulpif(isDevelopment, sourcemaps.write('/maps')))
+    	.pipe(gulpif(args.env == 'development', sourcemaps.write('/maps')))
     	.pipe(gulp.dest(destinationDir + '/css'))
     	.pipe(livereload({ }));
 });
@@ -92,8 +93,10 @@ gulp.task('styles', function () {
 
 gulp.task('watch', () => {
     livereload.listen();
-	gulp.watch('./src/html/**/*.twig', ['twig']); 
+    gulp.watch('./gulpfile.babel.js', ['default']); 
+	gulp.watch('./src/html/**/*.twig', ['compile']); 
 	gulp.watch('./src/css/**/*.css', ['styles']); 
+    gulp.watch('./content/**/*md', ['compile']); 
 });
 
 

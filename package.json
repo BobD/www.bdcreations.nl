@@ -4,10 +4,10 @@
   "description": "frontend for new bdcreations website",
   "main": "index.js",
   "scripts": {
-    "build:dev": "rimraf dist/* && gulp --env development && webpack -d --ENV=development",
+    "build": "rimraf build/* && gulp --env development && webpack -d --ENV=development",
     "build:prod": "rimraf dist/* && gulp --env production && webpack -p --ENV=production",
-    "watch": "gulp watch",
-    "serve": "webpack-dev-server --inline --hot --open --content-base dist/"
+    "watch": "gulp watch --env development",
+    "serve": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=development"
   },
   "keywords": [
     "bdcreations"
