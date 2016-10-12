@@ -4,10 +4,10 @@
   "description": "frontend for new bdcreations website",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf build/* && gulp --env development && webpack -d --ENV=development",
-    "build:prod": "rimraf dist/* && gulp --env production && webpack -p --ENV=production",
-    "watch": "gulp watch --env development",
-    "serve": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=development"
+    "build:all": "rimraf build/* && gulp --env development && webpack -d --ENV=development",
+    "build:all:prod": "rimraf dist/* && gulp --env production && webpack -p --ENV=production",
+    "serve": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=development",
+    "watch": "gulp watch --env development"
   },
   "keywords": [
     "bdcreations"
@@ -22,11 +22,13 @@
     "cssnano": "^3.7.6",
     "del": "^2.2.2",
     "front-matter": "^2.1.0",
+    "glob": "^7.1.1",
     "gulp": "^3.9.1",
     "gulp-changed": "^1.3.2",
     "gulp-data": "^1.2.1",
     "gulp-if": "^2.0.1",
     "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.2.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-twig": "^0.5.0",
@@ -36,6 +38,7 @@
     "postcss-cssnext": "^2.8.0",
     "postcss-easy-import": "^1.0.1",
     "postcss-utilities": "^0.5.1",
+    "reset-css": "^2.2.0",
     "rimraf": "^2.5.4",
     "underscore": "^1.8.3",
     "webpack": "^1.13.2",

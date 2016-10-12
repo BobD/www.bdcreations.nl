@@ -19,22 +19,27 @@
         <![endif]-->
     </head>
     <body>
+        
+        <header class="header">
+            {% block header %}
+                {% include "components/_navigation.twig" %}
+            {% endblock %}
+        </header>
+        
+        <main class="main">
+            {% block main %}
+            {% endblock %}
+        </main>
+        
+        <footer class="footer">
+            {% block footer %}
+                <script src="js/app.bundle.js" charset="utf-8"></script>
 
-        {% block header %}
- 
-        {% endblock %}
-
-        {% block main %}
- 
-        {% endblock %}
-
-        {% block footer %}
-            <script src="js/app.bundle.js" charset="utf-8"></script>
-
-            {% if env == 'development' %}
-                <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-            {% endif %}
-            
-        {% endblock %}
+                {% if env == 'development' %}
+                    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+                {% endif %}
+                
+            {% endblock %}
+        </footer>
     </body>
 </html>

@@ -1,9 +1,3 @@
-/*
-    Useful[ later on:
-
-    https://github.com/webpack/docs/wiki/list-of-plugins#defineplugin
-*/
-
 var webpack = require('webpack');
 var argv = require('minimist')(process.argv.slice(2));
 var outputPath = argv.ENV === 'development' ? './build/js' : './dist/js';
@@ -17,7 +11,7 @@ module.exports = {
     },
     module: {
         loaders: [
-        	{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'	}
+        	{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
      	]
     },
     plugins: [

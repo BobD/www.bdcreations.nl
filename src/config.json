@@ -1,0 +1,7 @@
+{
+  	"navigation": [
+  		{"label": "About", "url": ""},
+  		{"label": "Projects", "url": ""},
+  		{"label": "Contact", "url": ""}
+  	]
+}
