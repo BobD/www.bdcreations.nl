@@ -18,11 +18,10 @@
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
     </head>
-    <body>
+    <body class="page {{page_modifier}}">
         
         <header class="header">
             {% block header %}
-                {% include "components/_navigation.twig" %}
             {% endblock %}
         </header>
         
@@ -32,6 +31,7 @@
         </main>
         
         <footer class="footer">
+            footer
             {% block footer %}
                 <script src="js/app.bundle.js" charset="utf-8"></script>
 

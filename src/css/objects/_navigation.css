@@ -1,0 +1,19 @@
+.navigation{
+}
+
+.navigation__list{
+	@util reset-list;
+}
+
+.navigation__item{
+	line-height: 2em;
+}
+
+.navigation__link{
+	text-decoration: none;
+	color: inherit;
+	text-transform: uppercase;
+}
+
+.navigation__label{
+}

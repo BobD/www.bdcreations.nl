@@ -1,0 +1,11 @@
+<nav class="projects">
+	<ul class="projects__list">
+		{% for item in projects %}
+			<li class="projects__item">
+				<a href="{{url}}" class="projects__link">
+					<span class="projects__label">{{item.label}}</span>
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+</nav>

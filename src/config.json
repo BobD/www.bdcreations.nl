@@ -3,5 +3,13 @@
   		{"label": "About", "url": ""},
   		{"label": "Projects", "url": ""},
   		{"label": "Contact", "url": ""}
+  	],
+
+  	"projects": [
+  		{"label": "Alila", "url": ""},
+  		{"label": "Enviu", "url": ""},
+  		{"label": "SINH build", "url": ""},
+  		{"label": "Macrowave", "url": ""},
+  		{"label": "Recht", "url": ""}
   	]
 }

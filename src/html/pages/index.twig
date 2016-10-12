@@ -1,5 +1,19 @@
+{% set page_modifier = 'page--home' %}
+
 {% extends "layouts/_site.twig" %}
 
 {% block main %}
-    <p>{{content.body}}</p>
+
+	<div class="intro">
+
+		<section class="section intro__top"></section>
+
+		<section class="section intro__middle">
+			{% include "components/_navigation.twig" %}
+		</section>
+
+		<section class="section intro__bottom"></section>
+
+	</div>
+
 {% endblock %}

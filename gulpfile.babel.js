@@ -1,6 +1,8 @@
 'use strict';
 
 import gulp from 'gulp';
+import watch from 'gulp-watch';
+import batch from 'gulp-batch';
 import changed from 'gulp-changed';
 import del from 'del';
 import livereload from 'gulp-livereload';
@@ -13,22 +15,28 @@ import _ from 'underscore';
 import plumber from 'gulp-plumber';
 import {argv as args} from 'yargs'; 
 import glob from 'glob';
+import slug from 'slug';
 
 const sourceDir = './src';
 const contentDir = './src/content';
 const destinationDir = (args.env === 'development') ? './build' : './dist';
-const siteConfig = JSON.parse(fs.readFileSync(`${sourceDir}/config.json`, 'utf-8'));
+const siteConfig = getConfig();
 const siteData = getData();
 
-// https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
-gulp.task('clean', () => {
-  return del([
-    destinationDir + '/**',
-    '!' + destinationDir,
-    '!src',
-    '!*.*',
-  ]);
-});
+
+function getConfig(){
+    let config = JSON.parse(fs.readFileSync(`${sourceDir}/config.json`, 'utf-8'));
+
+    config.navigation.forEach((item) => {
+        item.id = slug(item.label, {lower:true});
+    });
+
+    config.projects.forEach((item) => {
+        item.id = slug(item.label, {lower:true});
+    });
+    
+    return config;
+}
 
 function getData(){
     let data = Object.assign({}, siteConfig);
@@ -59,6 +67,17 @@ function getPageData(file){
     return data;
 }
 
+
+// https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
+gulp.task('clean', () => {
+  return del([
+    destinationDir + '/**',
+    '!' + destinationDir,
+    '!src',
+    '!*.*',
+  ]);
+});
+
 // https://www.npmjs.com/package/gulp-twig
 gulp.task('html', () => {
     const twig = require('gulp-twig');
@@ -78,10 +97,11 @@ gulp.task('compile', ['html']);
 
 
 gulp.task('styles', function () {
+    // https://ismamz.github.io/postcss-utilities/docs
 	const postcss = require('gulp-postcss');
 	const sourcemaps = require('gulp-sourcemaps');
 	const cssnano = require('cssnano');
-	const utilities = require('postcss-utilities');
+	const utilities = require('postcss-utilities'); 
 	const cssnext = require('postcss-cssnext');
     const easyImports = require("postcss-easy-import");
 	const processors = [
@@ -105,9 +125,18 @@ gulp.task('styles', function () {
 gulp.task('watch', () => {
     livereload.listen();
     gulp.watch('./gulpfile.babel.js', ['default']); 
-	gulp.watch('./src/html/**/*.twig', ['compile']); 
-	gulp.watch('./src/css/**/*.css', ['styles']); 
-    gulp.watch('./content/**/*md', ['compile']); 
+    
+    watch('./src/html/pages/**/*.twig', batch(function (events, done) {
+        gulp.start('compile', done);
+    }));
+
+    watch('./src/css/**/*.css', batch(function (events, done) {
+        gulp.start('styles', done);
+    }));
+
+    watch('./src/content/**/*.md', batch(function (events, done) {
+        gulp.start('compile', done);
+    }));
 });
 
 
