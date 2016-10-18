@@ -1,0 +1,7 @@
+.navigation{
+	&--site{
+		& .navigation__item{
+			margin: 0 .5em;
+		}
+	}
+}

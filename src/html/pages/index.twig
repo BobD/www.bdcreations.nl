@@ -4,15 +4,36 @@
 
 {% block main %}
 
-	<div class="intro">
+	<div data-js="intro" class="intro">
 
-		<section class="section intro__top"></section>
-
-		<section class="section intro__middle">
-			{% include "components/_navigation.twig" %}
+		<section class="section intro__about">
+			<div class="intro__content">
+				<p class="caption">Development with Eye for Design</p>
+				{# <p class="caption">Senior fullstack developer for creative companies</p> #}
+			</div>
 		</section>
 
-		<section class="section intro__bottom"></section>
+		<section class="section intro__menu">
+
+			<div class="intro__header">
+				Projects
+			</div>
+
+			<div class="intro__nav">
+				{% include "components/_navigation--projects.twig" with {"modifiers": "intro__projects" }  %}
+			</div>
+
+			<div class="intro__content">
+				{% include "components/_projects.twig" with { }  %}
+			</div>
+
+		</section>
+
+		<section class="section intro__contact">
+			<div class="intro__content">
+				<p class="caption">Get in touch</p>
+			</div>
+		</section>
 
 	</div>
 

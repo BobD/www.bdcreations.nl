@@ -3,12 +3,14 @@
 import gulp from 'gulp';
 import watch from 'gulp-watch';
 import batch from 'gulp-batch';
+import rename from 'gulp-rename';
 import changed from 'gulp-changed';
-import del from 'del';
 import livereload from 'gulp-livereload';
-import gulpif from 'gulp-if';
-import frontMatter from 'front-matter';
 import data from 'gulp-data';
+import gulpif from 'gulp-if';
+import imagemin from 'gulp-imagemin';
+import frontMatter from 'front-matter';
+import del from 'del';
 import fs from 'fs';
 import path from 'path';
 import _ from 'underscore';
@@ -26,66 +28,94 @@ const siteData = getData();
 
 function getConfig(){
     let config = JSON.parse(fs.readFileSync(`${sourceDir}/config.json`, 'utf-8'));
+    let navItems = [].concat(config.navigation.site, config.navigation.projects);
 
-    config.navigation.forEach((item) => {
+    navItems.forEach((item) => {
         item.id = slug(item.label, {lower:true});
     });
 
-    config.projects.forEach((item) => {
-        item.id = slug(item.label, {lower:true});
-    });
-    
     return config;
 }
 
 function getData(){
-    let data = Object.assign({}, siteConfig);
-    let files =  glob.sync(`${contentDir}/**/*.md`, {});
+    let data = Object.assign({pages: {}, projects: {}}, siteConfig);
+    let pages =  glob.sync(`${contentDir}/pages/**/*.md`, {});
+    let projects =  glob.sync(`${contentDir}/projects/**/*.md`, {});
+    let files = pages.concat(projects);
 
     files.forEach((file) => {
         let fileName = path.basename(file, '.md');
+        let type = path.dirname(file).split('/').pop();
+
         try {
             let fileSource = fs.readFileSync(file, 'utf-8');
             let fileContent = frontMatter(fileSource);
-            let pages = {};
-            pages[fileName] = fileContent;
-            data = _.extend(data, {pages});
+            let typeData = data[type];
+            typeData[fileName] = fileContent;
         } catch (err) {}
-    })
+    });
 
     _.extend(data, {env: args.env});
 
     return data;
 }
 
-function getPageData(file){
-    let pageName = path.basename(file.path, '.twig');
+function getPageData(pageName){
     let { [pageName]: pageContent } = siteData.pages;
     let data = Object.assign({}, siteData, {content: pageContent});
-
-    delete data.pages
+    // console.log('getPageData', data);
     return data;
 }
 
+function getProjectData(projectName){
+    let { [projectName]: pageContent } = siteData.projects;
+    let data = Object.assign({}, siteData, {content: pageContent});
+    return data;
+}
 
-// https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
-gulp.task('clean', () => {
-  return del([
-    destinationDir + '/**',
-    '!' + destinationDir,
-    '!src',
-    '!*.*',
-  ]);
+gulp.task('projects', () => {
+    let twig = require('gulp-twig');
+    let files =  glob.sync(`${contentDir}/projects/**/*.md`, {});
+
+    files.forEach((file) => {
+        let fileName = path.basename(file, '.md');
+        try {
+            let fileSource = fs.readFileSync(file, 'utf-8');
+            let fileContent = frontMatter(fileSource);
+            let projects = {};
+            projects[fileName] = fileContent;
+            
+            gulp.src(`${sourceDir}/html/projects/_project.twig`)
+            .pipe(plumber())
+            .pipe(changed(destinationDir))
+            .pipe(data((file) => {
+                return getProjectData(fileName);
+            }))
+            .pipe(twig({
+                base: `${sourceDir}/html/`
+            }))
+            .pipe(rename({
+                dirname: 'projects',
+                basename: fileName,
+                extname: '.html'
+            }))
+            .pipe(gulp.dest(destinationDir))
+            .pipe(livereload({ }));
+
+        } catch (err) {}
+    })
 });
 
-// https://www.npmjs.com/package/gulp-twig
-gulp.task('html', () => {
-    const twig = require('gulp-twig');
+gulp.task('pages', () => {
+    let twig = require('gulp-twig');
 
     return gulp.src(`${sourceDir}/html/pages/**/*.twig`)
-    	.pipe(changed(destinationDir))
-        .pipe(data(getPageData))
         .pipe(plumber())
+    	.pipe(changed(destinationDir))
+        .pipe(data((file) => {
+            let pageName = path.basename(file.path, '.twig');
+            return getPageData(pageName);
+        }))
         .pipe(twig({
             base: `${sourceDir}/html/`
         }))
@@ -93,7 +123,7 @@ gulp.task('html', () => {
         .pipe(livereload({ }));
 });
 
-gulp.task('compile', ['html']);
+gulp.task('compile', ['pages', 'projects']);
 
 
 gulp.task('styles', function () {
@@ -121,12 +151,18 @@ gulp.task('styles', function () {
 });
 
 
+gulp.task('images', function () {
+  return gulp.src(`${sourceDir}/content/images/**/*.*`)
+        .pipe(imagemin())
+        .pipe(gulp.dest(`${destinationDir}/images`))
+});
+
 
 gulp.task('watch', () => {
     livereload.listen();
     gulp.watch('./gulpfile.babel.js', ['default']); 
     
-    watch('./src/html/pages/**/*.twig', batch(function (events, done) {
+    watch('./src/html/**/*.twig', batch(function (events, done) {
         gulp.start('compile', done);
     }));
 
@@ -137,10 +173,25 @@ gulp.task('watch', () => {
     watch('./src/content/**/*.md', batch(function (events, done) {
         gulp.start('compile', done);
     }));
+
+    watch('./src/config.json', batch(function (events, done) {
+        gulp.start('default', done);
+    }));
 });
 
 
-gulp.task('default', ['compile', 'styles']);
+// https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
+gulp.task('clean', () => {
+  return del([
+    destinationDir + '/**',
+    '!' + destinationDir,
+    '!src',
+    '!*.*',
+  ]);
+});
+
+
+gulp.task('default', ['compile', 'styles', 'images']);
 
 
 

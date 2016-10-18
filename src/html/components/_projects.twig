@@ -1,11 +1,9 @@
-<nav class="projects">
-	<ul class="projects__list">
-		{% for item in projects %}
-			<li class="projects__item">
-				<a href="{{url}}" class="projects__link">
-					<span class="projects__label">{{item.label}}</span>
-				</a>
+{% spaceless %}
+	<ul data-js="projects" class="projects">
+		{% for item in navigation.projects %}
+			<li class="projects__item" title="blah" data-id="{{item.id}}" style="background-image: url('/images/test.jpg')">
+				<p class="caption">{{item.label}}</p>
 			</li>
 		{% endfor %}
 	</ul>
-</nav>
+{% endspaceless %}

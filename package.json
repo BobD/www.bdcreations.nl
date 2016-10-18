@@ -4,10 +4,12 @@
   "description": "frontend for new bdcreations website",
   "main": "index.js",
   "scripts": {
-    "build:all": "rimraf build/* && gulp --env development && webpack -d --ENV=development",
-    "build:all:prod": "rimraf dist/* && gulp --env production && webpack -p --ENV=production",
+    "build": "rimraf build/* && gulp --env development && webpack -d --ENV=development",
+    "build:prod": "rimraf dist/* && gulp --env production && webpack -p --ENV=production",
     "serve": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=development",
-    "watch": "gulp watch --env development"
+    "serve:prod": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=production",
+    "watch": "gulp watch --env development",
+    "watch:prod": "gulp watch --env production"
   },
   "keywords": [
     "bdcreations"
@@ -28,9 +30,11 @@
     "gulp-changed": "^1.3.2",
     "gulp-data": "^1.2.1",
     "gulp-if": "^2.0.1",
+    "gulp-imagemin": "^3.0.3",
     "gulp-livereload": "^3.8.1",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.2.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-twig": "^0.5.0",
     "gulp-watch": "^4.3.10",
@@ -44,6 +48,7 @@
     "rimraf": "^2.5.4",
     "slug": "^0.9.1",
     "underscore": "^1.8.3",
+    "velocity-animate": "^1.2.3",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1",
     "yargs": "^6.0.0"

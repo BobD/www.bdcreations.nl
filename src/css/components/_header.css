@@ -1,3 +1,11 @@
 .header{
-	position: absolute;
+	padding: var(--block-padding);
+}
+
+.header__logo{
+	float: left;
+}
+
+.header__nav{
+	float: right;
 }

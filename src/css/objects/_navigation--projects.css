@@ -1,0 +1,30 @@
+.navigation{
+	&--projects{
+
+		& .navigation__list{
+			display: flex; 
+  			flex-direction: row;
+  			align-items: center;
+  			justify-content: space-around;
+		}
+
+		& .navigation__item{
+			background-color: white;
+			padding: 0 1.5em;
+			white-space: nowrap;
+
+			display: flex; 
+  			align-items: center;
+  			flex-basis: auto;
+			
+			/*min-width: 10em;*/
+			min-height: 0;
+			transition: var(--nav-expand);
+			transition-delay: .15s;
+
+			&:hover{
+				min-height: calc(100vh);
+			}
+		}
+	}
+}

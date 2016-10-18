@@ -1,2 +1,24 @@
 .projects{
+	white-space: nowrap;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+
+	transition: var(--nav-expand);
+	&.show{
+		opacity: 1;
+	}
+}
+
+.projects__item{
+	color: white;
+	background: black;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: var(--block-padding);
+
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
 }

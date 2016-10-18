@@ -1,0 +1,13 @@
+{% spaceless %}
+	<nav data-js="nav-projects" class="navigation navigation--projects {{modifiers}}">
+		<ul class="navigation__list">
+			{% for item in navigation.projects %}
+				<li class="navigation__item"  data-id="{{item.id}}">
+					<a href="{{url}}" class="navigation__link">
+						<span class="navigation__label">{{item.label}}</span>
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</nav>
+{% endspaceless %}

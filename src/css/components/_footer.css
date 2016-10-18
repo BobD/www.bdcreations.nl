@@ -1,3 +1,8 @@
 .footer{
-	@util sticky-footer(fixed, 1em, '.main');
+	padding: var(--block-padding);
+	text-align: right;
+}
+
+.page__main{
+	flex-grow: 1;
 }

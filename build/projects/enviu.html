@@ -18,30 +18,43 @@
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
     </head>
-    <body class="page {{page_modifier}}">
+    <body class="page page--project">
         
         <section class="header page__header">
-            {% block header %}
-                <header class="header__logo">bd creations</header>
-                {% include "components/_navigation--site.twig" with {"modifiers": "header__nav" }  %}
-            {% endblock %}
-        </section>
+                            <header class="header__logo">bd creations</header>
+                <nav  data-js="nav-site" class="navigation navigation--site header__nav">
+	<ul class="navigation__list">
+					<li class="navigation__item " 
+			>
+				<a href="" class="navigation__link">
+					<span class="navigation__label">About</span>
+				</a>
+			</li>
+					<li class="navigation__item navigation__item--projects" 
+			>
+				<a href="" class="navigation__link">
+					<span class="navigation__label">Projects</span>
+				</a>
+			</li>
+					<li class="navigation__item " 
+			>
+				<a href="" class="navigation__link">
+					<span class="navigation__label">Contact</span>
+				</a>
+			</li>
+			</ul>
+</nav>                    </section>
         
         <main class="main page__main">
-            {% block main %}
-            {% endblock %}
+            	Enviu
         </main>
         
         <footer class="footer page__footer">
             copyright 2016
-            {% block footer %}
-                <script src="js/app.bundle.js" charset="utf-8"></script>
+                            <script src="js/app.bundle.js" charset="utf-8"></script>
 
-                {% if env == 'development' %}
-                    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-                {% endif %}
-                
-            {% endblock %}
-        </footer>
+                                    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+                                
+                    </footer>
     </body>
 </html>
