@@ -1,0 +1,70 @@
+.navigation{
+	&--projects{
+
+		& .navigation__list{
+			display: flex; 
+  			flex-direction: row;
+  			align-items: center;
+  			justify-content: flex-start;
+
+		}
+
+		& .navigation__item{
+			position: relative;
+
+			border-left: thin solid white;
+			border-right: thin solid white;
+
+			background-color: white;
+			padding: 0 1.5em;
+			white-space: nowrap;
+
+			display: flex; 
+  			align-items: center;
+  			flex-basis: auto;
+
+			min-height: 0;
+
+			transition-property: all;
+			transition-delay: .25s;
+			transition-duration: .5s;
+			transition-timing-function: ease-out;
+
+			&:hover{
+				min-height: calc(100vh);
+				transition-delay: 0s;
+				transition-duration: .25s;
+				transition-timing-function: ease-in;
+
+				border-left-color: transparent;
+				border-right-color: transparent;
+
+				& .navigation__content{
+					opacity: 1;
+				}
+			}
+		}
+
+		& .navigation__content{
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 0;
+			opacity: 0;
+
+			transition: all ease .5s;
+
+			padding: 3.5em 1.5em;
+		}
+
+		& .navigation__label{
+			cursor: pointer;
+			z-index: 1;
+
+			min-width: 4em;
+		}
+
+	}
+}

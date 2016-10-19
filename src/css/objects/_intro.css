@@ -22,7 +22,6 @@
 
 .intro__about,
 .intro__contact{
-
 	flex-grow: 1;
 	flex-shrink: 0;
 	overflow: hidden;
@@ -73,6 +72,10 @@
 		padding-left: var(--block-padding);
 		display: inline-block;
 	}
+}
+
+.intro__nav{
+	/*overflow: hidden;*/
 }
 
 .intro__content{

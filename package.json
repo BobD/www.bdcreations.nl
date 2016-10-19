@@ -9,7 +9,8 @@
     "serve": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=development",
     "serve:prod": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=production",
     "watch": "gulp watch --env development",
-    "watch:prod": "gulp watch --env production"
+    "watch:prod": "gulp watch --env production",
+    "init": "npm run build && npm run serve"
   },
   "keywords": [
     "bdcreations"

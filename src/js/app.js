@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	let projectNav =new ProjectNavigation();
 	let projects =new Projects();
 	let introContainer =  document.querySelector("*[data-js='intro']");
-	log(introContainer);
 
 	projectNav.on('mouseenter', (projectId) => {
 		introContainer.classList.add('expand');

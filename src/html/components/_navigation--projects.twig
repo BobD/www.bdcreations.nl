@@ -3,9 +3,16 @@
 		<ul class="navigation__list">
 			{% for item in navigation.projects %}
 				<li class="navigation__item"  data-id="{{item.id}}">
-					<a href="{{url}}" class="navigation__link">
-						<span class="navigation__label">{{item.label}}</span>
-					</a>
+					<div class="navigation__content project">
+						<ul class="project__keywords">
+							<li>keyword</li>
+							<li>keyword</li>
+						</ul>
+						<div class="project__description">
+							<p class="caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						</div>
+					</div>
+					<span class="navigation__label">{{item.label}}</span>
 				</li>
 			{% endfor %}
 		</ul>

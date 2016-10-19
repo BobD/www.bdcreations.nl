@@ -1,0 +1,17 @@
+.project{
+	
+}
+
+.project__keywords{
+
+}
+
+.project__description{
+	position: absolute;
+  	top: 50%;
+  	left: 100%;
+  	margin-top: 3em;
+  	margin-left: 1em;
+  	transform: translate(0, -50%);
+  	max-width: 20em;
+}

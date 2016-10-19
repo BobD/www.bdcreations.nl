@@ -63,7 +63,6 @@ function getData(){
 function getPageData(pageName){
     let { [pageName]: pageContent } = siteData.pages;
     let data = Object.assign({}, siteData, {content: pageContent});
-    // console.log('getPageData', data);
     return data;
 }
 
@@ -160,21 +159,22 @@ gulp.task('images', function () {
 
 gulp.task('watch', () => {
     livereload.listen();
-    gulp.watch('./gulpfile.babel.js', ['default']); 
+    gulp.watch('./gulpfile.babel.js', ['default']);
+    gulp.watch(`${sourceDir}/config.json`, ['default']);  
     
-    watch('./src/html/**/*.twig', batch(function (events, done) {
+    watch(`${sourceDir}/html/**/*.twig`, batch(function (events, done) {
         gulp.start('compile', done);
     }));
 
-    watch('./src/css/**/*.css', batch(function (events, done) {
+    watch(`${sourceDir}/css/**/*.css`, batch(function (events, done) {
         gulp.start('styles', done);
     }));
 
-    watch('./src/content/**/*.md', batch(function (events, done) {
+    watch(`${sourceDir}/content/**/*.md`, batch(function (events, done) {
         gulp.start('compile', done);
     }));
 
-    watch('./src/config.json', batch(function (events, done) {
+    watch(`${sourceDir}/config.json`, batch(function (events, done) {
         gulp.start('default', done);
     }));
 });
