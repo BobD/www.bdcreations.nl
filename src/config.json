@@ -6,19 +6,66 @@
         ],
 
         "projects": [
-            {"label": "Alila", "url": ""},
-            {"label": "Enviu", "url": ""},
-            {"label": "SINH build", "url": ""},
-            {"label": "Macrowave", "url": ""},
-            {"label": "Recht", "url": ""},
-            {"label": "Lotte Stekelenburg", "url": ""},
-            {"label": "Caramel", "url": ""},
-            {"label": "Ellen Truijen", "url": ""},
-            {"label": "Esthex", "url": ""},
-            {"label": "Supertrash", "url": ""},
-            {"label": "Oksana Mas", "url": ""},
-            {"label": "Viewbook", "url": ""},
-            {"label": "Jipfish", "url": ""}
+            {
+                "label": "Alila Hotels", 
+                "url": "",
+                "images": ["/images/projects/alila.jpg"]
+            },
+            {
+                "label": "Enviu", 
+                "url": "",
+                "images": ["/images/projects/enviu.jpg"]
+            },
+            {
+                "label": "SINHbuild", 
+                "url": "",
+                "images": ["/images/projects/sinhbuild.jpg"]
+            },
+            {
+                "label": "Ellen Truijen", 
+                "url": "",
+                "images": ["/images/projects/ellentruijen.jpg"]
+            },
+            {
+                "label": "Viewbook", 
+                "url": "",
+                "images": ["/images/projects/viewbook.jpg"]
+            },
+            {
+                "label": "Esthex", 
+                "url": "",
+                "images": ["/images/projects/esthex.jpg"]
+            },
+            {
+                "label": "Jipfish", 
+                "url": "",
+                "images": ["/images/projects/jipfish.jpg"]
+            },
+            {
+                "label": "Recht", 
+                "url": "",
+                "images": ["/images/projects/recht.png"]
+            },
+            {
+                "label": "Lotte Stekelenburg", 
+                "url": "",
+                "images": ["/images/projects/lottestekelenburg.jpg"]
+            },
+            {
+                "label": "Supertrash", 
+                "url": "",
+                "images": ["/images/projects/supertrash.jpg"]
+            },
+            {
+                "label": "Oksana Mas", 
+                "url": "",
+                "images": ["/images/projects/alila.jpg"]
+            },
+            {
+                "label": "Roders Beaumond", 
+                "url": "",
+                "images": ["/images/projects/alila.jpg"]
+            }
         ]
     }
 }   

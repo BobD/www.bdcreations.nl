@@ -1,5 +1,6 @@
 .navigation{
 	&--projects{
+		--background-color: rgba(255, 255, 255, .95);
 
 		& .navigation__list{
 			display: flex; 
@@ -11,11 +12,9 @@
 
 		& .navigation__item{
 			position: relative;
-
-			border-left: thin solid white;
-			border-right: thin solid white;
-
-			background-color: white;
+		/*	border-left: thin solid var(--background-color);
+			border-right: thin solid var(--background-color);*/
+			background-color: var(--background-color);
 			padding: 0 1.5em;
 			white-space: nowrap;
 
@@ -40,6 +39,7 @@
 				border-right-color: transparent;
 
 				& .navigation__content{
+					transition-delay: .5s;
 					opacity: 1;
 				}
 			}
@@ -55,6 +55,7 @@
 			opacity: 0;
 
 			transition: all ease .5s;
+			transition-delay: 0;
 
 			padding: 3.5em 1.5em;
 		}

@@ -1,5 +1,5 @@
 .footer{
-	padding: var(--block-padding);
+	padding: .5rem var(--block-padding);
 	text-align: right;
 }
 

@@ -63,7 +63,7 @@
 	
 	var _projectNavigation2 = _interopRequireDefault(_projectNavigation);
 	
-	var _projects = __webpack_require__(/*! ./modules/projects */ 302);
+	var _projects = __webpack_require__(/*! ./modules/projects */ 303);
 	
 	var _projects2 = _interopRequireDefault(_projects);
 	
@@ -76,7 +76,6 @@
 		var projectNav = new _projectNavigation2.default();
 		var projects = new _projects2.default();
 		var introContainer = document.querySelector("*[data-js='intro']");
-		(0, _logger2.default)(introContainer);
 	
 		projectNav.on('mouseenter', function (projectId) {
 			introContainer.classList.add('expand');
@@ -9201,6 +9200,10 @@
 	
 	var _events2 = _interopRequireDefault(_events);
 	
+	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 302);
+	
+	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9218,21 +9221,59 @@
 				return;
 			}
 	
+			this.containerWidth = parseFloat(window.getComputedStyle(this.$container).width);
+			this.scrollWidth = window.innerWidth;
+			this.scrollGap = this.scrollWidth - this.containerWidth;
+			this.overContainer = false;
+	
 			var navItems = this.$container.getElementsByClassName('navigation__item');
 			Array.from(navItems).forEach(function (item) {
 				var projectId = item.getAttribute('data-id');
 	
 				item.addEventListener('mouseenter', function (e) {
 					_this.eventEmitter.emit('mouseenter', projectId);
+	
+					if (_this.overContainer) {
+						_this.scrollToItem(e.target);
+					}
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
 					_this.eventEmitter.emit('mouseleave', projectId);
 				});
 			});
+	
+			this.$container.addEventListener('mouseenter', function (e) {
+				setTimeout(function () {
+					_this.overContainer = true;
+				}, 100);
+			});
+	
+			this.$container.addEventListener('mouseleave', function (e) {
+				_this.overContainer = false;
+			});
 		}
 	
 		_createClass(ProjectNavigation, [{
+			key: 'scrollToItem',
+			value: function scrollToItem(item) {
+				var itemWidth = parseFloat(window.getComputedStyle(item).width) / 2;
+				var scrollToPos = item.getBoundingClientRect().left;
+				var scrollPerc = scrollToPos / this.scrollWidth;
+				var scrollPos = scrollPerc * this.scrollGap;
+	
+				if (scrollPos - this.currentScrollPos < -itemWidth) {
+					scrollPos = this.currentScrollPos - itemWidth;
+				}
+	
+				if (scrollPos - this.currentScrollPos > itemWidth) {
+					scrollPos = this.currentScrollPos + itemWidth;
+				}
+	
+				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: scrollPos + 'px' }, { queue: false, duration: 250 });
+				this.currentScrollPos = scrollPos;
+			}
+		}, {
 			key: 'on',
 			value: function on() {
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
@@ -9557,58 +9598,6 @@
 
 /***/ },
 /* 302 */
-/*!************************************!*\
-  !*** ./src/js/modules/projects.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 303);
-	
-	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Projects = function () {
-		function Projects() {
-			_classCallCheck(this, Projects);
-	
-			this.$container = document.querySelector("*[data-js='projects']");
-		}
-	
-		_createClass(Projects, [{
-			key: 'scrollTo',
-			value: function scrollTo(projectID) {
-				var $el = this.$container.querySelector('*[data-id=' + projectID + ']');
-				var index = [].slice.call($el.parentNode.children).indexOf($el);
-				var offset = index * -100;
-				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + '%' }, { queue: false });
-	
-				this.$container.classList.add('show');
-			}
-		}, {
-			key: 'fadeOut',
-			value: function fadeOut() {
-				this.$container.classList.remove('show');
-			}
-		}]);
-	
-		return Projects;
-	}();
-	
-	exports.default = Projects;
-
-/***/ },
-/* 303 */
 /*!****************************************!*\
   !*** ./~/velocity-animate/velocity.js ***!
   \****************************************/
@@ -13500,6 +13489,67 @@
 	/* The CSS spec mandates that the translateX/Y/Z transforms are %-relative to the element itself -- not its parent.
 	Velocity, however, doesn't make this distinction. Thus, converting to or from the % unit with these subproperties
 	will produce an inaccurate conversion value. The same issue exists with the cx/cy attributes of SVG circles and ellipses. */
+
+/***/ },
+/* 303 */
+/*!************************************!*\
+  !*** ./src/js/modules/projects.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 302);
+	
+	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Projects = function () {
+		function Projects() {
+			_classCallCheck(this, Projects);
+	
+			this.$container = document.querySelector("*[data-js='projects']");
+			this.currentIndex = 0;
+		}
+	
+		_createClass(Projects, [{
+			key: 'scrollTo',
+			value: function scrollTo(projectID) {
+				var $el = this.$container.querySelector('*[data-id=' + projectID + ']');
+				var index = [].slice.call($el.parentNode.children).indexOf($el);
+				var offset = index * -100;
+				var dif = Math.abs(index - this.currentIndex);
+				var baseSpeed = 400;
+				var duration = baseSpeed;
+				for (var a = 2; a < dif; ++a) {
+					duration += baseSpeed / a;
+				}
+	
+				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + '%' }, { delay: 100, duration: duration, queue: false });
+	
+				this.$container.classList.add('show');
+				this.currentIndex = index;
+			}
+		}, {
+			key: 'fadeOut',
+			value: function fadeOut() {
+				this.$container.classList.remove('show');
+			}
+		}]);
+	
+		return Projects;
+	}();
+	
+	exports.default = Projects;
 
 /***/ }
 /******/ ]);

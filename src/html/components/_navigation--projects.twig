@@ -1,18 +1,17 @@
 {% spaceless %}
 	<nav data-js="nav-projects" class="navigation navigation--projects {{modifiers}}">
 		<ul class="navigation__list">
-			{% for item in navigation.projects %}
-				<li class="navigation__item"  data-id="{{item.id}}">
-					<div class="navigation__content project">
-						<ul class="project__keywords">
-							<li>keyword</li>
-							<li>keyword</li>
+			{% for navItem in navigation.projects %}
+				{% set project = attribute(projects, navItem.id) %}
+				<li class="navigation__item"  data-id="{{navItem.id}}">
+					<div class="navigation__content">
+						<ul class="keywords">
+							{% for keyword in project.attributes.keywords %}
+								<li class="keywords__item">{{keyword}}</li>
+							{% endfor %}
 						</ul>
-						<div class="project__description">
-							<p class="caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						</div>
 					</div>
-					<span class="navigation__label">{{item.label}}</span>
+					<span class="navigation__label">{{navItem.label}}</span>
 				</li>
 			{% endfor %}
 		</ul>

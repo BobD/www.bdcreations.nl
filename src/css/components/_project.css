@@ -1,0 +1,11 @@
+.project{
+	white-space: normal;
+}
+
+.project__title{
+
+}
+
+.project__description{
+	max-width: 20em;
+}

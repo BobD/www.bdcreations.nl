@@ -9,6 +9,8 @@ import livereload from 'gulp-livereload';
 import data from 'gulp-data';
 import gulpif from 'gulp-if';
 import imagemin from 'gulp-imagemin';
+import gulpFn from 'gulp-fn';
+import eventStream from 'event-stream';
 import frontMatter from 'front-matter';
 import del from 'del';
 import fs from 'fs';
@@ -21,44 +23,8 @@ import slug from 'slug';
 
 const sourceDir = './src';
 const contentDir = './src/content';
-const destinationDir = (args.env === 'development') ? './build' : './dist';
-const siteConfig = getConfig();
-const siteData = getData();
-
-
-function getConfig(){
-    let config = JSON.parse(fs.readFileSync(`${sourceDir}/config.json`, 'utf-8'));
-    let navItems = [].concat(config.navigation.site, config.navigation.projects);
-
-    navItems.forEach((item) => {
-        item.id = slug(item.label, {lower:true});
-    });
-
-    return config;
-}
-
-function getData(){
-    let data = Object.assign({pages: {}, projects: {}}, siteConfig);
-    let pages =  glob.sync(`${contentDir}/pages/**/*.md`, {});
-    let projects =  glob.sync(`${contentDir}/projects/**/*.md`, {});
-    let files = pages.concat(projects);
-
-    files.forEach((file) => {
-        let fileName = path.basename(file, '.md');
-        let type = path.dirname(file).split('/').pop();
-
-        try {
-            let fileSource = fs.readFileSync(file, 'utf-8');
-            let fileContent = frontMatter(fileSource);
-            let typeData = data[type];
-            typeData[fileName] = fileContent;
-        } catch (err) {}
-    });
-
-    _.extend(data, {env: args.env});
-
-    return data;
-}
+const destinationDir = (args.env === 'production') ? './dist' : './build';
+let siteData;
 
 function getPageData(pageName){
     let { [pageName]: pageContent } = siteData.pages;
@@ -71,6 +37,55 @@ function getProjectData(projectName){
     let data = Object.assign({}, siteData, {content: pageContent});
     return data;
 }
+
+gulp.task('data', () => {
+    let stream = gulp.src(`${sourceDir}/config.json`)
+    .pipe(data((file) => {
+        let config = JSON.parse(String(file.contents));
+        let navItems = [].concat(config.navigation.site, config.navigation.projects);
+
+        navItems.forEach((item) => {
+            item.id = slug(item.label, {lower:true});
+        });
+        return config;
+    }))
+    .pipe(gulpFn((file) => {
+        let config = file.data;
+        let data = Object.assign({pages: {}, projects: {}}, config);
+        let pages =  glob.sync(`${contentDir}/pages/**/*.md`, {});
+        let projects =  glob.sync(`${contentDir}/projects/**/*.md`, {});
+        let files = pages.concat(projects);
+
+        files.forEach((file) => {
+            let dirName = path.dirname(file).split(contentDir).pop();
+            let split = dirName.split('/');
+            let source = split.pop();
+            let type = split.pop();
+            let images = [];
+
+            try{
+                images = fs.readdirSync(`${contentDir}/${type}/${source}/images/`);
+            } catch (err) {}
+
+            try {
+                let fileSource = fs.readFileSync(file, 'utf-8');
+                let fileContent = frontMatter(fileSource);
+                fileContent.attributes.images = [];
+                images.forEach((entry) => {
+                    fileContent.attributes.images.push(`./images/${type}/${source}/${entry}`);
+                })
+                let typeData = data[type];
+                typeData[source] = fileContent;
+            } catch (err) {}
+        });
+
+        _.extend(data, {env: args.env});
+        console.log(data.projects['alila-hotels'].attributes.images);
+        siteData = data;  
+    }));
+
+    return stream;
+});
 
 gulp.task('projects', () => {
     let twig = require('gulp-twig');
@@ -122,7 +137,7 @@ gulp.task('pages', () => {
         .pipe(livereload({ }));
 });
 
-gulp.task('compile', ['pages', 'projects']);
+gulp.task('compile', ['data', 'pages', 'projects']);
 
 
 gulp.task('styles', function () {
@@ -150,14 +165,33 @@ gulp.task('styles', function () {
 });
 
 
-gulp.task('images', function () {
-  return gulp.src(`${sourceDir}/content/images/**/*.*`)
+gulp.task('project-images', function () {
+  return gulp.src(`${contentDir}/projects/**/images/*.*`)
+        .pipe(changed(destinationDir))
         .pipe(imagemin())
+        .pipe(rename(function (path) {
+            let sourceName = path.dirname.split('/').shift();
+            path.dirname = `/projects/${sourceName}`;
+            return path;
+          }))
         .pipe(gulp.dest(`${destinationDir}/images`))
 });
 
+gulp.task('page-images', function () {
+  return gulp.src(`${contentDir}/pages/**/images/*.*`)
+        .pipe(changed(destinationDir))
+        .pipe(imagemin())
+        .pipe(rename(function (path) {
+            let sourceName = path.dirname.split('/').shift();
+            path.dirname = `/pages/${sourceName}`;
+            return path;
+          }))
+        .pipe(gulp.dest(`${destinationDir}/images`))
+});
 
-gulp.task('watch', () => {
+gulp.task('images', ['project-images', 'page-images']);
+
+gulp.task('watch', ['data'], () => {
     livereload.listen();
     gulp.watch('./gulpfile.babel.js', ['default']);
     gulp.watch(`${sourceDir}/config.json`, ['default']);  
@@ -170,7 +204,7 @@ gulp.task('watch', () => {
         gulp.start('styles', done);
     }));
 
-    watch(`${sourceDir}/content/**/*.md`, batch(function (events, done) {
+    watch(`${sourceDir}/content/**/*.*`, batch(function (events, done) {
         gulp.start('compile', done);
     }));
 

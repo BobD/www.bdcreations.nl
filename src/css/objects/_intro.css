@@ -49,7 +49,7 @@
 }
 
 .intro__about{
-	background-image: url('/images/over.jpg');
+	background-image: url('/images/pages/index/over.jpg');
 }
 
 
@@ -58,7 +58,6 @@
 	color: black;
 
 	overflow: hidden;
-	line-height: 2em;
 
 	display: flex; 
   	flex-direction: row;
@@ -75,7 +74,7 @@
 }
 
 .intro__nav{
-	/*overflow: hidden;*/
+	line-height: 2em;
 }
 
 .intro__content{
@@ -88,5 +87,5 @@
 }
 
 .intro__contact{
-	background-image: url('/images/contact.jpg');
+	background-image: url('/images/pages/index/contact.jpg');
 }

@@ -1,9 +1,7 @@
 {% spaceless %}
-	<ul data-js="projects" class="projects">
-		{% for item in navigation.projects %}
-			<li class="projects__item" title="blah" data-id="{{item.id}}" style="background-image: url('/images/test.jpg')">
-				<p class="caption">{{item.label}}</p>
-			</li>
+	<div data-js="projects" class="projects">
+		{% for project in navigation.projects %}
+			 {% include "components/_project.twig" with {"id": project.id, "modifiers": "projects__item"}  %}
 		{% endfor %}
-	</ul>
+	</div>
 {% endspaceless %}
