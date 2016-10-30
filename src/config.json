@@ -8,63 +8,51 @@
         "projects": [
             {
                 "label": "Alila Hotels", 
-                "url": "",
-                "images": ["/images/projects/alila.jpg"]
+                "url": ""
             },
             {
                 "label": "Enviu", 
-                "url": "",
-                "images": ["/images/projects/enviu.jpg"]
+                "url": ""
             },
             {
                 "label": "SINHbuild", 
-                "url": "",
-                "images": ["/images/projects/sinhbuild.jpg"]
+                "url": ""
             },
             {
                 "label": "Ellen Truijen", 
-                "url": "",
-                "images": ["/images/projects/ellentruijen.jpg"]
+                "url": ""
             },
             {
                 "label": "Viewbook", 
-                "url": "",
-                "images": ["/images/projects/viewbook.jpg"]
+                "url": ""
             },
             {
                 "label": "Esthex", 
-                "url": "",
-                "images": ["/images/projects/esthex.jpg"]
+                "url": ""
             },
             {
                 "label": "Jipfish", 
-                "url": "",
-                "images": ["/images/projects/jipfish.jpg"]
+                "url": ""
             },
             {
                 "label": "Recht", 
-                "url": "",
-                "images": ["/images/projects/recht.png"]
+                "url": ""
             },
             {
                 "label": "Lotte Stekelenburg", 
-                "url": "",
-                "images": ["/images/projects/lottestekelenburg.jpg"]
+                "url": ""
             },
             {
                 "label": "Supertrash", 
-                "url": "",
-                "images": ["/images/projects/supertrash.jpg"]
+                "url": ""
             },
             {
                 "label": "Oksana Mas", 
-                "url": "",
-                "images": ["/images/projects/alila.jpg"]
+                "url": ""
             },
             {
                 "label": "Roders Beaumond", 
-                "url": "",
-                "images": ["/images/projects/alila.jpg"]
+                "url": ""
             }
         ]
     }

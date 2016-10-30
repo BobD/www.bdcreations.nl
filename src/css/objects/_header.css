@@ -1,10 +1,26 @@
 .header{
-	padding: var(--block-padding);
+	padding: 0 var(--block-padding);
+
+	& .navigation__item {
+		vertical-align: baseline;
+	}
 }
 
 .header__logo{
-	float: left;
+	display: inline-block;
+	font-size: var(--ms1);
+
+	position: fixed;
+	z-index: 100;
 }
+
+.header__title{
+	&.caption{
+		margin: 0;
+		line-height: 1.8;
+	}
+}
+
 
 .header__nav{
 	float: right;

@@ -9,3 +9,8 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+*{
+	text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+}

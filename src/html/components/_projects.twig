@@ -1,7 +1,18 @@
 {% spaceless %}
 	<div data-js="projects" class="projects">
 		{% for project in navigation.projects %}
-			 {% include "components/_project.twig" with {"id": project.id, "modifiers": "projects__item"}  %}
+			{% include "components/_project.twig" with {"id": project.id, "modifiers": "projects__item"}  %}
 		{% endfor %}
 	</div>
 {% endspaceless %}
+
+{# <style scoped>
+	{% set startOffset = 10 %}
+	{% for project in navigation.projects %}
+		.projects__item:nth-child({{loop.index}}n) .project__content{
+			left: {{startOffset + (loop.index * 10)}}%;
+		}
+	{% endfor %}
+</style>
+ #}
+

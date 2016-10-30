@@ -21,17 +21,17 @@
     <body class="page page--home">
         
         <section class="header page__header">
-                            <header class="header__logo">bd creations</header>
+                            <header class="header__logo">
+                    <div class="header__title caption">bd creations</div>
+                </header>
                 <nav  data-js="nav-site" class="navigation navigation--site header__nav">
 	<ul class="navigation__list">
-					<li class="navigation__item " 
-			>
+					<li class="navigation__item " data-mode="about">
 				<a href="" class="navigation__link">
 					<span class="navigation__label">About</span>
 				</a>
 			</li>
-					<li class="navigation__item " 
-			>
+					<li class="navigation__item " data-mode="contact">
 				<a href="" class="navigation__link">
 					<span class="navigation__label">Contact</span>
 				</a>
@@ -41,26 +41,28 @@
         
         <main class="main page__main">
             
-	<div data-js="intro" class="intro">
+	<div data-js="content" class="content">
 
-		<section class="section intro__about">
-			<div class="intro__content">
+		<section class="content__header">
+			<div class="content__holder">
 				<p class="caption">Development with Eye for Design</p>
-				
 			</div>
 		</section>
 
-		<section class="section intro__menu">
+		<section class="content__main">
 
-			<div class="intro__nav">
-				<nav data-js="nav-projects" class="navigation navigation--projects intro__projects"><ul class="navigation__list"><li class="navigation__item"  data-id="alila-hotels"><div class="navigation__content"><ul class="keywords"><li class="keywords__item">dogs</li><li class="keywords__item">cats</li><li class="keywords__item">badgers</li></ul></div><span class="navigation__label">Alila Hotels</span></li><li class="navigation__item"  data-id="enviu"><div class="navigation__content"><ul class="keywords"></ul></div><span class="navigation__label">Enviu</span></li><li class="navigation__item"  data-id="sinhbuild"><div class="navigation__content"><ul class="keywords"></ul></div><span class="navigation__label">SINHbuild</span></li><li class="navigation__item"  data-id="ellen-truijen"><div class="navigation__content"><ul class="keywords"><li class="keywords__item">dogs</li><li class="keywords__item">cats</li><li class="keywords__item">badgers</li></ul></div><span class="navigation__label">Ellen Truijen</span></li><li class="navigation__item"  data-id="viewbook"><div class="navigation__content"><ul class="keywords"><li class="keywords__item">dogs</li><li class="keywords__item">cats</li><li class="keywords__item">badgers</li></ul></div><span class="navigation__label">Viewbook</span></li><li class="navigation__item"  data-id="esthex"><div class="navigation__content"><ul class="keywords"></ul></div><span class="navigation__label">Esthex</span></li><li class="navigation__item"  data-id="jipfish"><div class="navigation__content"><ul class="keywords"><li class="keywords__item">dogs</li><li class="keywords__item">cats</li><li class="keywords__item">badgers</li></ul></div><span class="navigation__label">Jipfish</span></li><li class="navigation__item"  data-id="recht"><div class="navigation__content"><ul class="keywords"><li class="keywords__item">dogs</li><li class="keywords__item">cats</li><li class="keywords__item">badgers</li></ul></div><span class="navigation__label">Recht</span></li><li class="navigation__item"  data-id="lotte-stekelenburg"><div class="navigation__content"><ul class="keywords"><li class="keywords__item">dogs</li><li class="keywords__item">cats</li><li class="keywords__item">badgers</li></ul></div><span class="navigation__label">Lotte Stekelenburg</span></li><li class="navigation__item"  data-id="supertrash"><div class="navigation__content"><ul class="keywords"><li class="keywords__item">dogs</li><li class="keywords__item">cats</li><li class="keywords__item">badgers</li></ul></div><span class="navigation__label">Supertrash</span></li><li class="navigation__item"  data-id="oksana-mas"><div class="navigation__content"><ul class="keywords"></ul></div><span class="navigation__label">Oksana Mas</span></li><li class="navigation__item"  data-id="roders-beaumond"><div class="navigation__content"><ul class="keywords"></ul></div><span class="navigation__label">Roders Beaumond</span></li></ul></nav>			</div>
+			<div class="content__nav">
+				<nav data-js="nav-projects" class="navigation navigation--projects content__projects"><ul class="navigation__list"><li class="navigation__item"  data-id="alila-hotels"><span class="navigation__label">Alila Hotels</span></li><li class="navigation__item"  data-id="enviu"><span class="navigation__label">Enviu</span></li><li class="navigation__item"  data-id="sinhbuild"><span class="navigation__label">SINHbuild</span></li><li class="navigation__item"  data-id="ellen-truijen"><span class="navigation__label">Ellen Truijen</span></li><li class="navigation__item"  data-id="viewbook"><span class="navigation__label">Viewbook</span></li><li class="navigation__item"  data-id="esthex"><span class="navigation__label">Esthex</span></li><li class="navigation__item"  data-id="jipfish"><span class="navigation__label">Jipfish</span></li><li class="navigation__item"  data-id="recht"><span class="navigation__label">Recht</span></li><li class="navigation__item"  data-id="lotte-stekelenburg"><span class="navigation__label">Lotte Stekelenburg</span></li><li class="navigation__item"  data-id="supertrash"><span class="navigation__label">Supertrash</span></li><li class="navigation__item"  data-id="oksana-mas"><span class="navigation__label">Oksana Mas</span></li><li class="navigation__item"  data-id="roders-beaumond"><span class="navigation__label">Roders Beaumond</span></li></ul></nav>			</div>
 
-			<div class="intro__content">
-				<div data-js="projects" class="projects"><article class="project projects__item" data-id="alila-hotels" style="background-image: url('./images/projects/alila-hotels/alila.jpg')"><header class="project__title caption">Alila Hotels</header><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></article><article class="project projects__item" data-id="enviu" style="background-image: url('./images/projects/enviu/enviu.jpg')"><header class="project__title caption">Enviu</header><div class="project__description"><p class="caption">A nice project maar</p></article><article class="project projects__item" data-id="sinhbuild" style="background-image: url('./images/projects/sinhbuild/sinhbuild.jpg')"><header class="project__title caption">SINH build</header><div class="project__description"><p class="caption">A nice project</p></article><article class="project projects__item" data-id="ellen-truijen" style="background-image: url('./images/projects/ellen-truijen/ellentruijen.jpg')"><header class="project__title caption">Alila Hotels</header><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></article><article class="project projects__item" data-id="viewbook" style="background-image: url('./images/projects/viewbook/viewbook.jpg')"><header class="project__title caption">Alila Hotels</header><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></article><article class="project projects__item" data-id="esthex" style="background-image: url('./images/projects/esthex/esthex.jpg')"><header class="project__title caption">Enviu</header><div class="project__description"><p class="caption">A nice project</p></article><article class="project projects__item" data-id="jipfish" style="background-image: url('./images/projects/jipfish/jipfish.jpg')"><header class="project__title caption">Alila Hotels</header><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></article><article class="project projects__item" data-id="recht" style="background-image: url('./images/projects/recht/recht.png')"><header class="project__title caption">Alila Hotels</header><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></article><article class="project projects__item" data-id="lotte-stekelenburg" style="background-image: url('./images/projects/lotte-stekelenburg/lottestekelenburg.jpg')"><header class="project__title caption">Alila Hotels</header><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></article><article class="project projects__item" data-id="supertrash" style="background-image: url('./images/projects/supertrash/supertrash.jpg')"><header class="project__title caption">Alila Hotels</header><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></article><article class="project projects__item" data-id="oksana-mas" style="background-image: url('')"><header class="project__title caption"></header><div class="project__description"><p class="caption"></p></article><article class="project projects__item" data-id="roders-beaumond" style="background-image: url('')"><header class="project__title caption"></header><div class="project__description"><p class="caption"></p></article></div>			</div>
+			<div class="content__holder">
+				<div data-js="projects" class="projects"><article class="project projects__item" data-id="alila-hotels" style="background-image: url('./images/projects/alila-hotels/alila.jpg')"><div class="project__content"><div class="project__description"><p class="caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div></div></article><article class="project projects__item" data-id="enviu" style="background-image: url('./images/projects/enviu/enviu.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice project maar</p></div></div></article><article class="project projects__item" data-id="sinhbuild" style="background-image: url('./images/projects/sinhbuild/sinhbuild.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice project</p></div></div></article><article class="project projects__item" data-id="ellen-truijen" style="background-image: url('./images/projects/ellen-truijen/ellentruijen.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></div></div></article><article class="project projects__item" data-id="viewbook" style="background-image: url('./images/projects/viewbook/viewbook.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></div></div></article><article class="project projects__item" data-id="esthex" style="background-image: url('./images/projects/esthex/esthex.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice project</p></div></div></article><article class="project projects__item" data-id="jipfish" style="background-image: url('./images/projects/jipfish/jipfish.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></div></div></article><article class="project projects__item" data-id="recht" style="background-image: url('./images/projects/recht/recht.png')"><div class="project__content"><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></div></div></article><article class="project projects__item" data-id="lotte-stekelenburg" style="background-image: url('./images/projects/lotte-stekelenburg/lottestekelenburg.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></div></div></article><article class="project projects__item" data-id="supertrash" style="background-image: url('./images/projects/supertrash/supertrash.jpg')"><div class="project__content"><div class="project__description"><p class="caption">A nice <strong>project</strong> maar</p></div></div></article><article class="project projects__item" data-id="oksana-mas" style="background-image: url('')"><div class="project__content"><div class="project__description"><p class="caption"></p></div></div></article><article class="project projects__item" data-id="roders-beaumond" style="background-image: url('')"><div class="project__content"><div class="project__description"><p class="caption"></p></div></div></article></div>
+
+
+			</div>
 
 		</section>
 
-		<section class="section intro__contact">
+		<section class="content__footer">
 		</section>
 
 	</div>
@@ -71,6 +73,7 @@
             copyright 2016
                             <script src="js/app.bundle.js" charset="utf-8"></script>
 
+                                    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
                                 
                     </footer>
     </body>

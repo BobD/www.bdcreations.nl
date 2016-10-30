@@ -5,6 +5,8 @@
 }
 
 .projects__item{
+	position: relative;
+
 	color: white;
 	background: black;
 	display: inline-block;

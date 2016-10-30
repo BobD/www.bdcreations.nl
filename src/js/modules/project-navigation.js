@@ -21,27 +21,18 @@ class ProjectNavigation {
 			let projectId = item.getAttribute('data-id');
 
 			item.addEventListener('mouseenter', (e) => {
-				this.eventEmitter.emit('mouseenter', projectId);
-
-				if(this.overContainer){
-					this.scrollToItem(e.target);
-				}
+				this.eventEmitter.emit('mouseenter', {
+					id: projectId,
+					position: item.getBoundingClientRect()
+				});
 			});
 			
 			item.addEventListener('mouseleave', (e) => {
-				this.eventEmitter.emit('mouseleave', projectId);
+				this.eventEmitter.emit('mouseleave', {
+					id: projectId,
+					position: item.getBoundingClientRect()
+				});
 			});
-		});
-
-
-		this.$container.addEventListener('mouseenter', (e) => {
-			setTimeout(() => { 
-				this.overContainer = true;
-			}, 100);
-		});
-
-		this.$container.addEventListener('mouseleave', (e) => {
-			this.overContainer = false;
 		});
 	}
 
@@ -60,7 +51,7 @@ class ProjectNavigation {
 		}
 
 		Velocity(this.$container, {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
-		this.currentScrollPos = scrollPos;
+		return scrollPos;
 	}
 
 	on(){

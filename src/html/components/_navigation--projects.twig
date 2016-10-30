@@ -4,13 +4,13 @@
 			{% for navItem in navigation.projects %}
 				{% set project = attribute(projects, navItem.id) %}
 				<li class="navigation__item"  data-id="{{navItem.id}}">
-					<div class="navigation__content">
+{# 					<div class="navigation__content">
 						<ul class="keywords">
 							{% for keyword in project.attributes.keywords %}
 								<li class="keywords__item">{{keyword}}</li>
 							{% endfor %}
 						</ul>
-					</div>
+					</div> #}
 					<span class="navigation__label">{{navItem.label}}</span>
 				</li>
 			{% endfor %}

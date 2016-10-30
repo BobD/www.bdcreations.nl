@@ -1,5 +1,10 @@
 .project{
 	white-space: normal;
+	position: relative;
+}
+
+.project__content{
+	position: absolute;
 }
 
 .project__title{
@@ -7,5 +12,5 @@
 }
 
 .project__description{
-	max-width: 20em;
+	max-width: 25em;
 }

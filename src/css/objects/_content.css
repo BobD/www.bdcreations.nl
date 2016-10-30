@@ -1,4 +1,4 @@
-.intro{
+.content{
   	display: flex; 
   	flex-direction: column;
 	flex-grow: 1;
@@ -10,18 +10,14 @@
 	left: 0;
 }
 
-.intro__header{
-	max-width: 25em;
-}
-
-.intro__about,
-.intro__menu,
-.intro__contact{
+.content__header,
+.content__main,
+.content__footer{
 	position: relative;
 }
 
-.intro__about,
-.intro__contact{
+.content__header,
+.content__footer{
 	flex-grow: 1;
 	flex-shrink: 0;
 	overflow: hidden;
@@ -30,30 +26,18 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 
-
-	& .intro__content{
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		z-index: 1;
+	& .content__holder{
 		padding: var(--block-padding);
-		
-		& > p{
-			float: left;
-			clear: both;
-		}
 
 	}
 }
 
-.intro__about{
+.content__header{
 	background-image: url('/images/pages/index/over.jpg');
 }
 
 
-.intro__menu{
+.content__main{
 	background-color: white;
 	color: black;
 
@@ -65,7 +49,7 @@
 
   	z-index: 1;
 
-	& .intro__header{
+	& .content__header{
 		background: inherit;
 		color: inherit;
 		padding-left: var(--block-padding);
@@ -73,11 +57,7 @@
 	}
 }
 
-.intro__nav{
-	line-height: 2em;
-}
-
-.intro__content{
+.content__holder{
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -86,6 +66,6 @@
 	z-index: -1;
 }
 
-.intro__contact{
+.content__footer{
 	background-image: url('/images/pages/index/contact.jpg');
 }

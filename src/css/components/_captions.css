@@ -2,7 +2,7 @@
 	display: inline-block;
 	background: white;
 	color: black;
-	padding: .25em .5em;
-	margin: .5em 0 ;
+	padding: 0 .5em;
 	max-width: 100%;
+	line-height: 2;
 }

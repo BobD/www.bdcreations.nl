@@ -76,14 +76,19 @@
 		var projectNav = new _projectNavigation2.default();
 		var projects = new _projects2.default();
 		var introContainer = document.querySelector("*[data-js='intro']");
+		var $body = document.querySelector("body");
 	
-		projectNav.on('mouseenter', function (projectId) {
+		projectNav.on('mouseenter', function (e) {
 			introContainer.classList.add('expand');
-			projects.scrollTo(projectId);
+			$body.classList.add('page--project-mode');
+	
+			projects.scrollTo(e.id, e.position);
 		});
 	
-		projectNav.on('mouseleave', function (projectId) {
+		projectNav.on('mouseleave', function (e) {
 			introContainer.classList.remove('expand');
+			$body.classList.remove('page--project-mode');
+	
 			projects.fadeOut();
 		});
 	});
@@ -9231,26 +9236,25 @@
 				var projectId = item.getAttribute('data-id');
 	
 				item.addEventListener('mouseenter', function (e) {
-					_this.eventEmitter.emit('mouseenter', projectId);
 	
-					if (_this.overContainer) {
-						_this.scrollToItem(e.target);
-					}
+					_this.eventEmitter.emit('mouseenter', {
+						id: projectId,
+						position: item.getBoundingClientRect()
+					});
+	
+					// if(this.overContainer){
+					log(_this.currentScrollPos);
+					_this.currentScrollPos = _this.scrollToItem(e.target);
+					log(_this.currentScrollPos);
+					// }
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
-					_this.eventEmitter.emit('mouseleave', projectId);
+					_this.eventEmitter.emit('mouseleave', {
+						id: projectId,
+						position: item.getBoundingClientRect()
+					});
 				});
-			});
-	
-			this.$container.addEventListener('mouseenter', function (e) {
-				setTimeout(function () {
-					_this.overContainer = true;
-				}, 100);
-			});
-	
-			this.$container.addEventListener('mouseleave', function (e) {
-				_this.overContainer = false;
 			});
 		}
 	
@@ -9271,7 +9275,7 @@
 				}
 	
 				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: scrollPos + 'px' }, { queue: false, duration: 250 });
-				this.currentScrollPos = scrollPos;
+				return scrollPos;
 			}
 		}, {
 			key: 'on',
@@ -13523,13 +13527,14 @@
 	
 		_createClass(Projects, [{
 			key: 'scrollTo',
-			value: function scrollTo(projectID) {
-				var $el = this.$container.querySelector('*[data-id=' + projectID + ']');
+			value: function scrollTo(id, position) {
+				var $el = this.$container.querySelector('*[data-id=' + id + ']');
 				var index = [].slice.call($el.parentNode.children).indexOf($el);
 				var offset = index * -100;
 				var dif = Math.abs(index - this.currentIndex);
 				var baseSpeed = 400;
 				var duration = baseSpeed;
+	
 				for (var a = 2; a < dif; ++a) {
 					duration += baseSpeed / a;
 				}
@@ -13538,6 +13543,14 @@
 	
 				this.$container.classList.add('show');
 				this.currentIndex = index;
+	
+				this.positionContent($el, position);
+			}
+		}, {
+			key: 'positionContent',
+			value: function positionContent($el, position) {
+				var $content = $el.querySelector('.project__content');
+				$content.style.left = position.left + position.width + 'px';
 			}
 		}, {
 			key: 'fadeOut',

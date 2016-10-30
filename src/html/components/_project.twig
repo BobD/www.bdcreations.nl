@@ -1,6 +1,8 @@
 {% set project = attribute(projects, id) %}
 <article class="project {{modifiers}}" data-id="{{id}}" style="background-image: url('{{project.attributes.images[0]}}')">
-	<header class="project__title caption">{{project.attributes.title}}</header>
-	<div class="project__description">
-		<p class="caption">{{project.attributes.description|raw}}</p>
+	<div class="project__content">
+		<div class="project__description">
+			<p class="caption">{{project.attributes.description|raw}}</p>
+		</div>
+	</div>
 </article>
