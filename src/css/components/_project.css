@@ -5,6 +5,9 @@
 
 .project__content{
 	position: absolute;
+	top: 10%;
+	margin-left: 2.5%;
+	max-width: 50%;
 }
 
 .project__title{
@@ -12,5 +15,4 @@
 }
 
 .project__description{
-	max-width: 25em;
 }

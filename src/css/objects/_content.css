@@ -38,7 +38,6 @@
 
 
 .content__main{
-	background-color: white;
 	color: black;
 
 	overflow: hidden;
@@ -63,7 +62,6 @@
 	right: 0;
 	left: 0;
 	bottom: 0;
-	z-index: -1;
 }
 
 .content__footer{

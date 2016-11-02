@@ -59,7 +59,7 @@
 	
 	var _siteNavigation2 = _interopRequireDefault(_siteNavigation);
 	
-	var _projectNavigation = __webpack_require__(/*! ./modules/project-navigation */ 300);
+	var _projectNavigation = __webpack_require__(/*! ./modules/project-navigation */ 301);
 	
 	var _projectNavigation2 = _interopRequireDefault(_projectNavigation);
 	
@@ -75,8 +75,18 @@
 		var siteNav = new _siteNavigation2.default();
 		var projectNav = new _projectNavigation2.default();
 		var projects = new _projects2.default();
-		var introContainer = document.querySelector("*[data-js='intro']");
+		var introContainer = document.querySelector("*[data-js='content']");
 		var $body = document.querySelector("body");
+	
+		siteNav.on('mouseenter', function (e) {
+			var mode = e.mode;
+			$body.classList.add('page--' + mode + '-mode');
+		});
+	
+		siteNav.on('mouseleave', function (e) {
+			var mode = e.mode;
+			$body.classList.remove('page--' + mode + '-mode');
+		});
 	
 		projectNav.on('mouseenter', function (e) {
 			introContainer.classList.add('expand');
@@ -9150,47 +9160,6 @@
 /*!*******************************************!*\
   !*** ./src/js/modules/site-navigation.js ***!
   \*******************************************/
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var SiteNavigation = function () {
-		function SiteNavigation() {
-			// this.$container = document.querySelector("*[data-js='nav-site']");
-	
-			_classCallCheck(this, SiteNavigation);
-		}
-	
-		_createClass(SiteNavigation, [{
-			key: "expand",
-			value: function expand() {
-				// this.$container.classList.add('expand');
-			}
-		}, {
-			key: "minimize",
-			value: function minimize() {
-				// this.$container.classList.remove('expand');
-			}
-		}]);
-	
-		return SiteNavigation;
-	}();
-	
-	exports.default = SiteNavigation;
-
-/***/ },
-/* 300 */
-/*!**********************************************!*\
-  !*** ./src/js/modules/project-navigation.js ***!
-  \**********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9201,96 +9170,55 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _events = __webpack_require__(/*! events */ 301);
+	var _events = __webpack_require__(/*! events */ 300);
 	
 	var _events2 = _interopRequireDefault(_events);
-	
-	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 302);
-	
-	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var ProjectNavigation = function () {
-		function ProjectNavigation() {
+	var SiteNavigation = function () {
+		function SiteNavigation() {
 			var _this = this;
 	
-			_classCallCheck(this, ProjectNavigation);
+			_classCallCheck(this, SiteNavigation);
 	
 			this.eventEmitter = new _events2.default.EventEmitter();
-			this.$container = document.querySelector("*[data-js='nav-projects']");
-	
-			if (!this.$container) {
-				return;
-			}
-	
-			this.containerWidth = parseFloat(window.getComputedStyle(this.$container).width);
-			this.scrollWidth = window.innerWidth;
-			this.scrollGap = this.scrollWidth - this.containerWidth;
-			this.overContainer = false;
+			this.$container = document.querySelector("*[data-js='nav-site']");
 	
 			var navItems = this.$container.getElementsByClassName('navigation__item');
 			Array.from(navItems).forEach(function (item) {
-				var projectId = item.getAttribute('data-id');
+				var mode = item.getAttribute('data-mode');
 	
 				item.addEventListener('mouseenter', function (e) {
-	
 					_this.eventEmitter.emit('mouseenter', {
-						id: projectId,
-						position: item.getBoundingClientRect()
+						mode: mode
 					});
-	
-					// if(this.overContainer){
-					log(_this.currentScrollPos);
-					_this.currentScrollPos = _this.scrollToItem(e.target);
-					log(_this.currentScrollPos);
-					// }
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
 					_this.eventEmitter.emit('mouseleave', {
-						id: projectId,
-						position: item.getBoundingClientRect()
+						mode: mode
 					});
 				});
 			});
 		}
 	
-		_createClass(ProjectNavigation, [{
-			key: 'scrollToItem',
-			value: function scrollToItem(item) {
-				var itemWidth = parseFloat(window.getComputedStyle(item).width) / 2;
-				var scrollToPos = item.getBoundingClientRect().left;
-				var scrollPerc = scrollToPos / this.scrollWidth;
-				var scrollPos = scrollPerc * this.scrollGap;
-	
-				if (scrollPos - this.currentScrollPos < -itemWidth) {
-					scrollPos = this.currentScrollPos - itemWidth;
-				}
-	
-				if (scrollPos - this.currentScrollPos > itemWidth) {
-					scrollPos = this.currentScrollPos + itemWidth;
-				}
-	
-				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: scrollPos + 'px' }, { queue: false, duration: 250 });
-				return scrollPos;
-			}
-		}, {
+		_createClass(SiteNavigation, [{
 			key: 'on',
 			value: function on() {
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
 			}
 		}]);
 	
-		return ProjectNavigation;
+		return SiteNavigation;
 	}();
 	
-	exports.default = ProjectNavigation;
+	exports.default = SiteNavigation;
 
 /***/ },
-/* 301 */
+/* 300 */
 /*!****************************!*\
   !*** ./~/events/events.js ***!
   \****************************/
@@ -9599,6 +9527,102 @@
 	  return arg === void 0;
 	}
 
+
+/***/ },
+/* 301 */
+/*!**********************************************!*\
+  !*** ./src/js/modules/project-navigation.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _events = __webpack_require__(/*! events */ 300);
+	
+	var _events2 = _interopRequireDefault(_events);
+	
+	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 302);
+	
+	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ProjectNavigation = function () {
+		function ProjectNavigation() {
+			var _this = this;
+	
+			_classCallCheck(this, ProjectNavigation);
+	
+			this.eventEmitter = new _events2.default.EventEmitter();
+			this.$container = document.querySelector("*[data-js='nav-projects']");
+	
+			if (!this.$container) {
+				return;
+			}
+	
+			this.containerWidth = parseFloat(window.getComputedStyle(this.$container).width);
+			this.scrollWidth = window.innerWidth;
+			this.scrollGap = this.scrollWidth - this.containerWidth;
+			this.overContainer = false;
+	
+			var navItems = this.$container.getElementsByClassName('navigation__item');
+			Array.from(navItems).forEach(function (item) {
+				var projectId = item.getAttribute('data-id');
+	
+				item.addEventListener('mouseenter', function (e) {
+					_this.eventEmitter.emit('mouseenter', {
+						id: projectId,
+						position: item.getBoundingClientRect()
+					});
+				});
+	
+				item.addEventListener('mouseleave', function (e) {
+					_this.eventEmitter.emit('mouseleave', {
+						id: projectId,
+						position: item.getBoundingClientRect()
+					});
+				});
+			});
+		}
+	
+		_createClass(ProjectNavigation, [{
+			key: 'scrollToItem',
+			value: function scrollToItem(item) {
+				var itemWidth = parseFloat(window.getComputedStyle(item).width) / 2;
+				var scrollToPos = item.getBoundingClientRect().left;
+				var scrollPerc = scrollToPos / this.scrollWidth;
+				var scrollPos = scrollPerc * this.scrollGap;
+	
+				if (scrollPos - this.currentScrollPos < -itemWidth) {
+					scrollPos = this.currentScrollPos - itemWidth;
+				}
+	
+				if (scrollPos - this.currentScrollPos > itemWidth) {
+					scrollPos = this.currentScrollPos + itemWidth;
+				}
+	
+				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: scrollPos + 'px' }, { queue: false, duration: 250 });
+				return scrollPos;
+			}
+		}, {
+			key: 'on',
+			value: function on() {
+				this.eventEmitter.on.apply(this.eventEmitter, arguments);
+			}
+		}]);
+	
+		return ProjectNavigation;
+	}();
+	
+	exports.default = ProjectNavigation;
 
 /***/ },
 /* 302 */

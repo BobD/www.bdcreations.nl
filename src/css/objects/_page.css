@@ -15,23 +15,19 @@
     }
 
   	&--project-mode{
-  		& .page__header,
-  		& .page__footer{
-  			max-height: 0;
-  		}
+        & .page__main{
+            transition-duration: .5s;
+            transition-timing-function: ease-out;
+            min-height: 100vh;
+        }
   	}
 
-    & .content__header,
-    & .content__footer{
-        min-height: 0;
-        transition: min-height .5s ease;
-        will-change: min-height;
-    }
 }
 
 .page__header,
 .page__footer{
-	transition: max-height .5s ease-in;
+    overflow: hidden;
+    background: white;
 }
 
 .page__header{
@@ -41,6 +37,9 @@
 }
 
 .page__main{
+    transition: min-height .75s ease-in;
+    min-height: 0;
+    flex-grow: 1;
 }
 
 .page__footer{

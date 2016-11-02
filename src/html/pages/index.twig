@@ -4,6 +4,8 @@
 
 {% block main %}
 
+	{% include "components/_projects.twig" with { }  %}
+
 	<div data-js="content" class="content">
 
 		<section class="content__header">
@@ -16,10 +18,6 @@
 
 			<div class="content__nav">
 				{% include "components/_navigation--projects.twig" with {"modifiers": "content__projects" }  %}
-			</div>
-
-			<div class="content__holder">
-				{% include "components/_projects.twig" with { }  %}
 			</div>
 
 		</section>

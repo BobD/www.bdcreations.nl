@@ -80,7 +80,6 @@ gulp.task('data', () => {
         });
 
         _.extend(data, {env: args.env});
-        console.log(data.projects['alila-hotels'].attributes.images);
         siteData = data;  
     }));
 
@@ -205,6 +204,7 @@ gulp.task('watch', ['data'], () => {
     }));
 
     watch(`${sourceDir}/content/**/*.*`, batch(function (events, done) {
+        // console.log('c');
         gulp.start('compile', done);
     }));
 

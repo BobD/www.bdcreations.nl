@@ -25,6 +25,8 @@ class ProjectNavigation {
 					id: projectId,
 					position: item.getBoundingClientRect()
 				});
+
+				this.currentScrollPos = this.scrollToItem(item);
 			});
 			
 			item.addEventListener('mouseleave', (e) => {

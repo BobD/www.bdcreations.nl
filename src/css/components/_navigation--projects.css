@@ -14,8 +14,6 @@
 		}
 
 		& .navigation__item{
-			
-
 			position: relative;
 			background-color: var(--background-color);
 			padding: 0 1.5em;
@@ -33,7 +31,7 @@
 			transition-timing-function: ease-out;
 
 			&:hover{
-				min-height: calc(100vh);
+				min-height: 100vh;
 				transition-delay: 0s;
 				transition-duration: .25s;
 				transition-timing-function: ease-out;
