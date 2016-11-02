@@ -21,20 +21,14 @@
 
 			display: flex; 
   			align-items: center;
-  			flex-basis: auto;
 
 			min-height: 0;
-
-			transition-property: all;
-			transition-delay: .25s;
-			transition-duration: .5s;
-			transition-timing-function: ease-out;
+			will-change: min-height;
+			transition: min-height .5s ease-out .5s;
 
 			&:hover{
 				min-height: 100vh;
-				transition-delay: 0s;
-				transition-duration: .25s;
-				transition-timing-function: ease-out;
+				transition: min-height .5s ease-out 0s;
 
 				border-left-color: transparent;
 				border-right-color: transparent;
@@ -59,8 +53,7 @@
 			z-index: 0;
 			opacity: 0;
 
-			transition: all ease .5s;
-			transition-delay: 0;
+			transition: all ease .5s 0;
 
 			padding: 3.5em 1.5em;
 		}

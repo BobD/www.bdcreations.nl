@@ -9582,6 +9582,8 @@
 						id: projectId,
 						position: item.getBoundingClientRect()
 					});
+	
+					_this.currentScrollPos = _this.scrollToItem(item);
 				});
 	
 				item.addEventListener('mouseleave', function (e) {

@@ -15,18 +15,26 @@ class ProjectNavigation {
 		this.scrollWidth = window.innerWidth;
 		this.scrollGap =  this.scrollWidth - this.containerWidth;
 		this.overContainer = false;
+		this.currentScrollPos = 0;
 
 		let navItems = this.$container.getElementsByClassName('navigation__item');
 		Array.from(navItems).forEach((item) => {
 			let projectId = item.getAttribute('data-id');
 
 			item.addEventListener('mouseenter', (e) => {
+				let oldScrollPos = this.currentScrollPos;
+				let currentScrollPos = this.scrollToItem(item);
+				let scrollDif =  currentScrollPos - oldScrollPos;
+				let rect = item.getBoundingClientRect();
+				let position = {left: rect.left, width: rect.width};
+				position.left += scrollDif;
+
 				this.eventEmitter.emit('mouseenter', {
 					id: projectId,
-					position: item.getBoundingClientRect()
+					position: position
 				});
 
-				this.currentScrollPos = this.scrollToItem(item);
+				this.currentScrollPos = currentScrollPos;
 			});
 			
 			item.addEventListener('mouseleave', (e) => {

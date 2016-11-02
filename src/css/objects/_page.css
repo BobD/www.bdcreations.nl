@@ -10,17 +10,20 @@
 
     &--contact-mode{
         & .content__footer{
-            min-height: calc(100% - 2rem) !important;
+            min-height: calc(100% - 2rem)! important;
         }
     }
 
   	&--project-mode{
         & .page__main{
-            transition-duration: .5s;
-            transition-timing-function: ease-out;
-            min-height: 100vh;
         }
   	}
+
+    & .content__header,
+    & .content__footer{
+        min-height: 0;
+        transition: all .5s ease;
+    }
 
 }
 
@@ -28,6 +31,7 @@
 .page__footer{
     overflow: hidden;
     background: white;
+    flex-grow: 0;
 }
 
 .page__header{
@@ -37,9 +41,9 @@
 }
 
 .page__main{
-    transition: min-height .75s ease-in;
-    min-height: 0;
     flex-grow: 1;
+    flex-shrink: 0;
+    display: flex;
 }
 
 .page__footer{

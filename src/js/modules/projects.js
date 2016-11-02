@@ -19,7 +19,7 @@ class Projects {
 			duration += (baseSpeed / a);
 		}
 
-		Velocity(this.$container, {translateZ: 0, translateX: `${offset}%`}, {delay: 100, duration: duration, queue: false});
+		Velocity(this.$container, {translateZ: 0, translateX: `${offset}%`}, {delay: 250, duration: duration, queue: false});
 
 		this.$container.classList.add('show');
 		this.currentIndex = index;
@@ -30,6 +30,7 @@ class Projects {
 	positionContent($el, position){
 		let $content = $el.querySelector(`.project__content`);
 		$content.style.left = `${position.left + position.width}px`;
+		// $content.style.left = `${position.left  position.width}px`;
 	}
 
 	fadeOut(){
