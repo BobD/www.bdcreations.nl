@@ -9572,18 +9572,26 @@
 			this.scrollWidth = window.innerWidth;
 			this.scrollGap = this.scrollWidth - this.containerWidth;
 			this.overContainer = false;
+			this.currentScrollPos = 0;
 	
 			var navItems = this.$container.getElementsByClassName('navigation__item');
 			Array.from(navItems).forEach(function (item) {
 				var projectId = item.getAttribute('data-id');
 	
 				item.addEventListener('mouseenter', function (e) {
+					var oldScrollPos = _this.currentScrollPos;
+					var currentScrollPos = _this.scrollToItem(item);
+					var scrollDif = currentScrollPos - oldScrollPos;
+					var rect = item.getBoundingClientRect();
+					var position = { left: rect.left, width: rect.width };
+					position.left += scrollDif;
+	
 					_this.eventEmitter.emit('mouseenter', {
 						id: projectId,
-						position: item.getBoundingClientRect()
+						position: position
 					});
 	
-					_this.currentScrollPos = _this.scrollToItem(item);
+					_this.currentScrollPos = currentScrollPos;
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
@@ -13565,7 +13573,7 @@
 					duration += baseSpeed / a;
 				}
 	
-				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + '%' }, { delay: 100, duration: duration, queue: false });
+				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + '%' }, { delay: 250, duration: duration, queue: false });
 	
 				this.$container.classList.add('show');
 				this.currentIndex = index;
@@ -13577,6 +13585,7 @@
 			value: function positionContent($el, position) {
 				var $content = $el.querySelector('.project__content');
 				$content.style.left = position.left + position.width + 'px';
+				// $content.style.left = `${position.left  position.width}px`;
 			}
 		}, {
 			key: 'fadeOut',

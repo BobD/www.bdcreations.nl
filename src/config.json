@@ -1,59 +1,74 @@
 {
-    "navigation": {
-        "site": [
-            {"label": "About", "url": ""},
-            {"label": "Contact", "url": ""}
-        ],
+    "production": {
+        "globals": {
+            "hostname": "https://www.waarissam.nl/"
+        }
+    },
 
-        "projects": [
-            {
-                "label": "Alila Hotels", 
-                "url": ""
-            },
-            {
-                "label": "Enviu", 
-                "url": ""
-            },
-            {
-                "label": "SINHbuild", 
-                "url": ""
-            },
-            {
-                "label": "Ellen Truijen", 
-                "url": ""
-            },
-            {
-                "label": "Viewbook", 
-                "url": ""
-            },
-            {
-                "label": "Esthex", 
-                "url": ""
-            },
-            {
-                "label": "Jipfish", 
-                "url": ""
-            },
-            {
-                "label": "Recht", 
-                "url": ""
-            },
-            {
-                "label": "Lotte Stekelenburg", 
-                "url": ""
-            },
-            {
-                "label": "Supertrash", 
-                "url": ""
-            },
-            {
-                "label": "Oksana Mas", 
-                "url": ""
-            },
-            {
-                "label": "Roders Beaumond", 
-                "url": ""
-            }
-        ]
+    "development": {
+        "globals": {
+            "hostname": "http://localhost:8080/"
+        }
+    },
+
+    "*":{
+        "navigation": {
+            "site": [
+                {"label": "About", "url": ""},
+                {"label": "Contact", "url": ""}
+            ],
+
+            "projects": [
+                {
+                    "label": "Alila Hotels", 
+                    "url": ""
+                },
+                {
+                    "label": "Enviu", 
+                    "url": ""
+                },
+                {
+                    "label": "SINHbuild", 
+                    "url": ""
+                },
+                {
+                    "label": "Ellen Truijen", 
+                    "url": ""
+                },
+                {
+                    "label": "Viewbook", 
+                    "url": ""
+                },
+                {
+                    "label": "Esthex", 
+                    "url": ""
+                },
+                {
+                    "label": "Jipfish", 
+                    "url": ""
+                },
+                {
+                    "label": "Recht", 
+                    "url": ""
+                },
+                {
+                    "label": "Lotte Stekelenburg", 
+                    "url": ""
+                },
+                {
+                    "label": "Supertrash", 
+                    "url": ""
+                },
+                {
+                    "label": "Oksana Mas", 
+                    "url": ""
+                },
+                {
+                    "label": "Roders Beaumond", 
+                    "url": ""
+                }
+            ]
+        }
     }
+
 }   

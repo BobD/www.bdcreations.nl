@@ -28,8 +28,8 @@ class Projects {
 	}
 
 	positionContent($el, position){
-		let $content = $el.querySelector(`.project__content`);
-		$content.style.left = `${position.left + position.width}px`;
+		// let $content = $el.querySelector(`.project__content`);
+		// $content.style.left = `${position.left + position.width}px`;
 		// $content.style.left = `${position.left  position.width}px`;
 	}
 

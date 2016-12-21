@@ -1,5 +1,5 @@
 .navigation--projects{
-	--background-color: rgba(255, 255, 255, .95);
+	--background-color: rgba(0, 0, 0, .75);
 }
 
 .navigation{
@@ -16,7 +16,9 @@
 		& .navigation__item{
 			position: relative;
 			background-color: var(--background-color);
-			padding: 0 1.5em;
+			color: white;
+			border: thin solid white;
+			padding: 0 1em;
 			white-space: nowrap;
 
 			display: flex; 
@@ -29,9 +31,6 @@
 			&:hover{
 				min-height: 100vh;
 				transition: min-height .5s ease-out 0s;
-
-				border-left-color: transparent;
-				border-right-color: transparent;
 
 				& .navigation__content{
 					transition-delay: .5s;
@@ -59,9 +58,9 @@
 		}
 
 		& .navigation__label{
+			text-align: center;
 			cursor: pointer;
 			z-index: 1;
-			min-width: 4em;
 
 			font-size: var(--ms0);
 			line-height: 2;

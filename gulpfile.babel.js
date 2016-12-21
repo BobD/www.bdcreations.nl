@@ -8,7 +8,7 @@ import changed from 'gulp-changed';
 import livereload from 'gulp-livereload';
 import data from 'gulp-data';
 import gulpif from 'gulp-if';
-import imagemin from 'gulp-imagemin';
+import imageResize from 'gulp-image-resize';
 import gulpFn from 'gulp-fn';
 import eventStream from 'event-stream';
 import frontMatter from 'front-matter';
@@ -41,12 +41,26 @@ function getProjectData(projectName){
 gulp.task('data', () => {
     let stream = gulp.src(`${sourceDir}/config.json`)
     .pipe(data((file) => {
-        let config = JSON.parse(String(file.contents));
-        let navItems = [].concat(config.navigation.site, config.navigation.projects);
+        let data = JSON.parse(String(file.contents));
 
+        if(data === undefined){
+            return;
+        }
+
+        let config = data['*'];
+        let navItems = [].concat(config.navigation.site, config.navigation.projects);
         navItems.forEach((item) => {
             item.id = slug(item.label, {lower:true});
         });
+
+        if(args.env === 'production'){
+            _.extend(config, data.production);
+        }else{
+             _.extend(config, data.development);
+        }
+
+         _.extend(config, {version: new Date().getTime()});
+
         return config;
     }))
     .pipe(gulpFn((file) => {
@@ -167,7 +181,10 @@ gulp.task('styles', function () {
 gulp.task('project-images', function () {
   return gulp.src(`${contentDir}/projects/**/images/*.*`)
         .pipe(changed(destinationDir))
-        .pipe(imagemin())
+        .pipe(imageResize({
+            width : 1600,
+            imageMagick: true
+        }))
         .pipe(rename(function (path) {
             let sourceName = path.dirname.split('/').shift();
             path.dirname = `/projects/${sourceName}`;
@@ -179,7 +196,10 @@ gulp.task('project-images', function () {
 gulp.task('page-images', function () {
   return gulp.src(`${contentDir}/pages/**/images/*.*`)
         .pipe(changed(destinationDir))
-        .pipe(imagemin())
+        .pipe(imageResize({
+            width : 1600,
+            imageMagick: true
+        }))
         .pipe(rename(function (path) {
             let sourceName = path.dirname.split('/').shift();
             path.dirname = `/pages/${sourceName}`;
@@ -189,6 +209,13 @@ gulp.task('page-images', function () {
 });
 
 gulp.task('images', ['project-images', 'page-images']);
+
+gulp.task('public', function () {
+  return gulp.src([`${sourceDir}/public/**/*.*`, `${sourceDir}/public/.*`])
+        .pipe(changed(destinationDir))
+        .pipe(gulp.dest(`${destinationDir}/`))
+});
+
 
 gulp.task('watch', ['data'], () => {
     livereload.listen();
@@ -210,6 +237,10 @@ gulp.task('watch', ['data'], () => {
 
     watch(`${sourceDir}/config.json`, batch(function (events, done) {
         gulp.start('default', done);
+    }));
+
+    watch(`${sourceDir}/public/**/*.*`, batch(function (events, done) {
+        gulp.start('public', done);
     }));
 });
 

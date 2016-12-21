@@ -32,7 +32,6 @@
 
 .content__main{
 	color: black;
-
 	overflow: hidden;
 
 	display: flex; 
@@ -40,6 +39,8 @@
   	align-items: center;
 
   	z-index: 1;
+
+  	/*border: thin solid white;*/
 
 	& .content__header{
 		background: inherit;

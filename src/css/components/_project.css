@@ -4,10 +4,14 @@
 }
 
 .project__content{
-	position: absolute;
+	position: fixed;
 	top: 10%;
-	margin-left: 2.5%;
+	left: 2.5%;
 	max-width: 50%;
+
+	z-index: 11111;
+
+	transform: translateX(0);
 }
 
 .project__title{
