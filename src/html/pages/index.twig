@@ -1,4 +1,4 @@
-{% set page_modifier = 'page--home' %}
+{% set app_modifier = 'app--home' %}
 
 {% extends "layouts/_site.twig" %}
 
@@ -9,21 +9,35 @@
 	<div data-js="content" class="content">
 
 		<section class="content__header">
-			<div class="content__holder">
-				<p class="caption">Development with Eye for Design</p>
-			</div>
 		</section>
 
 		<section class="content__main">
-
 			<div class="content__nav">
 				{% include "components/_navigation--projects.twig" with {"modifiers": "content__projects" }  %}
 			</div>
-
 		</section>
 
 		<section class="content__footer">
 		</section>
+
+		<section class="content__pages pages">
+			<div class="pages__content" data-js="pages">
+				<div class="pages__page page">
+					<div class="page__content">
+						<p class="page__paragraph"></p>
+					</div>
+				</div>
+				{% for project in projects %}
+					<div class="pages__page page">
+						<div class="page__content">
+							<p class="page__paragraph">{{project.attributes.description}}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		
+		</section>
+
 
 	</div>
 

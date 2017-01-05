@@ -15,24 +15,24 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 	siteNav.on('mouseenter', (e) => {
 		let mode = e.mode;
-		$body.classList.add(`page--${mode}-mode`);
+		$body.classList.add(`app--${mode}-mode`);
 	});
 
 	siteNav.on('mouseleave', (e) => {
 		let mode = e.mode;
-		$body.classList.remove(`page--${mode}-mode`);
+		$body.classList.remove(`app--${mode}-mode`);
 	});
 
 	projectNav.on('mouseenter', (e) => {
 		introContainer.classList.add('expand');
-		$body.classList.add('page--project-mode');
+		$body.classList.add('app--project-mode');
 
 		projects.scrollTo(e.id, e.position);
 	});
 
 	projectNav.on('mouseleave', (e) => {
 		introContainer.classList.remove('expand');
-		$body.classList.remove('page--project-mode');
+		$body.classList.remove('app--project-mode');
 
 		projects.fadeOut();
 	});

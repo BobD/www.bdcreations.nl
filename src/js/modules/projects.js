@@ -21,6 +21,8 @@ class Projects {
 
 		Velocity(this.$container, {translateZ: 0, translateX: `${offset}%`}, {delay: 250, duration: duration, queue: false});
 
+		Velocity(document.querySelector("*[data-js='pages']"), {translateZ: 0, translateX: `${offset}%`}, {delay: 250, queue: false, duration: duration});
+
 		this.$container.classList.add('show');
 		this.currentIndex = index;
 

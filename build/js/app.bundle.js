@@ -80,24 +80,24 @@
 	
 		siteNav.on('mouseenter', function (e) {
 			var mode = e.mode;
-			$body.classList.add('page--' + mode + '-mode');
+			$body.classList.add('app--' + mode + '-mode');
 		});
 	
 		siteNav.on('mouseleave', function (e) {
 			var mode = e.mode;
-			$body.classList.remove('page--' + mode + '-mode');
+			$body.classList.remove('app--' + mode + '-mode');
 		});
 	
 		projectNav.on('mouseenter', function (e) {
 			introContainer.classList.add('expand');
-			$body.classList.add('page--project-mode');
+			$body.classList.add('app--project-mode');
 	
 			projects.scrollTo(e.id, e.position);
 		});
 	
 		projectNav.on('mouseleave', function (e) {
 			introContainer.classList.remove('expand');
-			$body.classList.remove('page--project-mode');
+			$body.classList.remove('app--project-mode');
 	
 			projects.fadeOut();
 		});
@@ -9620,6 +9620,9 @@
 				}
 	
 				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: scrollPos + 'px' }, { queue: false, duration: 250 });
+	
+				// Velocity(document.querySelector("*[data-js='pages']"), {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
+	
 				return scrollPos;
 			}
 		}, {
@@ -13535,7 +13538,7 @@
   \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -13560,9 +13563,9 @@
 		}
 	
 		_createClass(Projects, [{
-			key: 'scrollTo',
+			key: "scrollTo",
 			value: function scrollTo(id, position) {
-				var $el = this.$container.querySelector('*[data-id=' + id + ']');
+				var $el = this.$container.querySelector("*[data-id=" + id + "]");
 				var index = [].slice.call($el.parentNode.children).indexOf($el);
 				var offset = index * -100;
 				var dif = Math.abs(index - this.currentIndex);
@@ -13573,7 +13576,9 @@
 					duration += baseSpeed / a;
 				}
 	
-				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + '%' }, { delay: 250, duration: duration, queue: false });
+				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + "%" }, { delay: 250, duration: duration, queue: false });
+	
+				(0, _velocityAnimate2.default)(document.querySelector("*[data-js='pages']"), { translateZ: 0, translateX: offset + "%" }, { delay: 250, queue: false, duration: duration });
 	
 				this.$container.classList.add('show');
 				this.currentIndex = index;
@@ -13581,14 +13586,14 @@
 				this.positionContent($el, position);
 			}
 		}, {
-			key: 'positionContent',
+			key: "positionContent",
 			value: function positionContent($el, position) {
-				var $content = $el.querySelector('.project__content');
-				$content.style.left = position.left + position.width + 'px';
+				// let $content = $el.querySelector(`.project__content`);
+				// $content.style.left = `${position.left + position.width}px`;
 				// $content.style.left = `${position.left  position.width}px`;
 			}
 		}, {
-			key: 'fadeOut',
+			key: "fadeOut",
 			value: function fadeOut() {
 				this.$container.classList.remove('show');
 			}

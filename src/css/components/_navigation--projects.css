@@ -1,5 +1,5 @@
 .navigation--projects{
-	--background-color: rgba(0, 0, 0, .75);
+	--background-color: rgba(255, 255, 255, .75);
 }
 
 .navigation{
@@ -10,15 +10,15 @@
   			flex-direction: row;
   			align-items: center;
   			justify-content: flex-start;
-
 		}
 
 		& .navigation__item{
 			position: relative;
 			background-color: var(--background-color);
-			color: white;
+			color: black;
 			border: thin solid white;
 			padding: 0 1em;
+			margin: 0 .5em;
 			white-space: nowrap;
 
 			display: flex; 
@@ -29,32 +29,10 @@
 			transition: min-height .5s ease-out .5s;
 
 			&:hover{
+				/*min-height: calc(100vh - 2em);*/
 				min-height: 100vh;
 				transition: min-height .5s ease-out 0s;
-
-				& .navigation__content{
-					transition-delay: .5s;
-					opacity: 1;
-				}
-
-				& .navigation__label{
-					transform: scale(1);
-				}
 			}
-		}
-
-		& .navigation__content{
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			z-index: 0;
-			opacity: 0;
-
-			transition: all ease .5s 0;
-
-			padding: 3.5em 1.5em;
 		}
 
 		& .navigation__label{
@@ -62,10 +40,8 @@
 			cursor: pointer;
 			z-index: 1;
 
-			font-size: var(--ms0);
+			font-size: calc(var(--ms0) * .8);
 			line-height: 2;
-
-			transform: scale(.8);
 			transition: all ease .25s;
 		}
 

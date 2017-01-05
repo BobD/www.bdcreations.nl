@@ -61,6 +61,9 @@ class ProjectNavigation {
 		}
 
 		Velocity(this.$container, {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
+
+		// Velocity(document.querySelector("*[data-js='pages']"), {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
+
 		return scrollPos;
 	}
 
