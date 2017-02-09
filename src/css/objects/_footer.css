@@ -1,5 +1,14 @@
 .footer{
-	padding: 0 var(--block-padding);
 	text-align: right;
-	line-height: 2rem;
+	position: relative;
+	overflow: visible;
+}
+
+.footer__content{
+	padding: 0 var(--block-padding);
+	background: white;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	line-height: var(--footer-height);
 }

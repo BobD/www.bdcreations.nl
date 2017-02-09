@@ -2,6 +2,8 @@
   	display: flex; 
   	flex-direction: column;
   	width: 100%;
+
+  	margin-bottom: -var(--footer-height);
 }
 
 .content__header,
@@ -12,8 +14,8 @@
 
 .content__header,
 .content__footer{
-/*	flex-grow: 1;
-	flex-shrink: 0;*/
+	flex-grow: 1;
+	flex-shrink: 0;
 	overflow: hidden;
 
 	background-size: cover;
@@ -43,6 +45,7 @@
 	display: flex; 
   	flex-direction: row;
   	align-items: center;
+  	justify-content: flex-end;
 
   	z-index: 1;
 
@@ -52,6 +55,10 @@
 		padding-left: var(--block-padding);
 		display: inline-block;
 	}
+}
+
+.content__nav{
+	position: relative;
 }
 
 .content__pages{

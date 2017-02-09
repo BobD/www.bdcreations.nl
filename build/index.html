@@ -19,12 +19,15 @@
         <![endif]-->
     </head>
     <body class="app app--home">
+
+        <div class="app__container">
         
-        <section class="header app__header">
-                            <header class="header__logo">
-                    <div class="header__title caption">bd creations</div>
-                </header>
-                <nav  data-js="nav-site" class="navigation navigation--site header__nav">
+            <section class="header app__header">
+                <div class="header__container">
+                                            <header class="header__logo">
+                            <div class="header__title caption">bd creations</div>
+                        </header>
+                        <nav  data-js="nav-site" class="navigation navigation--site header__nav">
 	<ul class="navigation__list">
 					<li class="navigation__item " data-mode="about">
 				<a href="" class="navigation__link">
@@ -37,10 +40,11 @@
 				</a>
 			</li>
 			</ul>
-</nav>                    </section>
-        
-        <main class="main app__main">
+</nav>                                   </div> 
+            </section>
             
+            <main class="main app__main">
+                
 	<div data-js="projects" class="projects"><article class="project projects__item" data-id="alila-hotels" style="background-image: url('./images/projects/alila-hotels/alila.jpg')"></article><article class="project projects__item" data-id="enviu" style="background-image: url('./images/projects/enviu/enviu.jpg')"></article><article class="project projects__item" data-id="sinhbuild" style="background-image: url('./images/projects/sinhbuild/sinhbuild.jpg')"></article><article class="project projects__item" data-id="ellen-truijen" style="background-image: url('./images/projects/ellen-truijen/ellentruijen.jpg')"></article><article class="project projects__item" data-id="viewbook" style="background-image: url('./images/projects/viewbook/viewbook.jpg')"></article><article class="project projects__item" data-id="esthex" style="background-image: url('./images/projects/esthex/esthex.jpg')"></article><article class="project projects__item" data-id="jipfish" style="background-image: url('./images/projects/jipfish/jipfish.jpg')"></article><article class="project projects__item" data-id="recht" style="background-image: url('./images/projects/recht/recht.png')"></article><article class="project projects__item" data-id="lotte-stekelenburg" style="background-image: url('./images/projects/lotte-stekelenburg/lottestekelenburg.jpg')"></article><article class="project projects__item" data-id="supertrash" style="background-image: url('./images/projects/supertrash/supertrash.jpg')"></article><article class="project projects__item" data-id="oksana-mas" style="background-image: url('')"></article><article class="project projects__item" data-id="roders-beaumond" style="background-image: url('')"></article></div>
 	<div data-js="content" class="content">
 
@@ -116,17 +120,21 @@
 		
 		</section>
 
-
 	</div>
 
-        </main>
-        
-        <footer class="footer app__footer">
-            copyright 2016
-                            <script src="js/app.bundle.js" charset="utf-8"></script>
+            </main>
 
-                                    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-                                
-                    </footer>
+            <footer class="footer app__footer">
+                <div class="footer__content">
+                    copyright 2016
+                </div>
+                                    <script src="js/app.bundle.js" charset="utf-8"></script>
+
+                                            <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+                                        
+                            </footer>
+
+        </div>
+
     </body>
 </html>

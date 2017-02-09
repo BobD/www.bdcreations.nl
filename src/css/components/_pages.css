@@ -1,0 +1,14 @@
+.pages{
+	color: black;
+}
+
+.pages__content{
+	white-space: nowrap;
+}
+
+.pages__page{
+	white-space: normal;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+}

@@ -22,19 +22,19 @@ class ProjectNavigation {
 			let projectId = item.getAttribute('data-id');
 
 			item.addEventListener('mouseenter', (e) => {
-				let oldScrollPos = this.currentScrollPos;
-				let currentScrollPos = this.scrollToItem(item);
-				let scrollDif =  currentScrollPos - oldScrollPos;
+				// let oldScrollPos = this.currentScrollPos;
+				// let currentScrollPos = this.scrollToItem(item);
+				// let scrollDif =  currentScrollPos - oldScrollPos;
 				let rect = item.getBoundingClientRect();
 				let position = {left: rect.left, width: rect.width};
-				position.left += scrollDif;
+				// position.left += scrollDif;
 
 				this.eventEmitter.emit('mouseenter', {
 					id: projectId,
 					position: position
 				});
 
-				this.currentScrollPos = currentScrollPos;
+				// this.currentScrollPos = currentScrollPos;
 			});
 			
 			item.addEventListener('mouseleave', (e) => {
@@ -46,26 +46,24 @@ class ProjectNavigation {
 		});
 	}
 
-	scrollToItem(item){
-		let itemWidth =  parseFloat(window.getComputedStyle(item).width) / 2;
-		let scrollToPos = item.getBoundingClientRect().left;
-		let scrollPerc = (scrollToPos / this.scrollWidth);	
-		let scrollPos = scrollPerc * this.scrollGap;
+	// scrollToItem(item){
+	// 	let itemWidth =  parseFloat(window.getComputedStyle(item).width) / 2;
+	// 	let scrollToPos = item.getBoundingClientRect().left;
+	// 	let scrollPerc = (scrollToPos / this.scrollWidth);	
+	// 	let scrollPos = scrollPerc * this.scrollGap;
 
-		if(scrollPos - this.currentScrollPos < -itemWidth){
-			scrollPos = this.currentScrollPos - itemWidth;
-		}
+	// 	if(scrollPos - this.currentScrollPos < -itemWidth){
+	// 		scrollPos = this.currentScrollPos - itemWidth;
+	// 	}
 
-		if(scrollPos - this.currentScrollPos > itemWidth){
-			scrollPos = this.currentScrollPos + itemWidth;
-		}
+	// 	if(scrollPos - this.currentScrollPos > itemWidth){
+	// 		scrollPos = this.currentScrollPos + itemWidth;
+	// 	}
 
-		Velocity(this.$container, {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
+	// 	Velocity(this.$container, {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
 
-		// Velocity(document.querySelector("*[data-js='pages']"), {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
-
-		return scrollPos;
-	}
+	// 	return scrollPos;
+	// }
 
 	on(){
 		this.eventEmitter.on.apply(this.eventEmitter, arguments);

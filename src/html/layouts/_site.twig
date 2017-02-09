@@ -19,31 +19,40 @@
         <![endif]-->
     </head>
     <body class="app {{app_modifier}}">
-        
-        <section class="header app__header">
-            {% block header %}
-                <header class="header__logo">
-                    <div class="header__title caption">bd creations</div>
-                </header>
-                {% include "components/_navigation--site.twig" with {"modifiers": "header__nav" }  %}
-            {% endblock %}
-        </section>
-        
-        <main class="main app__main">
-            {% block main %}
-            {% endblock %}
-        </main>
-        
-        <footer class="footer app__footer">
-            copyright 2016
-            {% block footer %}
-                <script src="js/app.bundle.js" charset="utf-8"></script>
 
-                {% if env == 'development' %}
-                    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-                {% endif %}
-                
-            {% endblock %}
-        </footer>
+        <div class="app__container">
+        
+            <section class="header app__header">
+                <div class="header__container">
+                    {% block header %}
+                        <header class="header__logo">
+                            <div class="header__title caption">bd creations</div>
+                        </header>
+                        {% include "components/_navigation--site.twig" with {"modifiers": "header__nav" }  %}
+                    {% endblock %}
+               </div> 
+            </section>
+            
+            <main class="main app__main">
+                {% block main %}
+                {% endblock %}
+            </main>
+
+            <footer class="footer app__footer">
+                <div class="footer__content">
+                    copyright 2016
+                </div>
+                {% block footer %}
+                    <script src="js/app.bundle.js" charset="utf-8"></script>
+
+                    {% if env == 'development' %}
+                        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+                    {% endif %}
+                    
+                {% endblock %}
+            </footer>
+
+        </div>
+
     </body>
 </html>

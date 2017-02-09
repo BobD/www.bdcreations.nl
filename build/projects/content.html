@@ -19,12 +19,15 @@
         <![endif]-->
     </head>
     <body class="app app--project">
+
+        <div class="app__container">
         
-        <section class="header app__header">
-                            <header class="header__logo">
-                    <div class="header__title caption">bd creations</div>
-                </header>
-                <nav  data-js="nav-site" class="navigation navigation--site header__nav">
+            <section class="header app__header">
+                <div class="header__container">
+                                            <header class="header__logo">
+                            <div class="header__title caption">bd creations</div>
+                        </header>
+                        <nav  data-js="nav-site" class="navigation navigation--site header__nav">
 	<ul class="navigation__list">
 					<li class="navigation__item " data-mode="about">
 				<a href="" class="navigation__link">
@@ -37,18 +40,24 @@
 				</a>
 			</li>
 			</ul>
-</nav>                    </section>
-        
-        <main class="main app__main">
-            	
-        </main>
-        
-        <footer class="footer app__footer">
-            copyright 2016
-                            <script src="js/app.bundle.js" charset="utf-8"></script>
+</nav>                                   </div> 
+            </section>
+            
+            <main class="main app__main">
+                	
+            </main>
 
-                                    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-                                
-                    </footer>
+            <footer class="footer app__footer">
+                <div class="footer__content">
+                    copyright 2016
+                </div>
+                                    <script src="js/app.bundle.js" charset="utf-8"></script>
+
+                                            <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+                                        
+                            </footer>
+
+        </div>
+
     </body>
 </html>

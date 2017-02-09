@@ -16,33 +16,40 @@
 			position: relative;
 			background-color: var(--background-color);
 			color: black;
-			border: thin solid white;
-			padding: 0 1em;
-			margin: 0 .5em;
+			padding: 1em 0;
+			margin: 0 .25em;
 			white-space: nowrap;
 
-			display: flex; 
-  			align-items: center;
+
+  			text-align: center;
 
 			min-height: 0;
 			will-change: min-height;
-			transition: min-height .5s ease-out .5s;
+			transition: all .5s ease-out;
+
+			writing-mode: vertical-rl;
+			text-align: right;
+			overflow: hidden;
+			max-height: 100em;
 
 			&:hover{
-				/*min-height: calc(100vh - 2em);*/
-				min-height: 100vh;
-				transition: min-height .5s ease-out 0s;
+				min-height: calc(100vh + var(--footer-height));
 			}
 		}
 
 		& .navigation__label{
-			text-align: center;
 			cursor: pointer;
 			z-index: 1;
 
 			font-size: calc(var(--ms0) * .8);
 			line-height: 2;
 			transition: all ease .25s;
+
+			display: inline-block;
+			vertical-align: middle;
+
+			height: 100%;
+			text-align: center;
 		}
 
 	}
