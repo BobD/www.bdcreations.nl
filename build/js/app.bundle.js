@@ -9579,19 +9579,19 @@
 				var projectId = item.getAttribute('data-id');
 	
 				item.addEventListener('mouseenter', function (e) {
-					var oldScrollPos = _this.currentScrollPos;
-					var currentScrollPos = _this.scrollToItem(item);
-					var scrollDif = currentScrollPos - oldScrollPos;
+					// let oldScrollPos = this.currentScrollPos;
+					// let currentScrollPos = this.scrollToItem(item);
+					// let scrollDif =  currentScrollPos - oldScrollPos;
 					var rect = item.getBoundingClientRect();
 					var position = { left: rect.left, width: rect.width };
-					position.left += scrollDif;
+					// position.left += scrollDif;
 	
 					_this.eventEmitter.emit('mouseenter', {
 						id: projectId,
 						position: position
 					});
 	
-					_this.currentScrollPos = currentScrollPos;
+					// this.currentScrollPos = currentScrollPos;
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
@@ -9603,29 +9603,26 @@
 			});
 		}
 	
+		// scrollToItem(item){
+		// 	let itemWidth =  parseFloat(window.getComputedStyle(item).width) / 2;
+		// 	let scrollToPos = item.getBoundingClientRect().left;
+		// 	let scrollPerc = (scrollToPos / this.scrollWidth);	
+		// 	let scrollPos = scrollPerc * this.scrollGap;
+	
+		// 	if(scrollPos - this.currentScrollPos < -itemWidth){
+		// 		scrollPos = this.currentScrollPos - itemWidth;
+		// 	}
+	
+		// 	if(scrollPos - this.currentScrollPos > itemWidth){
+		// 		scrollPos = this.currentScrollPos + itemWidth;
+		// 	}
+	
+		// 	Velocity(this.$container, {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
+	
+		// 	return scrollPos;
+		// }
+	
 		_createClass(ProjectNavigation, [{
-			key: 'scrollToItem',
-			value: function scrollToItem(item) {
-				var itemWidth = parseFloat(window.getComputedStyle(item).width) / 2;
-				var scrollToPos = item.getBoundingClientRect().left;
-				var scrollPerc = scrollToPos / this.scrollWidth;
-				var scrollPos = scrollPerc * this.scrollGap;
-	
-				if (scrollPos - this.currentScrollPos < -itemWidth) {
-					scrollPos = this.currentScrollPos - itemWidth;
-				}
-	
-				if (scrollPos - this.currentScrollPos > itemWidth) {
-					scrollPos = this.currentScrollPos + itemWidth;
-				}
-	
-				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: scrollPos + 'px' }, { queue: false, duration: 250 });
-	
-				// Velocity(document.querySelector("*[data-js='pages']"), {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
-	
-				return scrollPos;
-			}
-		}, {
 			key: 'on',
 			value: function on() {
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);

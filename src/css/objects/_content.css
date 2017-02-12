@@ -35,30 +35,59 @@
 }
 
 .content__header{
-	background-image: url('/images/pages/index/over.jpg');
+	&:before{
+		content: '';
+		display: block;
+		background-image: url(/images/pages/index/over.jpg);
+		background-position: center center;
+		background-attachment: fixed;
+		background-size: cover;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+  	}
 }
 
 .content__main{
 	color: black;
-	overflow: hidden;
-
 	display: flex; 
   	flex-direction: row;
   	align-items: center;
-  	justify-content: flex-end;
+  	justify-content: center;
+  	position: relative;
+
+	&:before,
+	&:after{
+		content: '';
+  		display: block;
+  		position: absolute;
+  		width: 100%;
+  		height: 1px;
+  		background: white;
+	}
+
+  	&:before{
+  		top: -1px;
+  	}
+
+  	&:after{
+  		bottom: 0;
+  	}
 
   	z-index: 1;
-
-	& .content__header{
-		background: inherit;
-		color: inherit;
-		padding-left: var(--block-padding);
-		display: inline-block;
-	}
 }
 
 .content__nav{
 	position: relative;
+
+/*	  	max-height: 0;
+
+  	&:hover{
+		max-height: 100vh;
+		transition: all .5s ease;
+  	}*/
 }
 
 .content__pages{
@@ -70,5 +99,18 @@
 }
 
 .content__footer{
-	background-image: url('/images/pages/index/contact.jpg');
+	&:before{
+		content: '';
+		display: block;
+		background-image: url(/images/pages/index/over.jpg);
+		background-position: center center;
+		background-attachment: fixed;
+		background-size: cover;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+  	}
+
 }

@@ -1,5 +1,5 @@
 .navigation--projects{
-	--background-color: rgba(255, 255, 255, .75);
+	--background-color: rgba(255, 255, 255, 1);
 }
 
 .navigation{
@@ -9,47 +9,51 @@
 			display: flex; 
   			flex-direction: row;
   			align-items: center;
-  			justify-content: flex-start;
 		}
 
 		& .navigation__item{
 			position: relative;
-			background-color: var(--background-color);
-			color: black;
-			padding: 1em 0;
-			margin: 0 .25em;
+			margin: 0 .5em;
 			white-space: nowrap;
+			overflow: visible;
+			max-height: 0;
 
-
-  			text-align: center;
-
-			min-height: 0;
-			will-change: min-height;
 			transition: all .5s ease-out;
 
-			writing-mode: vertical-rl;
-			text-align: right;
-			overflow: hidden;
-			max-height: 100em;
+			display: flex; 
+  			align-items: center;
 
 			&:hover{
-				min-height: calc(100vh + var(--footer-height));
+				max-height: 120vh;
 			}
 		}
 
 		& .navigation__label{
+			background-color: var(--background-color);
+			/*border-radius: 1em;*/
+			color: black;
+			padding: 1em 0;
+			line-height: 2;
+			width: 2em;
 			cursor: pointer;
 			z-index: 1;
 
 			font-size: calc(var(--ms0) * .8);
 			line-height: 2;
 			transition: all ease .25s;
+			
 
 			display: inline-block;
 			vertical-align: middle;
-
-			height: 100%;
 			text-align: center;
+			writing-mode: vertical-rl;
+
+			min-height: 0;
+			will-change: min-height;
+			transition: all .5s ease-out;
+			&:hover{
+				min-height: calc(100vh + var(--footer-height));
+			}
 		}
 
 	}
