@@ -13,46 +13,46 @@
 
 		& .navigation__item{
 			position: relative;
-			margin: 0 .5em;
+			margin: 0 .25em;
 			white-space: nowrap;
 			overflow: visible;
 			max-height: 0;
 
 			transition: all .5s ease-out;
+			transition-delay: 0s;
 
 			display: flex; 
-  			align-items: center;
+  			align-items: flex-start;
 
 			&:hover{
 				max-height: 120vh;
+				transition-delay: .25s;
 			}
 		}
 
 		& .navigation__label{
 			background-color: var(--background-color);
-			/*border-radius: 1em;*/
 			color: black;
 			padding: 1em 0;
 			line-height: 2;
-			width: 2em;
 			cursor: pointer;
 			z-index: 1;
 
-			font-size: calc(var(--ms0) * .8);
 			line-height: 2;
-			transition: all ease .25s;
-			
-
 			display: inline-block;
 			vertical-align: middle;
-			text-align: center;
 			writing-mode: vertical-rl;
 
 			min-height: 0;
 			will-change: min-height;
 			transition: all .5s ease-out;
+
 			&:hover{
 				min-height: calc(100vh + var(--footer-height));
+
+				&:after{
+					color: black;
+				}
 			}
 		}
 

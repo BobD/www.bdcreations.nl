@@ -4,7 +4,7 @@
 			{% for navItem in navigation.projects %}
 				{% set project = attribute(projects, navItem.id) %}
 				<li class="navigation__item"  data-id="{{navItem.id}}">
-					<span class="navigation__label">{{navItem.label}}</span>
+					<span class="navigation__label" data-title="{{navItem.label}}">{{navItem.label}}</span>
 				</li>
 			{% endfor %}
 		</ul>

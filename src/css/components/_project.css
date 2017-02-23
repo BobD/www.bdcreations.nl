@@ -2,3 +2,31 @@
 	white-space: normal;
 	position: relative;
 }
+
+.project__content{
+	line-height: 2.65;
+	max-width: 40em;	
+	position: absolute;
+	color: black;
+	padding-top: 4rem;
+}
+
+.project__title,
+.project__paragraph{
+	background: white;
+	box-decoration-break: clone;
+	padding: .4em 1em;
+	display: inline;
+}
+
+.project__title{
+	display: inline;
+	font-weight: bold;
+}
+
+.project__paragraph{
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}

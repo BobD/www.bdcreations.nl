@@ -4,10 +4,6 @@
 .navigation__list{
 	transition: all ease .25s;
 	@util reset-list;
-
-/*	&:hover{
-		transform: translateY(2rem);
-	}*/
 }
 
 .navigation__item{

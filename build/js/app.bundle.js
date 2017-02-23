@@ -89,16 +89,12 @@
 		});
 	
 		projectNav.on('mouseenter', function (e) {
-			introContainer.classList.add('expand');
-			$body.classList.add('app--project-mode');
-	
+			// introContainer.classList.add('expand');
 			projects.scrollTo(e.id, e.position);
 		});
 	
 		projectNav.on('mouseleave', function (e) {
-			introContainer.classList.remove('expand');
-			$body.classList.remove('app--project-mode');
-	
+			// introContainer.classList.remove('expand');
 			projects.fadeOut();
 		});
 	});
