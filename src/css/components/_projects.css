@@ -18,13 +18,21 @@
 		transition-delay: 0s;
 
 		display: flex; 
-			align-items: flex-start;
+		align-items: flex-start;
 
-			/*align-content: content;*/
-
-		&:hover{
+		&:hover,
+		&.active{
 			max-height: 120vh;
 			transition-delay: .25s;
+
+			& .projects__label{
+				min-height: calc(100vh + var(--footer-height));
+			}
+		}
+
+		&.minify{
+			& .projects__label{
+			}
 		}
 	}
 
@@ -40,17 +48,9 @@
 		display: inline-block;
 		vertical-align: middle;
 		writing-mode: vertical-rl;
-		
+
 		min-height: 0;
 		will-change: min-height;
 		transition: all .5s ease-out;
-
-		&:hover{
-			min-height: calc(100vh + var(--footer-height));
-
-			&:after{
-				color: black;
-			}
-		}
 	}
 }

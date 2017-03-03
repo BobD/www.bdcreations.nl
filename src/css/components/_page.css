@@ -4,29 +4,13 @@
 }
 
 .page__content{
-	line-height: 2.65;
-	max-width: 40em;	
 	position: absolute;
-	color: black;
-	padding-top: 4rem;
-}
-
-.page__title,
-.page__paragraph{
-	background: white;
-	box-decoration-break: clone;
-	padding: .4em 1em;
-	display: inline;
+	padding-top: var(--header--height);
 }
 
 .page__title{
-	display: inline;
 	font-weight: bold;
 }
 
 .page__paragraph{
-	position: relative;
-	top: 0;
-	left: 0;
-	z-index: 1;
 }

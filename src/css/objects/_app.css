@@ -32,14 +32,11 @@
 
 .app__header,
 .app__footer{
-    max-height: 4rem;
+    max-height: var(--header--height);
 }
 
 .app__header{
 
-}
-
-.app__header{
 }
 
 .app__footer{
@@ -53,7 +50,7 @@
 }
 
 .app__header{
-    line-height: 4rem;
+    line-height: var(--header--height);
     will-change: max-height;
 }
 
@@ -64,6 +61,6 @@
 }
 
 .app__footer{
-    height: 4rem;
+    height: var(--header--height);
 }
 

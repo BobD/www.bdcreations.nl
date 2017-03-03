@@ -1,0 +1,13 @@
+.text{
+	line-height: 2.25;
+	max-width: 40em;	
+	color: black;
+	width: auto;
+}
+
+.text__paragraph{
+	background: white;
+	box-decoration-break: clone;
+	padding: .25em 1em;
+	display: inline;
+}

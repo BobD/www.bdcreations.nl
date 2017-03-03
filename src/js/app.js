@@ -15,19 +15,26 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 	navigation.on('mouseenter', (e) => {
 		let mode = e.mode;
-		// $body.classList.add(`app--${mode}-mode`);
 	});
 
 	navigation.on('mouseleave', (e) => {
 		let mode = e.mode;
-		// $body.classList.remove(`app--${mode}-mode`);
 	});
 
 	projects.on('mouseenter', (e) => {
 		pages.scrollTo(e.id, e.position);
+
+		// history.replaceState({
+
+		// }, null, e.id);
 	});
 
 	projects.on('mouseleave', (e) => {
-		pages.fadeOut();
+		// pages.fadeOut();
+	});
+
+	let body = document.querySelector("body");
+	body.addEventListener('click', (e) => {
+		projects.close();
 	});
 });

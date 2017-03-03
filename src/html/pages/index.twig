@@ -4,11 +4,30 @@
 
 {% block main %}
 
+	<style>
+		.content__header:before{
+			background-image: url('/images/pages/index/over.jpg');
+		}
+
+		.content__footer:before{
+			background-image: url('/images/pages/index/over.jpg');
+		}
+	</style>
+
 	{% include "components/_pages.twig" with { }  %}
 
 	<div data-js="content" class="content">
 
 		<section class="content__header">
+			
+			<div class="content__text ">
+				<div class="text">
+					<p class="text__paragraph">
+						{{pages.index.attributes.description}}
+					</p>
+				</div>
+			</div>
+
 		</section>
 
 		<section class="content__main">
