@@ -4,7 +4,7 @@
 
 {% block main %}
 
-	{% include "components/_projects.twig" with { }  %}
+	{% include "components/_pages.twig" with { }  %}
 
 	<div data-js="content" class="content">
 
@@ -12,30 +12,11 @@
 		</section>
 
 		<section class="content__main">
-			<div class="content__nav">
-				{% include "components/_navigation--projects.twig" with {"modifiers": "content__projects" }  %}
-			</div>
+			{% include "components/_projects.twig" with {"modifiers": "content__projects" }  %}
 		</section>
 
 		<section class="content__footer">
 		</section>
-
-{# 		<section class="content__pages pages">
-			<div class="pages__content" data-js="pages">
-				<div class="pages__page page">
-					<div class="page__content">
-						<p class="page__paragraph"></p>
-					</div>
-				</div>
-				{% for project in projects %}
-					<div class="pages__page page">
-						<div class="page__content">
-							<p class="page__paragraph">{{project.attributes.description}}</p>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-		</section> #}
 
 	</div>
 

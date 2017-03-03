@@ -1,24 +1,56 @@
 .projects{
-	white-space: nowrap;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	position: fixed;
-	z-index: -1;
-}
+	--background-color: rgba(255, 255, 255, 1);
 
-.projects__item{
-	position: relative;
+	& .projects__list{
+		display: flex; 
+			flex-direction: row;
+			align-items: center;
+	}
 
-	color: white;
-	background: black;
-	display: inline-block;
-	width: 100%;
-	height: 100%;
-	padding: var(--block-padding);
+	& .projects__item{
+		position: relative;
+		margin: 0 .25em;
+		white-space: nowrap;
+		overflow: visible;
+		max-height: 0;
 
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
+		transition: all .5s ease-out;
+		transition-delay: 0s;
+
+		display: flex; 
+			align-items: flex-start;
+
+			/*align-content: content;*/
+
+		&:hover{
+			max-height: 120vh;
+			transition-delay: .25s;
+		}
+	}
+
+	& .projects__label{
+		background-color: var(--background-color);
+		color: black;
+		padding: 1em 0;
+		line-height: 2;
+		cursor: pointer;
+		z-index: 1;
+
+		line-height: 2;
+		display: inline-block;
+		vertical-align: middle;
+		writing-mode: vertical-rl;
+		
+		min-height: 0;
+		will-change: min-height;
+		transition: all .5s ease-out;
+
+		&:hover{
+			min-height: calc(100vh + var(--footer-height));
+
+			&:after{
+				color: black;
+			}
+		}
+	}
 }

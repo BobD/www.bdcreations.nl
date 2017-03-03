@@ -1,19 +1,32 @@
 .page{
-
+	white-space: normal;
+	position: relative;
 }
 
 .page__content{
-	line-height: 2.5;
+	line-height: 2.65;
 	max-width: 40em;	
+	position: absolute;
+	color: black;
+	padding-top: 4rem;
+}
+
+.page__title,
+.page__paragraph{
+	background: white;
+	box-decoration-break: clone;
+	padding: .4em 1em;
+	display: inline;
+}
+
+.page__title{
+	display: inline;
+	font-weight: bold;
 }
 
 .page__paragraph{
 	position: relative;
-	top: 8em;
-	left: 5em;
+	top: 0;
+	left: 0;
 	z-index: 1;
-	background: white;
-	padding: .4em 1em;
-	display: inline;
-	box-decoration-break: clone;
 }

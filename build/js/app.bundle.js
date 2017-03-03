@@ -63,9 +63,9 @@
 	
 	var _projectNavigation2 = _interopRequireDefault(_projectNavigation);
 	
-	var _projects = __webpack_require__(/*! ./modules/projects */ 303);
+	var _pages = __webpack_require__(/*! ./modules/pages */ 303);
 	
-	var _projects2 = _interopRequireDefault(_projects);
+	var _pages2 = _interopRequireDefault(_pages);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -74,7 +74,7 @@
 	document.addEventListener("DOMContentLoaded", function (e) {
 		var siteNav = new _siteNavigation2.default();
 		var projectNav = new _projectNavigation2.default();
-		var projects = new _projects2.default();
+		var pages = new _pages2.default();
 		var introContainer = document.querySelector("*[data-js='content']");
 		var $body = document.querySelector("body");
 	
@@ -89,13 +89,11 @@
 		});
 	
 		projectNav.on('mouseenter', function (e) {
-			// introContainer.classList.add('expand');
-			projects.scrollTo(e.id, e.position);
+			pages.scrollTo(e.id, e.position);
 		});
 	
 		projectNav.on('mouseleave', function (e) {
-			// introContainer.classList.remove('expand');
-			projects.fadeOut();
+			pages.fadeOut();
 		});
 	});
 
@@ -13526,9 +13524,9 @@
 
 /***/ },
 /* 303 */
-/*!************************************!*\
-  !*** ./src/js/modules/projects.js ***!
-  \************************************/
+/*!*********************************!*\
+  !*** ./src/js/modules/pages.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13547,15 +13545,15 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Projects = function () {
-		function Projects() {
-			_classCallCheck(this, Projects);
+	var Pages = function () {
+		function Pages() {
+			_classCallCheck(this, Pages);
 	
-			this.$container = document.querySelector("*[data-js='projects']");
+			this.$container = document.querySelector("*[data-js='pages']");
 			this.currentIndex = 0;
 		}
 	
-		_createClass(Projects, [{
+		_createClass(Pages, [{
 			key: "scrollTo",
 			value: function scrollTo(id, position) {
 				var $el = this.$container.querySelector("*[data-id=" + id + "]");
@@ -13570,20 +13568,10 @@
 				}
 	
 				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + "%" }, { delay: 250, duration: duration, queue: false });
-	
 				(0, _velocityAnimate2.default)(document.querySelector("*[data-js='pages']"), { translateZ: 0, translateX: offset + "%" }, { delay: 250, queue: false, duration: duration });
 	
 				this.$container.classList.add('show');
 				this.currentIndex = index;
-	
-				this.positionContent($el, position);
-			}
-		}, {
-			key: "positionContent",
-			value: function positionContent($el, position) {
-				// let $content = $el.querySelector(`.project__content`);
-				// $content.style.left = `${position.left + position.width}px`;
-				// $content.style.left = `${position.left  position.width}px`;
 			}
 		}, {
 			key: "fadeOut",
@@ -13592,10 +13580,10 @@
 			}
 		}]);
 	
-		return Projects;
+		return Pages;
 	}();
 	
-	exports.default = Projects;
+	exports.default = Pages;
 
 /***/ }
 /******/ ]);

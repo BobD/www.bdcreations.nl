@@ -1,7 +1,12 @@
 {% spaceless %}
-	<div data-js="projects" class="projects">
-		{% for project in navigation.projects %}
-			{% include "components/_project.twig" with {"id": project.id, "modifiers": "projects__item"}  %}
-		{% endfor %}
-	</div>
+	<nav data-js="projects" class="projects {{modifiers}}">
+		<ul class="projects__list">
+			{% for navItem in navigation.projects %}
+				{% set project = attribute(projects, navItem.id) %}
+				<li data-js="projects__item" class="projects__item" data-id="{{navItem.id}}">
+					<span class="projects__label" data-title="{{navItem.label}}">{{navItem.label}}</span>
+				</li>
+			{% endfor %}
+		</ul>
+	</nav>
 {% endspaceless %}

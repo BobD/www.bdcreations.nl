@@ -1,42 +1,47 @@
+import Events from 'events';
 import Velocity from 'velocity-animate';
 
 class Projects {
 
 	constructor(){
+		this.eventEmitter = new Events.EventEmitter();
 		this.$container = document.querySelector("*[data-js='projects']");
-		this.currentIndex = 0;
-	}
 
-	scrollTo(id, position){
-		let $el = this.$container.querySelector(`*[data-id=${id}]`);
-		let index = [].slice.call($el.parentNode.children).indexOf($el);
-		let offset = index * -100;
-		let dif = Math.abs(index - this.currentIndex);
-		let baseSpeed = 400;
-		let duration = baseSpeed;
-
-		for(var a = 2; a < dif; ++a){
-			duration += (baseSpeed / a);
+		if(!this.$container){
+			return;
 		}
 
-		Velocity(this.$container, {translateZ: 0, translateX: `${offset}%`}, {delay: 250, duration: duration, queue: false});
+		this.containerWidth = parseFloat(window.getComputedStyle(this.$container).width);
+		this.scrollWidth = window.innerWidth;
+		this.scrollGap =  this.scrollWidth - this.containerWidth;
+		this.overContainer = false;
+		this.currentScrollPos = 0;
 
-		Velocity(document.querySelector("*[data-js='pages']"), {translateZ: 0, translateX: `${offset}%`}, {delay: 250, queue: false, duration: duration});
+		let navItems = this.$container.querySelectorAll("*[data-js='projects__item']");
+		Array.from(navItems).forEach((item) => {
+			let projectId = item.getAttribute('data-id');
 
-		this.$container.classList.add('show');
-		this.currentIndex = index;
+			item.addEventListener('mouseenter', (e) => {
+				let rect = item.getBoundingClientRect();
+				let position = {left: rect.left, width: rect.width};
 
-		this.positionContent($el, position);
+				this.eventEmitter.emit('mouseenter', {
+					id: projectId,
+					position: position
+				});
+			});
+			
+			item.addEventListener('mouseleave', (e) => {
+				this.eventEmitter.emit('mouseleave', {
+					id: projectId,
+					position: item.getBoundingClientRect()
+				});
+			});
+		});
 	}
 
-	positionContent($el, position){
-		// let $content = $el.querySelector(`.project__content`);
-		// $content.style.left = `${position.left + position.width}px`;
-		// $content.style.left = `${position.left  position.width}px`;
-	}
-
-	fadeOut(){
-		this.$container.classList.remove('show');
+	on(){
+		this.eventEmitter.on.apply(this.eventEmitter, arguments);
 	}
 }
 

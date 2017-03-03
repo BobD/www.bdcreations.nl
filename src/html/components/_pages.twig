@@ -1,0 +1,7 @@
+{% spaceless %}
+	<div data-js="pages" class="pages">
+		{% for project in navigation.projects %}
+			{% include "components/_page.twig" with {"id": project.id, "modifiers": "pages__item"}  %}
+		{% endfor %}
+	</div>
+{% endspaceless %}

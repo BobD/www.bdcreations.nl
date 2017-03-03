@@ -1,0 +1,7 @@
+{% set project = attribute(projects, id) %}
+<article class="page {{modifiers}}" data-id="{{id}}" style="background-image: url('{{project.attributes.images[0]}}')">
+	<div class="page__content">
+		<h2 class="page__title">{{page.attributes.title}}</h2>
+		<div class="page__paragraph">{{project.attributes.description}}</div>
+	</div>
+</article>

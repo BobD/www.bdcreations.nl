@@ -1,10 +1,10 @@
 import Events from 'events';
 
-class SiteNavigation {
+class Navigation {
 
 	constructor(){
 		this.eventEmitter = new Events.EventEmitter();
-		this.$container = document.querySelector("*[data-js='nav-site']");
+		this.$container = document.querySelector("*[data-js='navigation']");
 
 		let navItems = this.$container.getElementsByClassName('navigation__item');
 		Array.from(navItems).forEach((item) => {
@@ -29,4 +29,4 @@ class SiteNavigation {
 	}
 }
 
-export default SiteNavigation;
+export default Navigation;

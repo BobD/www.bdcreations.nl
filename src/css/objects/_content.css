@@ -79,10 +79,6 @@
   	z-index: 1;
 }
 
-.content__nav{
-	position: relative;
-}
-
 .content__pages{
 	position: fixed;
 	top: 0;

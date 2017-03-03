@@ -1,35 +1,33 @@
 import 'babel-polyfill';
 import log from './utils/logger';
-import SiteNavigation from './modules/site-navigation';
-import ProjectNavigation from './modules/project-navigation';
+import Navigation from './modules/navigation';
 import Projects from './modules/projects';
+import Pages from './modules/pages';
 
 window.log = log;
 
 document.addEventListener("DOMContentLoaded", function(e) {
-	let siteNav = new SiteNavigation();
-	let projectNav = new ProjectNavigation();
+	let navigation = new Navigation();
 	let projects = new Projects();
+	let pages = new Pages();
 	let introContainer =  document.querySelector("*[data-js='content']");
 	let $body = document.querySelector("body");
 
-	siteNav.on('mouseenter', (e) => {
+	navigation.on('mouseenter', (e) => {
 		let mode = e.mode;
-		$body.classList.add(`app--${mode}-mode`);
+		// $body.classList.add(`app--${mode}-mode`);
 	});
 
-	siteNav.on('mouseleave', (e) => {
+	navigation.on('mouseleave', (e) => {
 		let mode = e.mode;
-		$body.classList.remove(`app--${mode}-mode`);
+		// $body.classList.remove(`app--${mode}-mode`);
 	});
 
-	projectNav.on('mouseenter', (e) => {
-		// introContainer.classList.add('expand');
-		projects.scrollTo(e.id, e.position);
+	projects.on('mouseenter', (e) => {
+		pages.scrollTo(e.id, e.position);
 	});
 
-	projectNav.on('mouseleave', (e) => {
-		// introContainer.classList.remove('expand');
-		projects.fadeOut();
+	projects.on('mouseleave', (e) => {
+		pages.fadeOut();
 	});
 });

@@ -1,7 +1,7 @@
 .app{
 	display: flex; 
   	flex-direction: column;
-
+/*
     &--about-mode{
         & .content__footer{
             min-height: 0;
@@ -21,7 +21,7 @@
             min-height: 0;
         }
 
-    }
+    }*/
 }
 
 .app__container{
