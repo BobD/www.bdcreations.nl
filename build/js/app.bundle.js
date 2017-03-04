@@ -78,6 +78,8 @@
 		var introContainer = document.querySelector("*[data-js='content']");
 		var $body = document.querySelector("body");
 	
+		console.log(window.location.pathname);
+	
 		navigation.on('mouseenter', function (e) {
 			var mode = e.mode;
 		});

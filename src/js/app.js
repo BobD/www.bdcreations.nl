@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	let introContainer =  document.querySelector("*[data-js='content']");
 	let $body = document.querySelector("body");
 
+	console.log(window.location.pathname);
+
 	navigation.on('mouseenter', (e) => {
 		let mode = e.mode;
 	});
