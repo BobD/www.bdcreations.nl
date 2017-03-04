@@ -40,5 +40,9 @@ module.exports = {
     node: {
         fs: "empty" // avoids error messages
     },
-    devServer: { inline: true }
+    devServer: { 
+        watchOptions: {
+            poll: true
+        }
+    }
 };

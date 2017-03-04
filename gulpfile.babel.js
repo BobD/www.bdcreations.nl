@@ -24,7 +24,7 @@ import slug from 'slug';
 const sourceDir = './src';
 const contentDir = './src/content';
 const destinationDir = (args.env === 'production') ? './dist' : './build';
-const siteData;
+let siteData;
 
 function getPageData(pageName){
     let { [pageName]: pageContent } = siteData.pages;

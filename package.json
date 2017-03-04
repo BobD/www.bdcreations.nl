@@ -4,13 +4,13 @@
   "description": "frontend for new bdcreations website",
   "main": "index.js",
   "scripts": {
+    "docker:build": "docker build --no-cache=true -t my-apache2 .",
     "build": "rimraf build/* && gulp --env development && webpack -d --ENV=development",
     "build:prod": "rimraf dist/* && gulp --env production && webpack -p --ENV=production",
-    "serve": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=development",
-    "serve:prod": "webpack-dev-server --inline --hot --open --content-base build/ --ENV=production",
-    "watch": "gulp watch --env development",
-    "watch:prod": "gulp watch --env production",
-    "init": "npm run build && npm run serve"
+    "watch:styles": "gulp watch --env development",
+    "watch:js": "webpack --watch -d --ENV=development",
+    "sync": "browser-sync start --proxy 'http://localhost' --no-notify --ws --serveStatic 'build' --files 'build'",
+    "serve": "docker stop bdcreations-site && docker rm bdcreations-site && docker run -dit -v `pwd`/build/:/usr/local/apache2/htdocs/ -p 80:80 --name bdcreations-site my-apache2 && npm run sync"
   },
   "keywords": [
     "bdcreations"
@@ -22,6 +22,7 @@
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
+    "browser-sync": "^2.18.8",
     "css-modularscale": "^1.1.1",
     "cssnano": "^3.7.6",
     "del": "^2.2.2",
@@ -38,7 +39,7 @@
     "gulp-livereload": "^3.8.1",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.2.0",
-    "gulp-rename": "^1.2.2",
+    "gulp-re": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-twig": "^0.5.0",
     "gulp-watch": "^4.3.10",

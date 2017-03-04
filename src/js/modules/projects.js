@@ -26,11 +26,9 @@ class Projects {
 				let rect = item.getBoundingClientRect();
 				let position = {left: rect.left, width: rect.width};
 
-
-
 				this.closeItems();
-								item.classList.add('active');
-				this.minifyItems();
+				item.classList.add('active');
+				// this.minifyItems();
 
 				this.eventEmitter.emit('mouseenter', {
 					id: projectId,
@@ -53,7 +51,6 @@ class Projects {
 
 	minifyItems(){
 		let items = this.$container.querySelectorAll("*[data-js='projects__item']:not(.active)");
-		log(items);
 		Array.from(items).forEach((item) => {
 			item.classList.add('minify');
 		});

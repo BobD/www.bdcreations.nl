@@ -55,15 +55,15 @@
 	
 	var _logger2 = _interopRequireDefault(_logger);
 	
-	var _siteNavigation = __webpack_require__(/*! ./modules/site-navigation */ 299);
+	var _navigation = __webpack_require__(/*! ./modules/navigation */ 299);
 	
-	var _siteNavigation2 = _interopRequireDefault(_siteNavigation);
+	var _navigation2 = _interopRequireDefault(_navigation);
 	
-	var _projectNavigation = __webpack_require__(/*! ./modules/project-navigation */ 301);
+	var _projects = __webpack_require__(/*! ./modules/projects */ 301);
 	
-	var _projectNavigation2 = _interopRequireDefault(_projectNavigation);
+	var _projects2 = _interopRequireDefault(_projects);
 	
-	var _pages = __webpack_require__(/*! ./modules/pages */ 303);
+	var _pages = __webpack_require__(/*! ./modules/pages */ 304);
 	
 	var _pages2 = _interopRequireDefault(_pages);
 	
@@ -72,28 +72,35 @@
 	window.log = _logger2.default;
 	
 	document.addEventListener("DOMContentLoaded", function (e) {
-		var siteNav = new _siteNavigation2.default();
-		var projectNav = new _projectNavigation2.default();
+		var navigation = new _navigation2.default();
+		var projects = new _projects2.default();
 		var pages = new _pages2.default();
 		var introContainer = document.querySelector("*[data-js='content']");
 		var $body = document.querySelector("body");
 	
-		siteNav.on('mouseenter', function (e) {
+		navigation.on('mouseenter', function (e) {
 			var mode = e.mode;
-			$body.classList.add('app--' + mode + '-mode');
 		});
 	
-		siteNav.on('mouseleave', function (e) {
+		navigation.on('mouseleave', function (e) {
 			var mode = e.mode;
-			$body.classList.remove('app--' + mode + '-mode');
 		});
 	
-		projectNav.on('mouseenter', function (e) {
+		projects.on('mouseenter', function (e) {
 			pages.scrollTo(e.id, e.position);
+	
+			// history.replaceState({
+	
+			// }, null, e.id);
 		});
 	
-		projectNav.on('mouseleave', function (e) {
-			pages.fadeOut();
+		projects.on('mouseleave', function (e) {
+			// pages.fadeOut();
+		});
+	
+		var body = document.querySelector("body");
+		body.addEventListener('click', function (e) {
+			projects.close();
 		});
 	});
 
@@ -9151,9 +9158,9 @@
 
 /***/ },
 /* 299 */
-/*!*******************************************!*\
-  !*** ./src/js/modules/site-navigation.js ***!
-  \*******************************************/
+/*!**************************************!*\
+  !*** ./src/js/modules/navigation.js ***!
+  \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9172,14 +9179,14 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var SiteNavigation = function () {
-		function SiteNavigation() {
+	var Navigation = function () {
+		function Navigation() {
 			var _this = this;
 	
-			_classCallCheck(this, SiteNavigation);
+			_classCallCheck(this, Navigation);
 	
 			this.eventEmitter = new _events2.default.EventEmitter();
-			this.$container = document.querySelector("*[data-js='nav-site']");
+			this.$container = document.querySelector("*[data-js='navigation']");
 	
 			var navItems = this.$container.getElementsByClassName('navigation__item');
 			Array.from(navItems).forEach(function (item) {
@@ -9199,17 +9206,17 @@
 			});
 		}
 	
-		_createClass(SiteNavigation, [{
+		_createClass(Navigation, [{
 			key: 'on',
 			value: function on() {
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
 			}
 		}]);
 	
-		return SiteNavigation;
+		return Navigation;
 	}();
 	
-	exports.default = SiteNavigation;
+	exports.default = Navigation;
 
 /***/ },
 /* 300 */
@@ -9524,9 +9531,9 @@
 
 /***/ },
 /* 301 */
-/*!**********************************************!*\
-  !*** ./src/js/modules/project-navigation.js ***!
-  \**********************************************/
+/*!************************************!*\
+  !*** ./src/js/modules/projects.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9545,18 +9552,22 @@
 	
 	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
 	
+	var _tools = __webpack_require__(/*! utils/tools */ 303);
+	
+	var _tools2 = _interopRequireDefault(_tools);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var ProjectNavigation = function () {
-		function ProjectNavigation() {
+	var Projects = function () {
+		function Projects() {
 			var _this = this;
 	
-			_classCallCheck(this, ProjectNavigation);
+			_classCallCheck(this, Projects);
 	
 			this.eventEmitter = new _events2.default.EventEmitter();
-			this.$container = document.querySelector("*[data-js='nav-projects']");
+			this.$container = document.querySelector("*[data-js='projects']");
 	
 			if (!this.$container) {
 				return;
@@ -9568,24 +9579,22 @@
 			this.overContainer = false;
 			this.currentScrollPos = 0;
 	
-			var navItems = this.$container.getElementsByClassName('navigation__item');
+			var navItems = this.$container.querySelectorAll("*[data-js='projects__item']");
 			Array.from(navItems).forEach(function (item) {
 				var projectId = item.getAttribute('data-id');
 	
 				item.addEventListener('mouseenter', function (e) {
-					// let oldScrollPos = this.currentScrollPos;
-					// let currentScrollPos = this.scrollToItem(item);
-					// let scrollDif =  currentScrollPos - oldScrollPos;
 					var rect = item.getBoundingClientRect();
 					var position = { left: rect.left, width: rect.width };
-					// position.left += scrollDif;
+	
+					_this.closeItems();
+					item.classList.add('active');
+					// this.minifyItems();
 	
 					_this.eventEmitter.emit('mouseenter', {
 						id: projectId,
 						position: position
 					});
-	
-					// this.currentScrollPos = currentScrollPos;
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
@@ -9597,36 +9606,39 @@
 			});
 		}
 	
-		// scrollToItem(item){
-		// 	let itemWidth =  parseFloat(window.getComputedStyle(item).width) / 2;
-		// 	let scrollToPos = item.getBoundingClientRect().left;
-		// 	let scrollPerc = (scrollToPos / this.scrollWidth);	
-		// 	let scrollPos = scrollPerc * this.scrollGap;
-	
-		// 	if(scrollPos - this.currentScrollPos < -itemWidth){
-		// 		scrollPos = this.currentScrollPos - itemWidth;
-		// 	}
-	
-		// 	if(scrollPos - this.currentScrollPos > itemWidth){
-		// 		scrollPos = this.currentScrollPos + itemWidth;
-		// 	}
-	
-		// 	Velocity(this.$container, {translateZ: 0, translateX: `${scrollPos}px`}, {queue: false, duration: 250});
-	
-		// 	return scrollPos;
-		// }
-	
-		_createClass(ProjectNavigation, [{
+		_createClass(Projects, [{
 			key: 'on',
 			value: function on() {
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
 			}
+		}, {
+			key: 'minifyItems',
+			value: function minifyItems() {
+				var items = this.$container.querySelectorAll("*[data-js='projects__item']:not(.active)");
+				Array.from(items).forEach(function (item) {
+					item.classList.add('minify');
+				});
+			}
+		}, {
+			key: 'closeItems',
+			value: function closeItems() {
+				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
+				Array.from(items).forEach(function (item) {
+					item.classList.remove('active');
+					item.classList.remove('minify');
+				});
+			}
+		}, {
+			key: 'close',
+			value: function close() {
+				this.closeItems();
+			}
 		}]);
 	
-		return ProjectNavigation;
+		return Projects;
 	}();
 	
-	exports.default = ProjectNavigation;
+	exports.default = Projects;
 
 /***/ },
 /* 302 */
@@ -13524,6 +13536,85 @@
 
 /***/ },
 /* 303 */
+/*!*******************************!*\
+  !*** ./src/js/utils/tools.js ***!
+  \*******************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// Much obliged to http://youmightnotneedjquery.com/
+	
+	var Tools = function () {
+		function Tools() {
+			_classCallCheck(this, Tools);
+		}
+	
+		_createClass(Tools, null, [{
+			key: 'hasClass',
+			value: function hasClass(el, className) {
+				if (el.classList) {
+					return el.classList.contains(className);
+				} else {
+					return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+				}
+			}
+		}, {
+			key: 'toggleClass',
+			value: function toggleClass(el, className, force) {
+				if (el.classList) {
+					if (force === undefined) {
+						el.classList.toggle(className);
+					} else {
+						// The force parameter for toggle() is not supported in Internet Explorer or Opera 12 and earlier.
+						if (force) {
+							el.classList.add(className);
+						} else {
+							el.classList.remove(className);
+						}
+					}
+				} else {
+					var classes = el.className.split(' ');
+					var existingIndex = classes.indexOf(className);
+	
+					if (force === undefined) {
+						if (existingIndex >= 0) {
+							classes.splice(existingIndex, 1);
+						} else {
+							classes.push(className);
+						}
+					} else {
+						if (force) {
+							if (existingIndex == -1) {
+								classes.push(className);
+							}
+						} else {
+							if (existingIndex >= 0) {
+								classes.splice(existingIndex, 1);
+							}
+						}
+					}
+	
+					el.className = classes.join(' ');
+				}
+			}
+		}]);
+	
+		return Tools;
+	}();
+	
+	exports.default = Tools;
+
+/***/ },
+/* 304 */
 /*!*********************************!*\
   !*** ./src/js/modules/pages.js ***!
   \*********************************/
