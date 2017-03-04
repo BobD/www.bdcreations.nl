@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "docker:build": "docker build --no-cache=true -t my-apache2 .",
+    "docker:stop": "docker stop bdcreations-site",
+    "docker:remove": "docker rm bdcreations-site",
+    "docker:run": "docker run -dit -v `pwd`/build/:/usr/local/apache2/htdocs/ -p 80:80 --name bdcreations-site my-apache2",
     "build": "rimraf build/* && gulp --env development && webpack -d --ENV=development",
     "build:prod": "rimraf dist/* && gulp --env production && webpack -p --ENV=production",
     "watch:styles": "gulp watch --env development",
     "watch:js": "webpack --watch -d --ENV=development",
     "sync": "browser-sync start --proxy 'http://localhost' --no-notify --ws --serveStatic 'build' --files 'build'",
-    "serve": "docker stop bdcreations-site && docker rm bdcreations-site && docker run -dit -v `pwd`/build/:/usr/local/apache2/htdocs/ -p 80:80 --name bdcreations-site my-apache2 && npm run sync"
+    "serve": "npm run docker:run"
   },
   "keywords": [
     "bdcreations"

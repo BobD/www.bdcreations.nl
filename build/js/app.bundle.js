@@ -89,9 +89,7 @@
 		projects.on('mouseenter', function (e) {
 			pages.scrollTo(e.id, e.position);
 	
-			// history.replaceState({
-	
-			// }, null, e.id);
+			history.replaceState({}, null, e.id);
 		});
 	
 		projects.on('mouseleave', function (e) {

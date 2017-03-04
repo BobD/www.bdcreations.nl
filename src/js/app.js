@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	projects.on('mouseenter', (e) => {
 		pages.scrollTo(e.id, e.position);
 
-		// history.replaceState({
+		history.replaceState({
 
-		// }, null, e.id);
+		}, null, e.id);
 	});
 
 	projects.on('mouseleave', (e) => {
