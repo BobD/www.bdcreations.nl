@@ -1,6 +1,10 @@
 .page{
 	white-space: normal;
 	position: relative;
+	padding: var(--block-padding);
+
+	&--contact{
+	}
 }
 
 .page__content{

@@ -3,5 +3,6 @@
 		{% for project in navigation.projects %}
 			{% include "components/_page.twig" with {"id": project.id, "modifiers": "pages__item"}  %}
 		{% endfor %}
+		{% include "components/_contact.twig" with {"id": "contact", "modifiers": "pages__item"}  %}
 	</div>
 {% endspaceless %}

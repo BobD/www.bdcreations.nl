@@ -7,7 +7,8 @@ class Pages {
 		this.currentIndex = 0;
 	}
 
-	scrollTo(id, position){
+	scrollTo(id){
+		log(id);
 		let $el = this.$container.querySelector(`*[data-id=${id}]`);
 		let index = [].slice.call($el.parentNode.children).indexOf($el);
 		let offset = index * -100;

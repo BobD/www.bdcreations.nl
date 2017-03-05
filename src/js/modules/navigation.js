@@ -8,17 +8,17 @@ class Navigation {
 
 		let navItems = this.$container.getElementsByClassName('navigation__item');
 		Array.from(navItems).forEach((item) => {
-			let mode = item.getAttribute('data-mode');
+			let id = item.getAttribute('data-id');
 
 			item.addEventListener('mouseenter', (e) => {
 				this.eventEmitter.emit('mouseenter', {
-					mode: mode
+					id: id
 				});
 			});
 			
 			item.addEventListener('mouseleave', (e) => {
 				this.eventEmitter.emit('mouseleave', {
-					mode: mode
+					id: id
 				});
 			});
 		});

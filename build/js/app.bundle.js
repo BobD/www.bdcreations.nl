@@ -78,18 +78,19 @@
 		var introContainer = document.querySelector("*[data-js='content']");
 		var $body = document.querySelector("body");
 	
-		console.log(window.location.pathname);
+		// console.log(window.location.pathname);
 	
 		navigation.on('mouseenter', function (e) {
-			var mode = e.mode;
+			pages.scrollTo(e.id);
+			projects.open();
 		});
 	
 		navigation.on('mouseleave', function (e) {
-			var mode = e.mode;
+			var id = e.id;
 		});
 	
 		projects.on('mouseenter', function (e) {
-			pages.scrollTo(e.id, e.position);
+			pages.scrollTo(e.id);
 	
 			history.replaceState({}, null, e.id);
 		});
@@ -98,8 +99,7 @@
 			// pages.fadeOut();
 		});
 	
-		var body = document.querySelector("body");
-		body.addEventListener('click', function (e) {
+		$body.addEventListener('click', function (e) {
 			projects.close();
 		});
 	});
@@ -9190,17 +9190,17 @@
 	
 			var navItems = this.$container.getElementsByClassName('navigation__item');
 			Array.from(navItems).forEach(function (item) {
-				var mode = item.getAttribute('data-mode');
+				var id = item.getAttribute('data-id');
 	
 				item.addEventListener('mouseenter', function (e) {
 					_this.eventEmitter.emit('mouseenter', {
-						mode: mode
+						id: id
 					});
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
 					_this.eventEmitter.emit('mouseleave', {
-						mode: mode
+						id: id
 					});
 				});
 			});
@@ -9568,6 +9568,7 @@
 	
 			this.eventEmitter = new _events2.default.EventEmitter();
 			this.$container = document.querySelector("*[data-js='projects']");
+			this.$list = this.$container.querySelector("*[data-js='projects__list']");
 	
 			if (!this.$container) {
 				return;
@@ -9587,10 +9588,7 @@
 					var rect = item.getBoundingClientRect();
 					var position = { left: rect.left, width: rect.width };
 	
-					_this.closeItems();
-					item.classList.add('active');
-					// this.minifyItems();
-	
+					_this.openItem(item);
 					_this.eventEmitter.emit('mouseenter', {
 						id: projectId,
 						position: position
@@ -9612,26 +9610,35 @@
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
 			}
 		}, {
-			key: 'minifyItems',
-			value: function minifyItems() {
-				var items = this.$container.querySelectorAll("*[data-js='projects__item']:not(.active)");
-				Array.from(items).forEach(function (item) {
-					item.classList.add('minify');
+			key: 'openItem',
+			value: function openItem(item) {
+				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
+	
+				Array.from(items).forEach(function (el) {
+					el.classList.remove('active');
+	
+					if (el !== item) {
+						el.classList.add('minify');
+					}
 				});
+	
+				item.classList.add('active');
+				item.classList.remove('minify');
 			}
 		}, {
-			key: 'closeItems',
-			value: function closeItems() {
+			key: 'open',
+			value: function open() {
+				this.$list.classList.add('open');
+			}
+		}, {
+			key: 'close',
+			value: function close() {
+				this.$list.classList.remove('open');
 				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
 				Array.from(items).forEach(function (item) {
 					item.classList.remove('active');
 					item.classList.remove('minify');
 				});
-			}
-		}, {
-			key: 'close',
-			value: function close() {
-				this.closeItems();
 			}
 		}]);
 	
@@ -13646,7 +13653,8 @@
 	
 		_createClass(Pages, [{
 			key: "scrollTo",
-			value: function scrollTo(id, position) {
+			value: function scrollTo(id) {
+				log(id);
 				var $el = this.$container.querySelector("*[data-id=" + id + "]");
 				var index = [].slice.call($el.parentNode.children).indexOf($el);
 				var offset = index * -100;

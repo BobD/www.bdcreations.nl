@@ -7,6 +7,7 @@ class Projects {
 	constructor(){
 		this.eventEmitter = new Events.EventEmitter();
 		this.$container = document.querySelector("*[data-js='projects']");
+		this.$list =  this.$container.querySelector("*[data-js='projects__list']");
 
 		if(!this.$container){
 			return;
@@ -26,10 +27,7 @@ class Projects {
 				let rect = item.getBoundingClientRect();
 				let position = {left: rect.left, width: rect.width};
 
-				this.closeItems();
-				item.classList.add('active');
-				// this.minifyItems();
-
+				this.openItem(item);
 				this.eventEmitter.emit('mouseenter', {
 					id: projectId,
 					position: position
@@ -49,23 +47,32 @@ class Projects {
 		this.eventEmitter.on.apply(this.eventEmitter, arguments);
 	}
 
-	minifyItems(){
-		let items = this.$container.querySelectorAll("*[data-js='projects__item']:not(.active)");
-		Array.from(items).forEach((item) => {
-			item.classList.add('minify');
+	openItem(item){
+		let items = this.$container.querySelectorAll("*[data-js='projects__item']");
+
+		Array.from(items).forEach((el) => {
+			el.classList.remove('active');
+
+			if(el !== item){
+				el.classList.add('minify');
+			}
 		});
+
+		item.classList.add('active');
+		item.classList.remove('minify');
 	}
 
-	closeItems(){
+	open(){
+		this.$list.classList.add('open');
+	}
+
+	close(){
+		this.$list.classList.remove('open');
 		let items = this.$container.querySelectorAll("*[data-js='projects__item']");
 		Array.from(items).forEach((item) => {
 			item.classList.remove('active');
 			item.classList.remove('minify');
 		});
-	}
-
-	close(){
-		this.closeItems();
 	}
 }
 

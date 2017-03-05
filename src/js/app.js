@@ -7,24 +7,25 @@ import Pages from './modules/pages';
 window.log = log;
 
 document.addEventListener("DOMContentLoaded", function(e) {
-	let navigation = new Navigation();
-	let projects = new Projects();
-	let pages = new Pages();
-	let introContainer =  document.querySelector("*[data-js='content']");
-	let $body = document.querySelector("body");
+	const navigation = new Navigation();
+	const projects = new Projects();
+	const pages = new Pages();
+	const introContainer =  document.querySelector("*[data-js='content']");
+	const $body = document.querySelector("body");
 
-	console.log(window.location.pathname);
+	// console.log(window.location.pathname);
 
 	navigation.on('mouseenter', (e) => {
-		let mode = e.mode;
+		pages.scrollTo(e.id);
+		projects.open();
 	});
 
 	navigation.on('mouseleave', (e) => {
-		let mode = e.mode;
+		const id = e.id;
 	});
 
 	projects.on('mouseenter', (e) => {
-		pages.scrollTo(e.id, e.position);
+		pages.scrollTo(e.id);
 
 		history.replaceState({
 
@@ -35,8 +36,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 		// pages.fadeOut();
 	});
 
-	let body = document.querySelector("body");
-	body.addEventListener('click', (e) => {
+	$body.addEventListener('click', (e) => {
 		projects.close();
 	});
 });

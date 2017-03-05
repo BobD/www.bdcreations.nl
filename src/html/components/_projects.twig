@@ -1,10 +1,13 @@
 {% spaceless %}
 	<nav data-js="projects" class="projects {{modifiers}}">
-		<ul class="projects__list">
+		<ul data-js="projects__list" class="projects__list">
 			{% for navItem in navigation.projects %}
 				{% set project = attribute(projects, navItem.id) %}
 				<li data-js="projects__item" class="projects__item" data-id="{{navItem.id}}">
-					<span class="projects__label" data-title="{{navItem.label}}">{{navItem.label}}</span>
+					{% set charCount = navItem.label|length %}
+					<span class="projects__label" data-title="{{navItem.label}}" style="max-height:{{(charCount) + 2}}em">
+						<div class="projects__title">{{navItem.label}}</div>
+					</span>
 				</li>
 			{% endfor %}
 		</ul>
