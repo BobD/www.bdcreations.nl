@@ -53,13 +53,13 @@ class Projects {
 		Array.from(items).forEach((el) => {
 			el.classList.remove('active');
 
-			if(el !== item){
-				el.classList.add('minify');
-			}
+			// if(el !== item){
+			// 	el.classList.add('minify');
+			// }
 		});
 
 		item.classList.add('active');
-		item.classList.remove('minify');
+		// item.classList.remove('minify');
 	}
 
 	open(){
@@ -72,7 +72,7 @@ class Projects {
 		let items = this.$container.querySelectorAll("*[data-js='projects__item']");
 		Array.from(items).forEach((item) => {
 			item.classList.remove('active');
-			item.classList.remove('minify');
+			// item.classList.remove('minify');
 		});
 	}
 }

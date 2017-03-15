@@ -9560,13 +9560,13 @@
 				Array.from(items).forEach(function (el) {
 					el.classList.remove('active');
 	
-					if (el !== item) {
-						el.classList.add('minify');
-					}
+					// if(el !== item){
+					// 	el.classList.add('minify');
+					// }
 				});
 	
 				item.classList.add('active');
-				item.classList.remove('minify');
+				// item.classList.remove('minify');
 			}
 		}, {
 			key: 'open',
@@ -9581,7 +9581,7 @@
 				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
 				Array.from(items).forEach(function (item) {
 					item.classList.remove('active');
-					item.classList.remove('minify');
+					// item.classList.remove('minify');
 				});
 			}
 		}]);
