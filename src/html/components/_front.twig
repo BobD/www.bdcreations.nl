@@ -1,0 +1,27 @@
+<div data-js="front" class="front {{modifiers}}">
+
+	<style>
+		.front__header:before,
+		.front__footer:before{
+			background-image: url('{{pages.index.attributes.images|first}}');
+		}
+	</style>
+
+	<section class="front__header">
+		<div class="front__text">
+			<div class="text">
+				<p class="text__paragraph">
+					{{pages.index.body}}
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="front__navigation">
+		{% include "components/_projects.twig" with {"modifiers": "front__projects" }  %}
+	</section>
+
+	<section class="front__footer">
+	</section>
+
+</div>

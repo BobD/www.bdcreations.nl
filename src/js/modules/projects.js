@@ -28,14 +28,14 @@ class Projects {
 				let position = {left: rect.left, width: rect.width};
 
 				this.openItem(item);
-				this.eventEmitter.emit('mouseenter', {
+				this.eventEmitter.emit('show', {
 					id: projectId,
 					position: position
 				});
 			});
 			
 			item.addEventListener('mouseleave', (e) => {
-				this.eventEmitter.emit('mouseleave', {
+				this.eventEmitter.emit('hide', {
 					id: projectId,
 					position: item.getBoundingClientRect()
 				});
@@ -67,6 +67,7 @@ class Projects {
 	}
 
 	close(){
+		log('close');
 		this.$list.classList.remove('open');
 		let items = this.$container.querySelectorAll("*[data-js='projects__item']");
 		Array.from(items).forEach((item) => {

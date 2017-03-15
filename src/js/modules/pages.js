@@ -1,13 +1,27 @@
+import Events from 'events';
 import Velocity from 'velocity-animate';
 import _ from 'lodash';
 
 class Pages {
 
 	constructor(){
-		this.$container = document.querySelector("*[data-js='pages']");
+		this.eventEmitter = new Events.EventEmitter();
+		this.$container = document.querySelector("*[data-js='pages__list']");
 		this.$contentContainer = document.querySelector("*[data-js='content']");
 		this.scrollToComplete = _.debounce(this.showText.bind(this), 500);
 		this.currentIndex = 0;
+
+		const $close =  document.querySelector("*[data-js='pages__close']");
+		log($close);
+		$close.addEventListener('click', (e) => {
+			log('hide');
+			this.close();
+			this.eventEmitter.emit('hide', {});
+		});
+	}
+
+	on(){
+		this.eventEmitter.on.apply(this.eventEmitter, arguments);
 	}
 
 	scrollTo(id){

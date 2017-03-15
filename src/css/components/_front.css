@@ -1,0 +1,107 @@
+.front{
+  	display: flex; 
+  	flex-direction: column;
+  	width: 100%;
+
+  	margin-bottom: -var(--footer-height);
+}
+
+.front__header,
+.front__navigation,
+.front__footer{
+	position: relative;
+}
+
+.front__header,
+.front__footer{
+	flex-grow: 1;
+	flex-shrink: 0;
+	overflow: hidden;
+
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+
+/*	-moz-filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+	-o-filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+	-webkit-filter: grayscale(100%);
+	filter: gray;
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+	filter: grayscale(100%);*/
+
+	& .front__holder{
+		padding: var(--block-padding);
+	}
+}
+
+.front__header,
+.front__footer{
+	&:before{
+		content: '';
+		display: block;
+		background-position: center center;
+		background-attachment: fixed;
+		background-size: cover;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+  	}
+}
+
+.front__navigation{
+	color: black;
+	display: flex; 
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-end;
+  	position: relative;
+
+/*	&:before,
+	&:after{
+		content: '';
+  		display: block;
+  		position: absolute;
+  		width: 100%;
+  		height: 1px;
+  		background: white;
+  		opacity: 0;
+
+  		transition: opacity ease .5s;
+	}
+
+  	&:before{
+  		top: -1px;
+  	}
+
+  	&:after{
+  		bottom: 0;
+  	}
+
+  	&:hover{
+		&:before,
+		&:after{
+			opacity: 1;
+		}
+  	}*/
+
+  	z-index: 1;
+}
+
+.front__pages{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1;
+}
+
+.front__footer{
+}
+
+.front__text{
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+}

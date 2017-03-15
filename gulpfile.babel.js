@@ -15,7 +15,7 @@ import frontMatter from 'front-matter';
 import del from 'del';
 import fs from 'fs';
 import path from 'path';
-import _ from 'underscore';
+import _ from 'lodash';
 import plumber from 'gulp-plumber';
 import {argv as args} from 'yargs'; 
 import glob from 'glob';

@@ -1,0 +1,12 @@
+<div data-js="header" class="header">
+	<div class="header__container">
+	    {% block header %}
+	        <div class="header__logo">
+	            <div data-js="header__title" class="header__title caption">bd creations</div>
+	        </div>
+	        <div class="header__navigation">
+	        	{% include "components/_navigation.twig" with {}  %}
+	        </div>
+	    {% endblock %}
+	</div> 
+</div>

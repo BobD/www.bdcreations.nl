@@ -1,0 +1,13 @@
+.footer{
+	text-align: right;
+	overflow: visible;
+}
+
+.footer__content{
+	padding: 0 var(--block-padding);
+	background: white;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	line-height: var(--footer-height);
+}

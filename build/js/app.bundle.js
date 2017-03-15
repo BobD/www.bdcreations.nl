@@ -55,9 +55,9 @@
 	
 	var _logger2 = _interopRequireDefault(_logger);
 	
-	var _navigation = __webpack_require__(/*! ./modules/navigation */ 299);
+	var _header = __webpack_require__(/*! ./modules/header */ 308);
 	
-	var _navigation2 = _interopRequireDefault(_navigation);
+	var _header2 = _interopRequireDefault(_header);
 	
 	var _projects = __webpack_require__(/*! ./modules/projects */ 301);
 	
@@ -72,7 +72,7 @@
 	window.log = _logger2.default;
 	
 	document.addEventListener("DOMContentLoaded", function (e) {
-		var navigation = new _navigation2.default();
+		var header = new _header2.default();
 		var projects = new _projects2.default();
 		var pages = new _pages2.default();
 		var introContainer = document.querySelector("*[data-js='content']");
@@ -80,26 +80,31 @@
 	
 		// console.log(window.location.pathname);
 	
-		navigation.on('mouseenter', function (e) {
-			pages.scrollTo(e.id);
+		(0, _logger2.default)(pages);
+	
+		header.on('show', function (_ref) {
+			var id = _ref.id;
+	
+			pages.scrollTo(id);
 			projects.open();
 		});
 	
-		navigation.on('mouseleave', function (e) {
-			var id = e.id;
+		header.on('hide', function (_ref2) {
+			var id = _ref2.id;
+	
+			projects.close();
+			pages.close();
 		});
 	
-		projects.on('mouseenter', function (e) {
+		projects.on('show', function (e) {
 			pages.scrollTo(e.id);
 	
 			history.replaceState({}, null, e.id);
 		});
 	
-		projects.on('mouseleave', function (e) {});
-	
-		$body.addEventListener('click', function (e) {
+		pages.on('hide', function (e) {
+			(0, _logger2.default)('test');
 			projects.close();
-			pages.close();
 		});
 	});
 
@@ -9156,68 +9161,7 @@
 	exports.default = Logger.log;
 
 /***/ },
-/* 299 */
-/*!**************************************!*\
-  !*** ./src/js/modules/navigation.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _events = __webpack_require__(/*! events */ 300);
-	
-	var _events2 = _interopRequireDefault(_events);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Navigation = function () {
-		function Navigation() {
-			var _this = this;
-	
-			_classCallCheck(this, Navigation);
-	
-			this.eventEmitter = new _events2.default.EventEmitter();
-			this.$container = document.querySelector("*[data-js='navigation']");
-	
-			var navItems = this.$container.getElementsByClassName('navigation__item');
-			Array.from(navItems).forEach(function (item) {
-				var id = item.getAttribute('data-id');
-	
-				item.addEventListener('mouseenter', function (e) {
-					_this.eventEmitter.emit('mouseenter', {
-						id: id
-					});
-				});
-	
-				item.addEventListener('mouseleave', function (e) {
-					_this.eventEmitter.emit('mouseleave', {
-						id: id
-					});
-				});
-			});
-		}
-	
-		_createClass(Navigation, [{
-			key: 'on',
-			value: function on() {
-				this.eventEmitter.on.apply(this.eventEmitter, arguments);
-			}
-		}]);
-	
-		return Navigation;
-	}();
-	
-	exports.default = Navigation;
-
-/***/ },
+/* 299 */,
 /* 300 */
 /*!****************************!*\
   !*** ./~/events/events.js ***!
@@ -9588,14 +9532,14 @@
 					var position = { left: rect.left, width: rect.width };
 	
 					_this.openItem(item);
-					_this.eventEmitter.emit('mouseenter', {
+					_this.eventEmitter.emit('show', {
 						id: projectId,
 						position: position
 					});
 				});
 	
 				item.addEventListener('mouseleave', function (e) {
-					_this.eventEmitter.emit('mouseleave', {
+					_this.eventEmitter.emit('hide', {
 						id: projectId,
 						position: item.getBoundingClientRect()
 					});
@@ -9632,6 +9576,7 @@
 		}, {
 			key: 'close',
 			value: function close() {
+				log('close');
 				this.$list.classList.remove('open');
 				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
 				Array.from(items).forEach(function (item) {
@@ -13634,6 +13579,10 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _events = __webpack_require__(/*! events */ 300);
+	
+	var _events2 = _interopRequireDefault(_events);
+	
 	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 302);
 	
 	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
@@ -13648,15 +13597,31 @@
 	
 	var Pages = function () {
 		function Pages() {
+			var _this = this;
+	
 			_classCallCheck(this, Pages);
 	
-			this.$container = document.querySelector("*[data-js='pages']");
+			this.eventEmitter = new _events2.default.EventEmitter();
+			this.$container = document.querySelector("*[data-js='pages__list']");
 			this.$contentContainer = document.querySelector("*[data-js='content']");
 			this.scrollToComplete = _lodash2.default.debounce(this.showText.bind(this), 500);
 			this.currentIndex = 0;
+	
+			var $close = document.querySelector("*[data-js='pages__close']");
+			log($close);
+			$close.addEventListener('click', function (e) {
+				log('hide');
+				_this.close();
+				_this.eventEmitter.emit('hide', {});
+			});
 		}
 	
 		_createClass(Pages, [{
+			key: 'on',
+			value: function on() {
+				this.eventEmitter.on.apply(this.eventEmitter, arguments);
+			}
+		}, {
 			key: 'scrollTo',
 			value: function scrollTo(id) {
 				var $el = this.$container.querySelector('*[data-id=' + id + ']');
@@ -13690,7 +13655,7 @@
 		}, {
 			key: 'showText',
 			value: function showText() {
-				var _this = this;
+				var _this2 = this;
 	
 				this.clearText();
 	
@@ -13700,7 +13665,7 @@
 				if ($content) {
 					var $contentClone = $content.cloneNode(true);
 					Array.from($contentClone.children).forEach(function ($item) {
-						_this.$contentContainer.appendChild($item);
+						_this2.$contentContainer.appendChild($item);
 					});
 				}
 			}
@@ -30829,6 +30794,67 @@
 		return module;
 	}
 
+
+/***/ },
+/* 308 */
+/*!**********************************!*\
+  !*** ./src/js/modules/header.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _events = __webpack_require__(/*! events */ 300);
+	
+	var _events2 = _interopRequireDefault(_events);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Header = function () {
+		function Header() {
+			var _this = this;
+	
+			_classCallCheck(this, Header);
+	
+			this.eventEmitter = new _events2.default.EventEmitter();
+			this.$container = document.querySelector("*[data-js='header']");
+	
+			var navItems = this.$container.querySelectorAll("*[data-js='navigation__item']");
+			Array.from(navItems).forEach(function (item) {
+				var id = item.getAttribute('data-id');
+	
+				item.addEventListener('click', function (e) {
+					_this.eventEmitter.emit('show', {
+						id: id
+					});
+				});
+			});
+	
+			var $title = this.$container.querySelector("*[data-js='header__title']");
+			$title.addEventListener('click', function (e) {
+				_this.eventEmitter.emit('hide', {});
+			});
+		}
+	
+		_createClass(Header, [{
+			key: "on",
+			value: function on() {
+				this.eventEmitter.on.apply(this.eventEmitter, arguments);
+			}
+		}]);
+	
+		return Header;
+	}();
+	
+	exports.default = Header;
 
 /***/ }
 /******/ ]);

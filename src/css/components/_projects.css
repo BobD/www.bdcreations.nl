@@ -12,7 +12,7 @@
 		transition: all .75s ease;
 
 		&.open{
-			min-height: calc(100vh + var(--footer-height)).75
+			min-height: calc(100vh + var(--footer-height));
 		}
 	}
 
@@ -63,7 +63,7 @@
 		will-change: min-height, max-height, color;
 		transition: all var(--animation-duration) ease;
 
-		border-radius: .2em;
+		/*border-radius: .2em;*/
 	}
 
 	& .projects__title{

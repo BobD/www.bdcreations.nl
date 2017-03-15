@@ -1,0 +1,41 @@
+.header{
+	position: relative;
+    background: white;
+
+	& .navigation__item {
+		vertical-align: baseline;
+	}
+}
+
+.header__container{
+	position: relative;
+	width: 100%;
+	height: 4rem;
+	padding: 0 var(--block-padding);
+	background: white;
+	z-index: 1;
+}
+
+.header__logo{
+	position: fixed;
+	z-index: 100;
+}
+
+.header__logo{
+	display: inline-block;
+	font-size: var(--ms1);
+}
+
+.header__title{
+	font-weight: 700;
+	cursor: pointer;
+
+	&.caption{
+		margin: 0;
+		line-height: 1.8;
+	}
+}
+
+.header__navigation{
+	text-align: right;
+}

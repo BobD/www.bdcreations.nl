@@ -1,13 +1,13 @@
 import 'babel-polyfill';
 import log from './utils/logger';
-import Navigation from './modules/navigation';
+import Header from './modules/header';
 import Projects from './modules/projects';
 import Pages from './modules/pages';
 
 window.log = log;
 
 document.addEventListener("DOMContentLoaded", function(e) {
-	const navigation = new Navigation();
+	const header = new Header();
 	const projects = new Projects();
 	const pages = new Pages();
 	const introContainer =  document.querySelector("*[data-js='content']");
@@ -15,29 +15,27 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 	// console.log(window.location.pathname);
 
-	navigation.on('mouseenter', (e) => {
-		pages.scrollTo(e.id);
+	log(pages);
+
+	header.on('show', ({id}) => {
+		pages.scrollTo(id);
 		projects.open();
 	});
 
-	navigation.on('mouseleave', (e) => {
-		const id = e.id;
+	header.on('hide', ({id}) => {
+		projects.close();
+		pages.close();
 	});
 
-	projects.on('mouseenter', (e) => {
+	projects.on('show', (e) => {
 		pages.scrollTo(e.id);
 
 		history.replaceState({
-
 		}, null, e.id);
 	});
 
-	projects.on('mouseleave', (e) => {
-
-	});
-
-	$body.addEventListener('click', (e) => {
+	pages.on('hide', (e) => {
+		log('test');
 		projects.close();
-		pages.close();
 	});
 });

@@ -1,10 +1,10 @@
 <nav data-js="navigation" class="navigation {{modifiers}}">
 	<ul class="navigation__list">
 		{% for item in navigation.site %}
-			<li class="navigation__item" data-id="{{item.id}}">
-				<a href="{{url}}" class="navigation__link">
+			<li data-js="navigation__item" class="navigation__item" data-id="{{item.id}}">
+				<div class="navigation__link">
 					<span class="navigation__label">{{item.label}}</span>
-				</a>
+				</div>
 			</li>
 		{% endfor %}
 	</ul>
