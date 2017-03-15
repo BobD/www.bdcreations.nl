@@ -1,5 +1,6 @@
 .projects{
 	--background-color: rgba(255, 255, 255, 1);
+	--animation-duration: 1s;
 	--animation-delay: .5s;
 
 	& .projects__list{
@@ -11,7 +12,7 @@
 		transition: all .75s ease;
 
 		&.open{
-			min-height: calc(100vh + var(--footer-height));
+			min-height: calc(100vh + var(--footer-height)).75
 		}
 	}
 
@@ -23,16 +24,15 @@
 		max-height: 0;
 		
 		will-change: max-height;
-		transition: max-height .5s ease;
+		transition: max-height var(--animation-duration) ease;
 		transition-delay: 0s;
 
 		display: flex; 
-		align-items: flex-start;
+		align-items: center;
 
 		&:hover,
 		&.active{
 			max-height: 110vh;
-			transition-delay: var(--animation-delay);
 
 			& .projects__label{
 				/* !important due to text dependant  max-height as inline style */
@@ -42,14 +42,6 @@
 		}
 
 		&.minify{
-			& .projects__label{
-				/* !important due to text dependant  max-height as inline style */
-				/*max-height: 0 !important;*/
-			}
-
-			& .projects__title{
-				/*color: white;*/
-			}
 		}
 	}
 
@@ -69,21 +61,13 @@
 		max-height: 12em;
 		min-height: 0;
 		will-change: min-height, max-height, color;
-		transition: all .75s ease;
+		transition: all var(--animation-duration) ease;
 
 		border-radius: .2em;
 	}
 
 	& .projects__title{
 		will-change: color;
-		transition: all .5s ease;
-/*
-		&:before{
-			content: '\2022';
-			display: inline-block;
-			color: inherit;
-			padding-bottom: 1em;
-			color: black;
-		}*/
+		transition: all var(--animation-duration) ease;
 	}
 }

@@ -1,6 +1,5 @@
 ---
 title: Alila Hotels
-description: A nice <strong>project</strong> maar
 keywords: 
 - dogs
 - cats

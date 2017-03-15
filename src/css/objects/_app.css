@@ -1,27 +1,6 @@
 .app{
 	display: flex; 
   	flex-direction: column;
-/*
-    &--about-mode{
-        & .content__footer{
-            min-height: 0;
-        }
-
-        & .content__header{
-            min-height: calc(100%);
-        }
-    }
-
-    &--contact-mode{
-        & .content__footer{
-            min-height: calc(100%);
-        }
-
-        & .content__header{
-            min-height: 0;
-        }
-
-    }*/
 }
 
 .app__container{
@@ -64,3 +43,11 @@
     height: var(--header--height);
 }
 
+.app__content{
+    position: absolute;
+    top: var(--header--height);
+    left: 0;
+    padding: var(--block-padding);
+    white-space: normal;
+    z-index: 100;
+}

@@ -96,7 +96,7 @@ gulp.task('data', () => {
         _.extend(data, {env: args.env});
         siteData = data;  
 
-        // console.log(data.projects['alila-hotels'].attributes.description);
+        // console.log(data.pages['index']);
     }));
 
     return stream;

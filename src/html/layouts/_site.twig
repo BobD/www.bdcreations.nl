@@ -18,10 +18,8 @@
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
     </head>
-    <body class="app {{app_modifier}}">
-
+    <body class="app {{modifiers}}">
         <div class="app__container">
-        
             <section class="header app__header">
                 <div class="header__container">
                     {% block header %}
@@ -32,27 +30,20 @@
                     {% endblock %}
                </div> 
             </section>
-            
             <main class="main app__main">
                 {% block main %}
                 {% endblock %}
             </main>
-
             <footer class="footer app__footer">
                 <div class="footer__content">
                     copyright 2016
                 </div>
                 {% block footer %}
                     <script src="js/app.bundle.js" charset="utf-8"></script>
-
-{#                     {% if env == 'development' %}
-                        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-                    {% endif %} #}
-                    
                 {% endblock %}
             </footer>
-
         </div>
-
+        <div data-js="content" class="app__content"> 
+        </div>
     </body>
 </html>

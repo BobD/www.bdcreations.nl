@@ -33,10 +33,11 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	});
 
 	projects.on('mouseleave', (e) => {
-		// pages.fadeOut();
+
 	});
 
 	$body.addEventListener('click', (e) => {
 		projects.close();
+		pages.close();
 	});
 });
