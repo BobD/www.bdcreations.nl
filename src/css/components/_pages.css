@@ -1,5 +1,4 @@
 .pages{
-
 }
 
 .pages__list{
@@ -21,10 +20,36 @@
 	display: inline-block;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
+	
+	&.prep,
+	&.active{
+		& .pages__background{
+			transform: scale(1.05, 1.05);
+		}
+	}
 
+	&.prep{
+		& .pages__background{
+			transition-delay: .5s;
+		}
+	}
+}
+
+.pages__background{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
+
+	transform: scale(1, 1);
+	transform-origin: center center;
+
+	transition: all ease 1s;
 }
 
 .pages__close{

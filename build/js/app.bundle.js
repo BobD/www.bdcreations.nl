@@ -55,7 +55,7 @@
 	
 	var _logger2 = _interopRequireDefault(_logger);
 	
-	var _header = __webpack_require__(/*! ./modules/header */ 308);
+	var _header = __webpack_require__(/*! ./modules/header */ 299);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
@@ -80,8 +80,6 @@
 	
 		// console.log(window.location.pathname);
 	
-		(0, _logger2.default)(pages);
-	
 		header.on('show', function (_ref) {
 			var id = _ref.id;
 	
@@ -103,7 +101,6 @@
 		});
 	
 		pages.on('hide', function (e) {
-			(0, _logger2.default)('test');
 			projects.close();
 		});
 	});
@@ -9161,7 +9158,67 @@
 	exports.default = Logger.log;
 
 /***/ },
-/* 299 */,
+/* 299 */
+/*!**********************************!*\
+  !*** ./src/js/modules/header.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _events = __webpack_require__(/*! events */ 300);
+	
+	var _events2 = _interopRequireDefault(_events);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Header = function () {
+		function Header() {
+			var _this = this;
+	
+			_classCallCheck(this, Header);
+	
+			this.eventEmitter = new _events2.default.EventEmitter();
+			this.$container = document.querySelector("*[data-js='header']");
+	
+			var navItems = this.$container.querySelectorAll("*[data-js='navigation__item']");
+			Array.from(navItems).forEach(function (item) {
+				var id = item.getAttribute('data-id');
+	
+				item.addEventListener('click', function (e) {
+					_this.eventEmitter.emit('show', {
+						id: id
+					});
+				});
+			});
+	
+			var $title = this.$container.querySelector("*[data-js='header__title']");
+			$title.addEventListener('click', function (e) {
+				_this.eventEmitter.emit('hide', {});
+			});
+		}
+	
+		_createClass(Header, [{
+			key: "on",
+			value: function on() {
+				this.eventEmitter.on.apply(this.eventEmitter, arguments);
+			}
+		}]);
+	
+		return Header;
+	}();
+	
+	exports.default = Header;
+
+/***/ },
 /* 300 */
 /*!****************************!*\
   !*** ./~/events/events.js ***!
@@ -9576,7 +9633,6 @@
 		}, {
 			key: 'close',
 			value: function close() {
-				log('close');
 				this.$list.classList.remove('open');
 				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
 				Array.from(items).forEach(function (item) {
@@ -13587,7 +13643,7 @@
 	
 	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 306);
+	var _lodash = __webpack_require__(/*! lodash */ 305);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -13604,13 +13660,11 @@
 			this.eventEmitter = new _events2.default.EventEmitter();
 			this.$container = document.querySelector("*[data-js='pages__list']");
 			this.$contentContainer = document.querySelector("*[data-js='content']");
-			this.scrollToComplete = _lodash2.default.debounce(this.showText.bind(this), 500);
+			this.scrollToComplete = _lodash2.default.debounce(this.initPage.bind(this), 500);
 			this.currentIndex = 0;
 	
 			var $close = document.querySelector("*[data-js='pages__close']");
-			log($close);
 			$close.addEventListener('click', function (e) {
-				log('hide');
 				_this.close();
 				_this.eventEmitter.emit('hide', {});
 			});
@@ -13635,10 +13689,11 @@
 					duration += baseSpeed / a;
 				}
 	
+				this.clearPage();
 				this.$container.classList.add('show');
 				this.currentIndex = index;
 				this.scrollToComplete.cancel();
-				this.clearText();
+				this.prepPage();
 	
 				(0, _velocityAnimate2.default)(this.$container, { translateZ: 0, translateX: offset + '%' }, {
 					delay: 250,
@@ -13648,19 +13703,27 @@
 				});
 			}
 		}, {
-			key: 'clearText',
-			value: function clearText() {
+			key: 'clearPage',
+			value: function clearPage() {
+				var $page = this.$container.children[this.currentIndex];
+				$page.classList.remove('active');
+				$page.classList.remove('prep');
+	
 				this.$contentContainer.innerHTML = '';
 			}
 		}, {
-			key: 'showText',
-			value: function showText() {
+			key: 'prepPage',
+			value: function prepPage() {
+				var $page = this.$container.children[this.currentIndex];
+				$page.classList.add('prep');
+			}
+		}, {
+			key: 'initPage',
+			value: function initPage() {
 				var _this2 = this;
 	
-				this.clearText();
-	
-				var $activePage = this.$container.children[this.currentIndex];
-				var $content = $activePage.querySelector("*[data-js='page__content']");
+				var $page = this.$container.children[this.currentIndex];
+				var $content = $page.querySelector("*[data-js='page__content']");
 	
 				if ($content) {
 					var $contentClone = $content.cloneNode(true);
@@ -13668,11 +13731,13 @@
 						_this2.$contentContainer.appendChild($item);
 					});
 				}
+	
+				$page.classList.add('active');
 			}
 		}, {
 			key: 'close',
 			value: function close() {
-				this.clearText();
+				this.clearPage();
 			}
 		}]);
 	
@@ -13682,8 +13747,7 @@
 	exports.default = Pages;
 
 /***/ },
-/* 305 */,
-/* 306 */
+/* 305 */
 /*!****************************!*\
   !*** ./~/lodash/lodash.js ***!
   \****************************/
@@ -30774,10 +30838,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 307)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 306)(module)))
 
 /***/ },
-/* 307 */
+/* 306 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -30794,67 +30858,6 @@
 		return module;
 	}
 
-
-/***/ },
-/* 308 */
-/*!**********************************!*\
-  !*** ./src/js/modules/header.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _events = __webpack_require__(/*! events */ 300);
-	
-	var _events2 = _interopRequireDefault(_events);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Header = function () {
-		function Header() {
-			var _this = this;
-	
-			_classCallCheck(this, Header);
-	
-			this.eventEmitter = new _events2.default.EventEmitter();
-			this.$container = document.querySelector("*[data-js='header']");
-	
-			var navItems = this.$container.querySelectorAll("*[data-js='navigation__item']");
-			Array.from(navItems).forEach(function (item) {
-				var id = item.getAttribute('data-id');
-	
-				item.addEventListener('click', function (e) {
-					_this.eventEmitter.emit('show', {
-						id: id
-					});
-				});
-			});
-	
-			var $title = this.$container.querySelector("*[data-js='header__title']");
-			$title.addEventListener('click', function (e) {
-				_this.eventEmitter.emit('hide', {});
-			});
-		}
-	
-		_createClass(Header, [{
-			key: "on",
-			value: function on() {
-				this.eventEmitter.on.apply(this.eventEmitter, arguments);
-			}
-		}]);
-	
-		return Header;
-	}();
-	
-	exports.default = Header;
 
 /***/ }
 /******/ ]);

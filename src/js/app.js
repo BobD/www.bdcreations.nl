@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 	// console.log(window.location.pathname);
 
-	log(pages);
-
 	header.on('show', ({id}) => {
 		pages.scrollTo(id);
 		projects.open();
@@ -35,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	});
 
 	pages.on('hide', (e) => {
-		log('test');
 		projects.close();
 	});
 });

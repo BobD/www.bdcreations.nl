@@ -67,7 +67,6 @@ class Projects {
 	}
 
 	close(){
-		log('close');
 		this.$list.classList.remove('open');
 		let items = this.$container.querySelectorAll("*[data-js='projects__item']");
 		Array.from(items).forEach((item) => {

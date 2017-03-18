@@ -1,6 +1,6 @@
 :root{
 	--background-color: rgba(255, 255, 255, 1);
-	--animation-duration: 1s;
+	--animation-duration: .75s;
 	--animation-delay: .5s;
 }
 
@@ -19,9 +19,8 @@
 
 	& .projects__item{
 		position: relative;
-		margin: 0 .25em;
 		max-height: 0;
-		width: 2rem;
+		width: 1.75rem;
 		
 		will-change: max-height;
 		transition: all var(--animation-duration) ease;
@@ -52,24 +51,21 @@
 	& .projects__label{
 		background-color: var(--background-color);
 
-		padding: 1em 0;
-		line-height: 2;
+		padding: .5em 0;
 		cursor: pointer;
 		z-index: 1;
 
-		line-height: 2;
+		line-height: 1.75;
 		display: inline-block;
 		vertical-align: middle;
 		writing-mode: vertical-rl;
 
 		max-height: 12em;
 		min-height: 0;
-		will-change: min-height, max-height, color;
+		will-change: min-height, max-height;
 		transition: all var(--animation-duration) ease;
 	}
 
 	& .projects__title{
-		will-change: color;
-		transition: all var(--animation-duration) ease;
 	}
 }
