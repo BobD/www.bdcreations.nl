@@ -7,13 +7,8 @@
     flex-direction: column;
 }
 
-.app__header,
-.app__footer{
-    max-height: var(--header--height);
-}
-
 .app__header{
-    z-index: 10;
+    max-height: var(--header--height);
 }
 
 .app__footer{
@@ -28,8 +23,10 @@
 .app__header{
     position: relative;
     line-height: var(--header--height);
+    flex-grow: 0;
+    flex-shrink: 2;
 
-   /*mix-blend-mode: multiply;*/
+    /*mix-blend-mode: multiply;*/
 }
 
 .app__main{
@@ -41,7 +38,10 @@
 }
 
 .app__footer{
-    height: var(--header--height);
+    flex-grow: 2;    
+    flex-shrink: 0;
+    height: var(--footer-height);
+    max-height: var(--footer-height);
 }
 
 .app__content{

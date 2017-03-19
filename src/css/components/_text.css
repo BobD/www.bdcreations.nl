@@ -1,13 +1,39 @@
+:root{
+	--text-styles:{
+		background: white;
+		box-decoration-break: clone;
+		padding: .25rem .5rem;
+		display: inline;
+	}
+}
+
 .text{
 	line-height: 1.9;
 	max-width: 40em;	
-	color: black;
 	width: auto;
+	margin-right: 2rem;
+	color: black;
+
+
+	& h1,
+	& h2,
+	& h3,
+	& h4,
+	& h5{
+		@apply --text-styles;
+		font-size: 175%;
+		display: inline;
+		line-height: 1;
+		margin-right: .2rem;
+	}
+
+	& hr{
+		border-color: transparent;
+	}
 }
 
+.text p,
 .text__paragraph{
-	background: white;
-	box-decoration-break: clone;
-	padding: .3em .5em;
-	display: inline;
+	@apply --text-styles;
+    vertical-align: sub;
 }

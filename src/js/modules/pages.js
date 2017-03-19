@@ -8,7 +8,7 @@ class Pages {
 		this.eventEmitter = new Events.EventEmitter();
 		this.$container = document.querySelector("*[data-js='pages__list']");
 		this.$contentContainer = document.querySelector("*[data-js='content']");
-		this.scrollToComplete = _.debounce(this.initPage.bind(this), 500);
+		this.scrollToComplete = _.debounce(this.initPage.bind(this), 1000);
 		this.currentIndex = 0;
 
 		const $close =  document.querySelector("*[data-js='pages__close']");
@@ -37,7 +37,7 @@ class Pages {
 		this.clearPage();
 		this.$container.classList.add('show');
 		this.currentIndex = index;
-		this.scrollToComplete.cancel()
+		this.scrollToComplete.cancel();
 		this.prepPage();
 
 		Velocity(this.$container, {translateZ: 0, translateX: `${offset}%`}, {
@@ -53,6 +53,7 @@ class Pages {
 		$page.classList.remove('active');
 		$page.classList.remove('prep');
 
+		this.scrollToComplete.cancel();
 		this.$contentContainer.innerHTML = '';
 	}
 

@@ -12,6 +12,7 @@ import imageResize from 'gulp-image-resize';
 import gulpFn from 'gulp-fn';
 import eventStream from 'event-stream';
 import frontMatter from 'front-matter';
+import marked from 'marked';
 import del from 'del';
 import fs from 'fs';
 import path from 'path';
@@ -84,6 +85,7 @@ gulp.task('data', () => {
             try {
                 let fileSource = fs.readFileSync(file, 'utf-8');
                 let fileContent = frontMatter(fileSource);
+                fileContent.html = marked(fileContent.body);
                 fileContent.attributes.images = [];
                 images.forEach((entry) => {
                     fileContent.attributes.images.push(`./images/${type}/${source}/${entry}`);
@@ -111,6 +113,7 @@ gulp.task('projects', () => {
         try {
             let fileSource = fs.readFileSync(file, 'utf-8');
             let fileContent = frontMatter(fileSource);
+            fileContent.html = marked(fileContent.body);
             let projects = {};
             projects[fileName] = fileContent;
             

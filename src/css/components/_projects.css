@@ -1,46 +1,64 @@
 :root{
 	--background-color: rgba(255, 255, 255, 1);
-	--animation-duration: .75s;
+	--animation-duration: 1s;
 	--animation-delay: .5s;
 }
 
 .projects{
+	position: relative;
+
+	& .projects__quote{
+		display: inline-block;
+    	position: absolute;
+    	right: 100%;
+    	bottom: 0;
+    	white-space: nowrap;
+
+    	padding: .25em;
+    	line-height: 1;
+		/*background-color: var(--background-color);*/
+		margin: 0 .5rem .25rem 0;
+		font-size: 90%;
+		color: white;
+
+		& .projects__icon{
+			vertical-align: middle;
+		}
+	}
+
 	& .projects__list{
 		display: flex; 
-		align-items: center;
-		min-height: 0;
+		align-items: flex-end;
 		will-change: min-height;
-		transition: all .75s ease;
-
-		&.open{
-			min-height: calc(100vh + var(--footer-height));
-		}
+		transition: min-height .75s ease;
+		padding: 0 .15rem;
 	}
 
 	& .projects__item{
 		position: relative;
+		min-height: 0;
 		max-height: 0;
-		width: 1.75rem;
+		margin: 0 .15rem;
 		
-		will-change: max-height;
+		will-change: min-height, max-height;
 		transition: all var(--animation-duration) ease;
 		transition-delay: 0s;
 
 		overflow: visible;
 		white-space: nowrap;
 
-/*		display: flex; 
-		align-items: center;
-		justify-content: center;*/
+		display: flex; 
+		align-items: flex-end;
 
 		&:hover,
 		&.active{
-			max-height: 110vh;
+			max-height: calc(100vh - var(--footer-height));
+			min-height: calc(100vh - var(--footer-height));
 
 			& .projects__label{
 				/* !important due to text dependant  max-height as inline style */
-				max-height: calc(100vh + var(--footer-height)) !important;
-				min-height: calc(100vh + var(--footer-height));
+				max-height: calc(100vh - var(--footer-height)) !important;
+				min-height: calc(100vh - var(--footer-height));
 			}
 		}
 
@@ -49,23 +67,22 @@
 	}
 
 	& .projects__label{
-		background-color: var(--background-color);
-
-		padding: .5em 0;
 		cursor: pointer;
 		z-index: 1;
 
-		line-height: 1.75;
-		display: inline-block;
-		vertical-align: middle;
+		display: inline-table;
 		writing-mode: vertical-rl;
 
 		max-height: 12em;
 		min-height: 0;
 		will-change: min-height, max-height;
 		transition: all var(--animation-duration) ease;
+
+		padding-bottom: .25rem;
 	}
 
 	& .projects__title{
+		padding: .5em 0;
+		background-color: var(--background-color);
 	}
 }

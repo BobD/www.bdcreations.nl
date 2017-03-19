@@ -13660,7 +13660,7 @@
 			this.eventEmitter = new _events2.default.EventEmitter();
 			this.$container = document.querySelector("*[data-js='pages__list']");
 			this.$contentContainer = document.querySelector("*[data-js='content']");
-			this.scrollToComplete = _lodash2.default.debounce(this.initPage.bind(this), 500);
+			this.scrollToComplete = _lodash2.default.debounce(this.initPage.bind(this), 1000);
 			this.currentIndex = 0;
 	
 			var $close = document.querySelector("*[data-js='pages__close']");
@@ -13709,6 +13709,7 @@
 				$page.classList.remove('active');
 				$page.classList.remove('prep');
 	
+				this.scrollToComplete.cancel();
 				this.$contentContainer.innerHTML = '';
 			}
 		}, {
