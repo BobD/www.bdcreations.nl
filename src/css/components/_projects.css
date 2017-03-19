@@ -52,8 +52,8 @@
 
 		&:hover,
 		&.active{
-			max-height: calc(100vh - var(--footer-height));
 			min-height: calc(100vh - var(--footer-height));
+			max-height: calc(100vh - var(--footer-height));
 
 			& .projects__label{
 				/* !important due to text dependant  max-height as inline style */

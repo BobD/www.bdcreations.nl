@@ -59,7 +59,7 @@
 	color: white;
 	font-size: 2rem;
 	line-height: var(--header--height);
-	z-index: 2;
+	z-index: 1;
 	cursor: pointer;
 	transition: all ease .25s;
 

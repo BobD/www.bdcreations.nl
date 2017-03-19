@@ -9,6 +9,7 @@
 
 .app__header{
     max-height: var(--header--height);
+    /*z-index: 10;*/
 }
 
 .app__footer{
