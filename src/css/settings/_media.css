@@ -1,0 +1,9 @@
+/*@custom-media --screen-xxs (min-width: 320px);
+@custom-media --screen-xs (min-width: 414px);
+@custom-media --screen-sm (min-width: 768px);
+@custom-media --screen-md (min-width: 1024px);
+@custom-media --screen-lg (min-width: 1440px);
+@custom-media --screen-huge (min-width: 2560px);*/
+
+/* See http://stackoverflow.com/questions/20541306/how-to-write-a-css-hack-for-ie-11 */
+@custom-media --browser-ie all and (-ms-high-contrast: none), (-ms-high-contrast: active);

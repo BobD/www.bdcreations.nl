@@ -16,7 +16,6 @@
 
     	padding: .25em;
     	line-height: 1;
-		/*background-color: var(--background-color);*/
 		margin: 0 .5rem .25rem 0;
 		font-size: 90%;
 		color: white;
@@ -29,9 +28,11 @@
 	& .projects__list{
 		display: flex; 
 		align-items: flex-end;
-		will-change: min-height;
-		transition: min-height .75s ease;
 		padding: 0 .15rem;
+
+		max-height: calc(100vh - var(--footer-height));
+		overflow: visible;
+		white-space: nowrap;
 	}
 
 	& .projects__item{
@@ -39,7 +40,7 @@
 		min-height: 0;
 		max-height: 0;
 		margin: 0 .15rem;
-		
+
 		will-change: min-height, max-height;
 		transition: all var(--animation-duration) ease;
 		transition-delay: 0s;
@@ -56,13 +57,9 @@
 			max-height: calc(100vh - var(--footer-height));
 
 			& .projects__label{
-				/* !important due to text dependant  max-height as inline style */
-				max-height: calc(100vh - var(--footer-height)) !important;
 				min-height: calc(100vh - var(--footer-height));
+				max-height: inherit;
 			}
-		}
-
-		&.minify{
 		}
 	}
 
@@ -82,7 +79,32 @@
 	}
 
 	& .projects__title{
-		padding: .5em 0;
+		padding: .5em 0 1.5rem 0;
 		background-color: var(--background-color);
 	}
+}
+
+/* IE hacks */
+@media (--browser-ie) {
+	.projects__item{
+		&:hover,
+		&.active{
+/*			min-height: 100vh !important;
+			max-height: 100vh !important;*/
+/*
+			& .projects__label{
+				min-height: 100vh !important;
+			}*/
+
+			& .projects__title{
+				bottom: 0;
+			}
+		}
+	}
+
+   .projects__title{
+   		position: relative;
+		transition: all var(--animation-duration) ease;
+		bottom: calc(100% + .25rem);
+   }
 }

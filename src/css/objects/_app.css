@@ -26,7 +26,6 @@
     line-height: var(--header--height);
     flex-grow: 0;
     flex-shrink: 2;
-
     /*mix-blend-mode: multiply;*/
 }
 
@@ -34,7 +33,6 @@
     flex-grow: 1;
     flex-shrink: 0;
     display: flex;
-
     /*mix-blend-mode: screen;*/
 }
 
@@ -43,6 +41,8 @@
     flex-shrink: 0;
     height: var(--footer-height);
     max-height: var(--footer-height);
+/*    min-height: var(--footer-height);
+    flex-basis: var(--footer-height);*/
 }
 
 .app__content{

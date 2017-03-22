@@ -10,4 +10,5 @@
 	bottom: 0;
 	width: 100%;
 	line-height: var(--footer-height);
+	font-size: 80%;
 }

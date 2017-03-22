@@ -1,19 +1,23 @@
 :root{
+	--text-padding: .75rem;
 	--text-styles:{
+		position: relative;
 		background: white;
 		box-decoration-break: clone;
-		padding: .25rem .5rem;
+		padding: .25rem var(--text-padding);
 		display: inline;
+		text-indent: .5rem;
 	}
 }
 
 .text{
-	line-height: 1.9;
+	line-height: 1.8;
 	max-width: 40em;	
 	width: auto;
+	padding-top: 1rem;
 	margin-right: 2rem;
 	color: black;
-
+	box-decoration-break: clone;
 
 	& h1,
 	& h2,
@@ -25,6 +29,14 @@
 		display: inline;
 		line-height: 1;
 		margin-right: .2rem;
+
+		background: var(--text-color);
+		color: white;
+
+		&:after{
+			content: '';
+			display: block;
+		}
 	}
 
 	& hr{
@@ -36,4 +48,48 @@
 .text__paragraph{
 	@apply --text-styles;
     vertical-align: sub;
+    padding-left: .5rem;
+}
+
+@media (--browser-ie) {
+	.text{
+		& h1,
+		& h2,
+		& h3,
+		& h4,
+		& h5{
+			box-shadow: var(--text-padding) 0 0 var(--text-color), 0 0 0  var(--text-color);
+		}
+	}
+
+	.text p,
+	.text__paragraph{
+		padding-left: 0;
+		padding-right: 0;
+		transform: translateX(var(--text-padding));
+		box-shadow: var(--text-padding) 0 0 white, -var(--text-padding) 0 0 white;
+	}
+}
+
+@supports (-ms-ime-align:auto) {
+	.text {
+		margin-left:  var(--text-padding);
+
+		& h1,
+		& h2,
+		& h3,
+		& h4,
+		& h5{
+			box-shadow: var(--text-padding) 0 0 var(--text-color), 0 0 0  var(--text-color);
+			left: -var(--text-padding);
+		}
+	}
+
+	.text p,
+	.text__paragraph{
+		padding-left: 0;
+		padding-right: 0;
+		box-shadow: var(--text-padding) 0 0 white, -var(--text-padding) 0 0 white;
+	}
+
 }

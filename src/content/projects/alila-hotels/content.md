@@ -1,11 +1,5 @@
 ---
 title: Alila Hotels
-keywords: 
-- dogs
-- cats
-- badgers
-images: 
-- /images/projects/alila.jpg
 ---
 # Alila Hotels  
-Sed ut perspiciatis <a href="test">dus</a> unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

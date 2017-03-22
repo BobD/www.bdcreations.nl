@@ -36,6 +36,7 @@ function getPageData(pageName){
 function getProjectData(projectName){
     let { [projectName]: pageContent } = siteData.projects;
     let data = Object.assign({}, siteData, {content: pageContent});
+    // console.log(projectName, data.attributes);
     return data;
 }
 
@@ -88,6 +89,9 @@ gulp.task('data', () => {
                 fileContent.html = marked(fileContent.body);
                 fileContent.attributes.images = [];
                 images.forEach((entry) => {
+                    if(entry == '.DS_Store'){
+                        return;
+                    }
                     fileContent.attributes.images.push(`./images/${type}/${source}/${entry}`);
                 })
                 let typeData = data[type];
@@ -184,13 +188,14 @@ gulp.task('styles', function () {
 
 
 gulp.task('project-images', function () {
-  return gulp.src(`${contentDir}/projects/**/images/*.*`)
+  return gulp.src(`${contentDir}/projects/**/images/*.{png,gif,jpg}`)
         .pipe(changed(destinationDir))
         .pipe(imageResize({
             width : 1600,
             imageMagick: true
         }))
         .pipe(rename(function (path) {
+            // console.log(path);
             let sourceName = path.dirname.split('/').shift();
             path.dirname = `/projects/${sourceName}`;
             return path;
@@ -199,7 +204,7 @@ gulp.task('project-images', function () {
 });
 
 gulp.task('page-images', function () {
-  return gulp.src(`${contentDir}/pages/**/images/*.*`)
+  return gulp.src(`${contentDir}/pages/**/images/*.{png,gif,jpg}`)
         .pipe(changed(destinationDir))
         .pipe(imageResize({
             width : 1600,

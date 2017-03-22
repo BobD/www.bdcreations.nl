@@ -1,5 +1,0 @@
----
-title: SINH build
----
-
-Awesome
