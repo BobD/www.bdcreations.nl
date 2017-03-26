@@ -3,11 +3,14 @@
 import gulp from 'gulp';
 import watch from 'gulp-watch';
 import batch from 'gulp-batch';
+import copy from 'gulp-copy';
 import rename from 'gulp-rename';
 import changed from 'gulp-changed';
 import livereload from 'gulp-livereload';
 import data from 'gulp-data';
 import gulpif from 'gulp-if';
+import imagemin from 'gulp-imagemin';
+import imageminGuetzli from 'imagemin-guetzli';
 import imageResize from 'gulp-image-resize';
 import gulpFn from 'gulp-fn';
 import eventStream from 'event-stream';
@@ -87,11 +90,11 @@ gulp.task('data', () => {
                 let fileContent = frontMatter(fileSource);
                 fileContent.html = marked(fileContent.body);
                 fileContent.attributes.images = [];
-                images.forEach((entry) => {
-                    if(entry == '.DS_Store'){
+                images.forEach((image) => {
+                    if(image == '.DS_Store'){
                         return;
                     }
-                    fileContent.attributes.images.push(`./images/${type}/${source}/${entry}`);
+                    fileContent.attributes.images.push(`./images/${type}/${source}/${image}`);
                 })
                 let typeData = data[type];
                 typeData[source] = fileContent;
@@ -107,40 +110,6 @@ gulp.task('data', () => {
     return stream;
 });
 
-gulp.task('projects', () => {
-    let twig = require('gulp-twig');
-    let files =  glob.sync(`${contentDir}/projects/**/*.md`, {});
-
-    files.forEach((file) => {
-        let fileName = path.basename(file, '.md');
-        try {
-            let fileSource = fs.readFileSync(file, 'utf-8');
-            let fileContent = frontMatter(fileSource);
-            fileContent.html = marked(fileContent.body);
-            let projects = {};
-            projects[fileName] = fileContent;
-            
-            gulp.src(`${sourceDir}/html/projects/_project.twig`)
-            .pipe(plumber())
-            .pipe(changed(destinationDir))
-            .pipe(data((file) => {
-                return getProjectData(fileName);
-            }))
-            .pipe(twig({
-                base: `${sourceDir}/html/`
-            }))
-            .pipe(rename({
-                dirname: 'projects',
-                basename: fileName,
-                extname: '.html'
-            }))
-            .pipe(gulp.dest(destinationDir))
-            .pipe(livereload({ }));
-
-        } catch (err) {}
-    })
-});
-
 gulp.task('pages', () => {
     let twig = require('gulp-twig');
 
@@ -153,13 +122,21 @@ gulp.task('pages', () => {
         }))
         .pipe(twig({
             base: `${sourceDir}/html/`,
-            version: new Date().getTime()
+            functions: [
+                {
+                    name: "styles",
+                    func: function (src) {
+                        let styleSource = fs.readFileSync(`${destinationDir}/${src}`, 'utf-8');
+                        return styleSource;
+                    }
+                }
+            ]
         }))
         .pipe(gulp.dest(destinationDir))
         .pipe(livereload({ }));
 });
 
-gulp.task('compile', ['data', 'pages', 'projects']);
+gulp.task('compile', ['data', 'pages']);
 
 
 gulp.task('styles', function () {
@@ -186,46 +163,38 @@ gulp.task('styles', function () {
     	.pipe(livereload({ }));
 });
 
+gulp.task('compress-images', function () {
+    del([
+        'images/**',
+        '!images'
+    ]);
 
-gulp.task('project-images', function () {
-  return gulp.src(`${contentDir}/projects/**/images/*.{png,gif,jpg}`)
+    return gulp.src(`${contentDir}/**/images/*.{png,gif,jpg}`)
         .pipe(changed(destinationDir))
+        .pipe(imagemin([imageminGuetzli()]))
         .pipe(imageResize({
             width : 1600,
             imageMagick: true
         }))
         .pipe(rename(function (path) {
-            // console.log(path);
-            let sourceName = path.dirname.split('/').shift();
-            path.dirname = `/projects/${sourceName}`;
+            let split = path.dirname.split('/');
+            split.pop();
+            path.dirname = `/${split.join('/')}`;
             return path;
           }))
-        .pipe(gulp.dest(`${destinationDir}/images`))
+        .pipe(gulp.dest(`images`))
 });
 
-gulp.task('page-images', function () {
-  return gulp.src(`${contentDir}/pages/**/images/*.{png,gif,jpg}`)
-        .pipe(changed(destinationDir))
-        .pipe(imageResize({
-            width : 1600,
-            imageMagick: true
-        }))
-        .pipe(rename(function (path) {
-            let sourceName = path.dirname.split('/').shift();
-            path.dirname = `/pages/${sourceName}`;
-            return path;
-          }))
-        .pipe(gulp.dest(`${destinationDir}/images`))
+gulp.task('images', function () {
+    return gulp.src(`images/**/*.{png,gif,jpg}`)
+        .pipe(copy(destinationDir, {}));
 });
-
-gulp.task('images', ['project-images', 'page-images']);
 
 gulp.task('public', function () {
-  return gulp.src([`${sourceDir}/public/**/*.*`, `${sourceDir}/public/.*`])
+    return gulp.src([`${sourceDir}/public/**/*.*`, `${sourceDir}/public/.*`])
         .pipe(changed(destinationDir))
         .pipe(gulp.dest(`${destinationDir}/`))
 });
-
 
 gulp.task('watch', ['data'], () => {
     livereload.listen();
@@ -256,16 +225,18 @@ gulp.task('watch', ['data'], () => {
 
 // https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
 gulp.task('clean', () => {
-  return del([
-    destinationDir + '/**',
-    '!' + destinationDir,
-    '!src',
-    '!*.*',
-  ]);
+    return del([
+        destinationDir + '/**',
+        '!' + destinationDir
+    ]);
 });
 
-
-gulp.task('default', ['public', 'compile', 'styles', 'images']);
+gulp.task('default', ['clean', 'styles'], (done) => {
+    gulp.start('styles', done);
+    gulp.start('images', done);
+    gulp.start('public', done);
+    gulp.start('compile', done);
+});
 
 
 

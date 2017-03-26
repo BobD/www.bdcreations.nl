@@ -9187,6 +9187,7 @@
 		}, {
 			key: 'setHistory',
 			value: function setHistory(path, data) {
+				log(path);
 				history.pushState({}, null, path);
 				this.handleState();
 			}

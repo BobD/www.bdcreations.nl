@@ -26,6 +26,7 @@ class Router {
 	}
 
 	setHistory(path, data){
+		log(path);
 		history.pushState({
 		}, null, path);
 		this.handleState();
