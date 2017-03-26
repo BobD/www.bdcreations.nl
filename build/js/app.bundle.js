@@ -9160,7 +9160,7 @@
 	
 			this.eventEmitter = new _events2.default.EventEmitter();
 	
-			if (history.pushState) {
+			if (history.pushState && ("development") == 'development') {
 				this.setState = this.setHistory;
 				this.getState = this.getHistory;
 			} else {
