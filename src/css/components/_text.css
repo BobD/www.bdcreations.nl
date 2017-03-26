@@ -1,14 +1,3 @@
-:root{
-	--text-padding: .75rem;
-	--text-styles:{
-		position: relative;
-		background: white;
-		box-decoration-break: clone;
-		padding: .2rem var(--text-padding);
-		display: inline;
-	}
-}
-
 .text{
 	line-height: 1.8;
 	max-width: 40em;	
@@ -23,14 +12,11 @@
 	& h3,
 	& h4,
 	& h5{
-		@apply --text-styles;
+		@apply --text-styles-dark;
 		font-size: 175%;
 		display: inline;
 		line-height: 1;
 		margin-right: .2rem;
-
-		background: var(--text-color);
-		color: white;
 
 		&:after{
 			content: '';
@@ -44,6 +30,13 @@
 
 	& hr{
 		border-color: transparent;
+	}
+
+	&--dark{
+		& > *{
+			background: var(--text-color);
+			color: white;
+		}
 	}
 }
 

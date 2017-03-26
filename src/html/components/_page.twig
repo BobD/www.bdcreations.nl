@@ -1,12 +1,22 @@
 {% set project = attribute(projects, id) %}
 <article class="page {{modifiers}}" data-id="{{id}}" >
-	<div class="pages__background" style="background-image: url('{{project.attributes.images[0]}}')"></div>
+	<div class="pages__background" style="background-image: url('{{project.attributes.images[0]}}?c={{version}}')"></div>
 	<div data-js="page__content" class="page__content">
 		<div class="text">{{project.html}}</div>
-{# 		{% if project.attributes.client is defined %}	
-			<div class="text">
-				<p><a href="{{project.attributes.client.url}}" target="_blank">{{project.attributes.client.name}}</a></p>
-			</div>
-		{% endif %} #}
+		{% if project.attributes.meta is defined %}	
+			<dl class="meta page__meta">
+				{% for meta in project.attributes.meta  %}
+					<dt class="meta__term">
+						<span class="meta__label">{{meta.name}}</span>
+					</dt>
+					<dd class="meta__description">{% if meta.url %}
+						<a class="meta__link" href="{{meta.url}}" target="_blank">{{meta.label}}</a>
+						{% else %}
+						<span class="meta__label">{{meta.label}}</span>
+						{% endif %}
+					</ds>
+				{% endfor %}
+			</dl>
+		{% endif %}
 	</div>
 </article>
