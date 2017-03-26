@@ -11,7 +11,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <link rel="stylesheet" href="css/app.css">
+
+        <base href="/">
+        <link rel="stylesheet" href="css/app.css?c={{version}}">
 
         <link as="style" rel="preload" href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet">
         <noscript><link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet"></noscript>
@@ -46,5 +48,8 @@
         </div>
         <div data-js="content" class="app__content"> 
         </div>
+        {% block footer %}
+            <script async src="js/app.bundle.js" charset="utf-8"></script>
+        {% endblock %}
     </body>
 </html>

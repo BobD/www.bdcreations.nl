@@ -4,9 +4,8 @@
 		position: relative;
 		background: white;
 		box-decoration-break: clone;
-		padding: .25rem var(--text-padding);
+		padding: .2rem var(--text-padding);
 		display: inline;
-		text-indent: .5rem;
 	}
 }
 
@@ -39,16 +38,13 @@
 		}
 	}
 
+	& > *{
+		@apply --text-styles;
+	}
+
 	& hr{
 		border-color: transparent;
 	}
-}
-
-.text p,
-.text__paragraph{
-	@apply --text-styles;
-    vertical-align: sub;
-    padding-left: .5rem;
 }
 
 @media (--browser-ie) {
@@ -60,14 +56,13 @@
 		& h5{
 			box-shadow: var(--text-padding) 0 0 var(--text-color), 0 0 0  var(--text-color);
 		}
-	}
 
-	.text p,
-	.text__paragraph{
-		padding-left: 0;
-		padding-right: 0;
-		transform: translateX(var(--text-padding));
-		box-shadow: var(--text-padding) 0 0 white, -var(--text-padding) 0 0 white;
+		& > *{
+			padding-left: 0;
+			padding-right: 0;
+			transform: translateX(var(--text-padding));
+			box-shadow: var(--text-padding) 0 0 white, -var(--text-padding) 0 0 white;
+		}
 	}
 }
 
@@ -83,13 +78,11 @@
 			box-shadow: var(--text-padding) 0 0 var(--text-color), 0 0 0  var(--text-color);
 			left: -var(--text-padding);
 		}
-	}
 
-	.text p,
-	.text__paragraph{
-		padding-left: 0;
-		padding-right: 0;
-		box-shadow: var(--text-padding) 0 0 white, -var(--text-padding) 0 0 white;
+		& > *{
+			padding-left: 0;
+			padding-right: 0;
+			box-shadow: var(--text-padding) 0 0 white, -var(--text-padding) 0 0 white;
+		}
 	}
-
 }

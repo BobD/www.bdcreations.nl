@@ -51,57 +51,63 @@
 	
 	__webpack_require__(/*! babel-polyfill */ 1);
 	
-	var _logger = __webpack_require__(/*! ./utils/logger */ 298);
+	var _router = __webpack_require__(/*! ./utils/router */ 298);
+	
+	var _router2 = _interopRequireDefault(_router);
+	
+	var _logger = __webpack_require__(/*! ./utils/logger */ 300);
 	
 	var _logger2 = _interopRequireDefault(_logger);
 	
-	var _header = __webpack_require__(/*! ./modules/header */ 299);
+	var _header = __webpack_require__(/*! ./components/header */ 301);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
-	var _projects = __webpack_require__(/*! ./modules/projects */ 301);
+	var _projects = __webpack_require__(/*! ./components/projects */ 302);
 	
 	var _projects2 = _interopRequireDefault(_projects);
 	
-	var _pages = __webpack_require__(/*! ./modules/pages */ 304);
+	var _pages = __webpack_require__(/*! ./components/pages */ 305);
 	
 	var _pages2 = _interopRequireDefault(_pages);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	window.log = _logger2.default;
+	function ready(fn) {
+		if (document.readyState != 'loading') {
+			fn();
+		} else {
+			document.addEventListener('DOMContentLoaded', fn);
+		}
+	}
 	
-	document.addEventListener("DOMContentLoaded", function (e) {
+	ready(function (e) {
+		var logger = new _logger2.default();
 		var header = new _header2.default();
 		var projects = new _projects2.default();
 		var pages = new _pages2.default();
-		var introContainer = document.querySelector("*[data-js='content']");
-		var $body = document.querySelector("body");
+		var router = new _router2.default();
 	
-		// console.log(window.location.pathname);
-	
-		header.on('show', function (_ref) {
-			var id = _ref.id;
-	
-			pages.scrollTo(id);
-			projects.open();
-		});
-	
-		header.on('hide', function (_ref2) {
-			var id = _ref2.id;
-	
+		router.on('/', function () {
 			projects.close();
 			pages.close();
 		});
 	
-		projects.on('show', function (e) {
-			pages.scrollTo(e.id);
+		router.on('/projects', function (_ref) {
+			var id = _ref.id;
 	
-			history.replaceState({}, null, e.id);
+			projects.trigger(id);
+			pages.scrollTo(id);
+		});
+	
+		projects.on('show', function (_ref2) {
+			var id = _ref2.id;
+	
+			router.setState('/projects/' + id);
 		});
 	
 		pages.on('hide', function (e) {
-			projects.close();
+			router.setState('/');
 		});
 	});
 
@@ -9124,7 +9130,7 @@
 /***/ },
 /* 298 */
 /*!********************************!*\
-  !*** ./src/js/utils/logger.js ***!
+  !*** ./src/js/utils/router.js ***!
   \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9134,45 +9140,11 @@
 		value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Logger = function () {
-		function Logger() {
-			_classCallCheck(this, Logger);
-		}
-	
-		_createClass(Logger, null, [{
-			key: 'log',
-			value: function log() {
-				if (true) {
-					console.log.apply(this, arguments);
-				}
-			}
-		}]);
-	
-		return Logger;
-	}();
-	
-	exports.default = Logger.log;
-
-/***/ },
-/* 299 */
-/*!**********************************!*\
-  !*** ./src/js/modules/header.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _events = __webpack_require__(/*! events */ 300);
+	var _events = __webpack_require__(/*! events */ 299);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -9180,46 +9152,94 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Header = function () {
-		function Header() {
+	var Router = function () {
+		function Router() {
 			var _this = this;
 	
-			_classCallCheck(this, Header);
+			_classCallCheck(this, Router);
 	
 			this.eventEmitter = new _events2.default.EventEmitter();
-			this.$container = document.querySelector("*[data-js='header']");
 	
-			var navItems = this.$container.querySelectorAll("*[data-js='navigation__item']");
-			Array.from(navItems).forEach(function (item) {
-				var id = item.getAttribute('data-id');
+			if (history.pushState) {
+				this.setState = this.setHistory;
+				this.getState = this.getHistory;
+			} else {
+				this.setState = this.setHash;
+				this.getState = this.getHash;
+			}
 	
-				item.addEventListener('click', function (e) {
-					_this.eventEmitter.emit('show', {
-						id: id
-					});
-				});
-			});
-	
-			var $title = this.$container.querySelector("*[data-js='header__title']");
-			$title.addEventListener('click', function (e) {
-				_this.eventEmitter.emit('hide', {});
-			});
+			setTimeout(function () {
+				return _this.handleState();
+			}, 100);
 		}
 	
-		_createClass(Header, [{
-			key: "on",
+		_createClass(Router, [{
+			key: 'on',
 			value: function on() {
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
 			}
+		}, {
+			key: 'setHash',
+			value: function setHash(path, data) {
+				location.hash = path;
+				this.handleState();
+			}
+		}, {
+			key: 'setHistory',
+			value: function setHistory(path, data) {
+				history.pushState({}, null, path);
+				this.handleState();
+			}
+		}, {
+			key: 'getHash',
+			value: function getHash() {
+				// Destructure an array to an object anyone?
+				var _window$location$hash = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
+	
+				var _window$location$hash2 = _slicedToArray(_window$location$hash, 2);
+	
+				var type = _window$location$hash2[0];
+				var id = _window$location$hash2[1];
+	
+				return { type: type, id: id };
+			}
+		}, {
+			key: 'getHistory',
+			value: function getHistory() {
+				// Destructure an array to an object anyone?
+				var _window$location$path = window.location.pathname.replace(/^\/?|\/$/g, '').split('/');
+	
+				var _window$location$path2 = _slicedToArray(_window$location$path, 2);
+	
+				var type = _window$location$path2[0];
+				var id = _window$location$path2[1];
+	
+				return { type: type, id: id };
+			}
+		}, {
+			key: 'handleState',
+			value: function handleState() {
+				var _getState = this.getState();
+	
+				var type = _getState.type;
+				var id = _getState.id;
+	
+	
+				if (type !== undefined) {
+					this.eventEmitter.emit('/' + type, { id: id });
+				} else {
+					this.eventEmitter.emit('/');
+				}
+			}
 		}]);
 	
-		return Header;
+		return Router;
 	}();
 	
-	exports.default = Header;
+	exports.default = Router;
 
 /***/ },
-/* 300 */
+/* 299 */
 /*!****************************!*\
   !*** ./~/events/events.js ***!
   \****************************/
@@ -9530,10 +9550,10 @@
 
 
 /***/ },
-/* 301 */
-/*!************************************!*\
-  !*** ./src/js/modules/projects.js ***!
-  \************************************/
+/* 300 */
+/*!********************************!*\
+  !*** ./src/js/utils/logger.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9544,15 +9564,114 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _events = __webpack_require__(/*! events */ 300);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Logger = function () {
+		function Logger() {
+			_classCallCheck(this, Logger);
+	
+			window.log = Logger.log;
+		}
+	
+		_createClass(Logger, null, [{
+			key: 'log',
+			value: function log() {
+				if (true) {
+					console.log.apply(this, arguments);
+				}
+			}
+		}]);
+	
+		return Logger;
+	}();
+	
+	exports.default = Logger;
+
+/***/ },
+/* 301 */
+/*!*************************************!*\
+  !*** ./src/js/components/header.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _events = __webpack_require__(/*! events */ 299);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
-	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 302);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Header = function () {
+		function Header() {
+			var _this = this;
+	
+			_classCallCheck(this, Header);
+	
+			this.eventEmitter = new _events2.default.EventEmitter();
+			this.$container = document.querySelector("*[data-js='header']");
+	
+			var navItems = this.$container.querySelectorAll("*[data-js='navigation__item']");
+			Array.from(navItems).forEach(function (item) {
+				var id = item.getAttribute('data-id');
+	
+				item.addEventListener('click', function (e) {
+					_this.eventEmitter.emit('show', {
+						id: id
+					});
+				});
+			});
+	
+			var $title = this.$container.querySelector("*[data-js='header__title']");
+			$title.addEventListener('click', function (e) {
+				_this.eventEmitter.emit('hide', {});
+			});
+		}
+	
+		_createClass(Header, [{
+			key: "on",
+			value: function on() {
+				this.eventEmitter.on.apply(this.eventEmitter, arguments);
+			}
+		}]);
+	
+		return Header;
+	}();
+	
+	exports.default = Header;
+
+/***/ },
+/* 302 */
+/*!***************************************!*\
+  !*** ./src/js/components/projects.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _events = __webpack_require__(/*! events */ 299);
+	
+	var _events2 = _interopRequireDefault(_events);
+	
+	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 303);
 	
 	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
 	
-	var _tools = __webpack_require__(/*! utils/tools */ 303);
+	var _tools = __webpack_require__(/*! utils/tools */ 304);
 	
 	var _tools2 = _interopRequireDefault(_tools);
 	
@@ -9601,6 +9720,10 @@
 						position: item.getBoundingClientRect()
 					});
 				});
+	
+				item.addEventListener('click', function (e) {
+					_this.openItem(item);
+				});
 			});
 		}
 	
@@ -9610,20 +9733,23 @@
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
 			}
 		}, {
+			key: 'trigger',
+			value: function trigger(id) {
+				var item = this.$container.querySelector('*[data-id=\'' + id + '\']');
+				var event = document.createEvent('HTMLEvents');
+				event.initEvent('click', true, false);
+				item.dispatchEvent(event);
+			}
+		}, {
 			key: 'openItem',
 			value: function openItem(item) {
 				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
 	
 				Array.from(items).forEach(function (el) {
 					el.classList.remove('active');
-	
-					// if(el !== item){
-					// 	el.classList.add('minify');
-					// }
 				});
 	
 				item.classList.add('active');
-				// item.classList.remove('minify');
 			}
 		}, {
 			key: 'open',
@@ -9637,7 +9763,7 @@
 				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
 				Array.from(items).forEach(function (item) {
 					item.classList.remove('active');
-					// item.classList.remove('minify');
+					item.classList.remove('open');
 				});
 			}
 		}]);
@@ -9648,7 +9774,7 @@
 	exports.default = Projects;
 
 /***/ },
-/* 302 */
+/* 303 */
 /*!****************************************!*\
   !*** ./~/velocity-animate/velocity.js ***!
   \****************************************/
@@ -13542,7 +13668,7 @@
 	will produce an inaccurate conversion value. The same issue exists with the cx/cy attributes of SVG circles and ellipses. */
 
 /***/ },
-/* 303 */
+/* 304 */
 /*!*******************************!*\
   !*** ./src/js/utils/tools.js ***!
   \*******************************/
@@ -13621,10 +13747,10 @@
 	exports.default = Tools;
 
 /***/ },
-/* 304 */
-/*!*********************************!*\
-  !*** ./src/js/modules/pages.js ***!
-  \*********************************/
+/* 305 */
+/*!************************************!*\
+  !*** ./src/js/components/pages.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13635,15 +13761,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _events = __webpack_require__(/*! events */ 300);
+	var _events = __webpack_require__(/*! events */ 299);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
-	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 302);
+	var _velocityAnimate = __webpack_require__(/*! velocity-animate */ 303);
 	
 	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 305);
+	var _lodash = __webpack_require__(/*! lodash */ 306);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -13748,7 +13874,7 @@
 	exports.default = Pages;
 
 /***/ },
-/* 305 */
+/* 306 */
 /*!****************************!*\
   !*** ./~/lodash/lodash.js ***!
   \****************************/
@@ -30839,10 +30965,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 306)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 307)(module)))
 
 /***/ },
-/* 306 */
+/* 307 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/

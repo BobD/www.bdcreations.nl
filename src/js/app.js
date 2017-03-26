@@ -1,38 +1,40 @@
 import 'babel-polyfill';
-import log from './utils/logger';
-import Header from './modules/header';
-import Projects from './modules/projects';
-import Pages from './modules/pages';
+import Router from './utils/router';
+import Logger from './utils/logger';
+import Header from './components/header';
+import Projects from './components/projects';
+import Pages from './components/pages';
 
-window.log = log;
+function ready(fn) {
+  	if (document.readyState != 'loading'){
+    	fn();
+  	} else {
+    	document.addEventListener('DOMContentLoaded', fn);
+  	}
+}
 
-document.addEventListener("DOMContentLoaded", function(e) {
+ready(function(e) {
+	const logger = new Logger();
 	const header = new Header();
 	const projects = new Projects();
 	const pages = new Pages();
-	const introContainer =  document.querySelector("*[data-js='content']");
-	const $body = document.querySelector("body");
+	const router = new Router();
 
-	// console.log(window.location.pathname);
-
-	header.on('show', ({id}) => {
-		pages.scrollTo(id);
-		projects.open();
-	});
-
-	header.on('hide', ({id}) => {
+	router.on('/', () => {
 		projects.close();
 		pages.close();
 	});
 
-	projects.on('show', (e) => {
-		pages.scrollTo(e.id);
+	router.on('/projects', ({id}) => {
+		projects.trigger(id);
+		pages.scrollTo(id);
+	});
 
-		history.replaceState({
-		}, null, e.id);
+	projects.on('show', ({id}) => {
+		router.setState(`/projects/${id}`);
 	});
 
 	pages.on('hide', (e) => {
-		projects.close();
+		router.setState('/');
 	});
 });

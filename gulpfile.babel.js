@@ -36,7 +36,6 @@ function getPageData(pageName){
 function getProjectData(projectName){
     let { [projectName]: pageContent } = siteData.projects;
     let data = Object.assign({}, siteData, {content: pageContent});
-    // console.log(projectName, data.attributes);
     return data;
 }
 
@@ -100,9 +99,9 @@ gulp.task('data', () => {
         });
 
         _.extend(data, {env: args.env});
-        siteData = data;  
+        siteData = data;
 
-        // console.log(data.pages['index']);
+        // console.log(data.projects['alila-hotels'].attributes.client);
     }));
 
     return stream;
@@ -153,7 +152,8 @@ gulp.task('pages', () => {
             return getPageData(pageName);
         }))
         .pipe(twig({
-            base: `${sourceDir}/html/`
+            base: `${sourceDir}/html/`,
+            version: new Date().getTime()
         }))
         .pipe(gulp.dest(destinationDir))
         .pipe(livereload({ }));
@@ -265,7 +265,7 @@ gulp.task('clean', () => {
 });
 
 
-gulp.task('default', ['compile', 'styles', 'images']);
+gulp.task('default', ['public', 'compile', 'styles', 'images']);
 
 
 

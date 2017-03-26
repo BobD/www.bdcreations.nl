@@ -3,5 +3,10 @@
 	<div class="pages__background" style="background-image: url('{{project.attributes.images[0]}}')"></div>
 	<div data-js="page__content" class="page__content">
 		<div class="text">{{project.html}}</div>
+{# 		{% if project.attributes.client is defined %}	
+			<div class="text">
+				<p><a href="{{project.attributes.client.url}}" target="_blank">{{project.attributes.client.name}}</a></p>
+			</div>
+		{% endif %} #}
 	</div>
 </article>

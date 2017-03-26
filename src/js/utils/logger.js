@@ -1,6 +1,7 @@
 class Logger {
 
 	constructor(){
+		window.log = Logger.log;
 	}
 
 	static log(){
@@ -10,4 +11,4 @@ class Logger {
 	}
 }
 
-export default Logger.log;
+export default Logger;

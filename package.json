@@ -13,7 +13,9 @@
     "watch:styles": "gulp watch --env development",
     "watch:js": "webpack --watch -d --ENV=development",
     "sync": "browser-sync start --proxy 'http://localhost' --no-notify --ws --serveStatic 'build' --files 'build'",
-    "serve": "npm run docker:stop && npm run docker:remove && npm run docker:run && npm run sync"
+    "sync:prod": "browser-sync start --proxy 'http://localhost' --no-notify --ws --serveStatic 'dist' --files 'dist'",
+    "serve": "npm run docker:stop && npm run docker:remove && npm run docker:run && npm run sync",
+    "serve:prod": "npm run docker:stop && npm run docker:remove && npm run docker:run && npm run sync:prod"
   },
   "keywords": [
     "bdcreations"
