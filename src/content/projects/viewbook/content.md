@@ -1,5 +1,7 @@
 ---
-title: Alila Hotels
+title: Viewbook
+meta:
+- {name: website, label: www.viewbook.com, url: http://www.viewbook.com/}
 ---
 # Viewbook 
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
+Viewbook is an online presentation platform for photographers and creatives for which bd creations was active the last 4 years in improving their software and user galleries.

@@ -1,5 +1,8 @@
 ---
 title: Esthex
+meta: 
+- {name: Client, label: Tres Julie, url: http://www.tresjulie.com/}
+- {name: website, label: www.esthex.com, url: http://www.esthex.com/}
 ---
 # Esthex
-Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. 
+Based on a design from Tres Julie, bd creations has developed the new beautiful website and webshop for Esthex, handmade dolls for kids and grownups.

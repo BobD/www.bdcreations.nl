@@ -1,5 +1,8 @@
 ---
 title: Lotte Stekelenburg
+meta: 
+- {name: Client, label: Office Of Paul Swagerman, url: http://www.bdcreations.nl/en/+/lotte-stekelenburg/}
+- {name: website, label: www.lottestekelenburg.nl, url: http://www.lottestekelenburg.nl/}
 ---
 # Lotte Stekelenburg 
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+Lotte Stekelenburg is a Dutch freelance fotographer with a focus on the artistic, social and cultural sector. In 2015 bd creations developed her new portoflio website.

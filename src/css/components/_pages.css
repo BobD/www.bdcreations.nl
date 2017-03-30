@@ -58,7 +58,7 @@
 	right: var(--block-padding);
 	color: white;
 	font-size: 2rem;
-	line-height: var(--header--height);
+	line-height: var(--header-height);
 	z-index: 1;
 	cursor: pointer;
 	transition: all ease .25s;

@@ -9,7 +9,7 @@
 
 .page__content{
 	position: absolute;
-	padding-top: var(--header--height);
+	padding-top: var(--header-height);
 }
 
 .page__title{

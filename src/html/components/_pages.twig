@@ -4,7 +4,6 @@
 			{% for project in navigation.projects %}
 				{% include "components/_page.twig" with {"id": project.id, "modifiers": "pages__item"}  %}
 			{% endfor %}
-			{% include "components/_contact.twig" with {"id": "contact", "modifiers": "pages__item"}  %}
 		</div>
 		<div data-js="pages__close" class="pages__close">
 			<i class="fa fa-times-circle" aria-hidden="true"></i>

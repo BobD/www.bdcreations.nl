@@ -1,9 +1,10 @@
 import 'babel-polyfill';
-import Router from './utils/router';
+import Router from 'utils/router';
 import Logger from './utils/logger';
 import Header from './components/header';
 import Projects from './components/projects';
 import Pages from './components/pages';
+import Information from './components/information';
 
 function ready(fn) {
   	if (document.readyState != 'loading'){
@@ -18,23 +19,23 @@ ready(function(e) {
 	const header = new Header();
 	const projects = new Projects();
 	const pages = new Pages();
-	const router = new Router();
+	const information = new Information();
 
-	router.on('/', () => {
+	Router.on('/', () => {
 		projects.close();
 		pages.close();
 	});
 
-	router.on('/projects', ({id}) => {
-		projects.trigger(id);
-		pages.scrollTo(id);
+	Router.on('/projects', ({id}) => {
+		const itemIsClosed = projects.trigger(id);
+		if(!itemIsClosed){
+			pages.scrollTo(id);
+		}
 	});
 
-	projects.on('show', ({id}) => {
-		router.setState(`/projects/${id}`);
+	Router.on('/about', () => {
+		information.open();
 	});
 
-	pages.on('hide', (e) => {
-		router.setState('/');
-	});
+	Router.init();
 });

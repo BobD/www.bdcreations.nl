@@ -1,5 +1,8 @@
 ---
 title: Supertrash
+meta: 
+- {name: Client, label: Lucas & Mallee, url: http://www.lucasenmallee.nl/}
+- {name: website, label: projects.bdcreations.nl/supertrash/, url: http://projects.bdcreations.nl/supertrash/}
 ---
 # Supertrash
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+After a design from Caramel I developed the new website for Supertrash a couple of years ago, the new and fast growing fashion label from socialite&nbsp;Olcay Gulsen.

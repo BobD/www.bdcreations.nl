@@ -1,5 +1,6 @@
 import Events from 'events';
 import Velocity from 'velocity-animate';
+import Router from 'utils/router';
 import _ from 'lodash';
 
 class Pages {
@@ -13,8 +14,8 @@ class Pages {
 
 		const $close =  document.querySelector("*[data-js='pages__close']");
 		$close.addEventListener('click', (e) => {
+			Router.setState('/');
 			this.close();
-			this.eventEmitter.emit('hide', {});
 		});
 	}
 

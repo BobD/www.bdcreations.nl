@@ -51,7 +51,7 @@
 	
 	__webpack_require__(/*! babel-polyfill */ 1);
 	
-	var _router = __webpack_require__(/*! ./utils/router */ 298);
+	var _router = __webpack_require__(/*! utils/router */ 298);
 	
 	var _router2 = _interopRequireDefault(_router);
 	
@@ -71,6 +71,10 @@
 	
 	var _pages2 = _interopRequireDefault(_pages);
 	
+	var _information = __webpack_require__(/*! ./components/information */ 308);
+	
+	var _information2 = _interopRequireDefault(_information);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function ready(fn) {
@@ -86,29 +90,27 @@
 		var header = new _header2.default();
 		var projects = new _projects2.default();
 		var pages = new _pages2.default();
-		var router = new _router2.default();
+		var information = new _information2.default();
 	
-		router.on('/', function () {
+		_router2.default.on('/', function () {
 			projects.close();
 			pages.close();
 		});
 	
-		router.on('/projects', function (_ref) {
+		_router2.default.on('/projects', function (_ref) {
 			var id = _ref.id;
 	
-			projects.trigger(id);
-			pages.scrollTo(id);
+			var itemIsClosed = projects.trigger(id);
+			if (!itemIsClosed) {
+				pages.scrollTo(id);
+			}
 		});
 	
-		projects.on('show', function (_ref2) {
-			var id = _ref2.id;
-	
-			router.setState('/projects/' + id);
+		_router2.default.on('/about', function () {
+			information.open();
 		});
 	
-		pages.on('hide', function (e) {
-			router.setState('/');
-		});
+		_router2.default.init();
 	});
 
 /***/ },
@@ -9154,60 +9156,49 @@
 	
 	var Router = function () {
 		function Router() {
-			var _this = this;
-	
 			_classCallCheck(this, Router);
-	
-			this.eventEmitter = new _events2.default.EventEmitter();
-	
-			if (history.pushState && ("development") == 'development') {
-				this.setState = this.setHistory;
-				this.getState = this.getHistory;
-			} else {
-				this.setState = this.setHash;
-				this.getState = this.getHash;
-			}
-	
-			setTimeout(function () {
-				return _this.handleState();
-			}, 100);
 		}
 	
-		_createClass(Router, [{
+		_createClass(Router, null, [{
+			key: 'init',
+			value: function init() {
+				var _this = this;
+	
+				window.requestAnimationFrame(function () {
+					var _getState = _this.getState();
+	
+					var _getState$type = _getState.type;
+					var type = _getState$type === undefined ? '' : _getState$type;
+					var id = _getState.id;
+	
+					_this.eventEmitter.emit('/' + type, { id: id });
+				});
+			}
+		}, {
 			key: 'on',
 			value: function on() {
 				this.eventEmitter.on.apply(this.eventEmitter, arguments);
 			}
-		}, {
-			key: 'setHash',
-			value: function setHash(path, data) {
-				location.hash = path;
-				this.handleState();
-			}
-		}, {
-			key: 'setHistory',
-			value: function setHistory(path, data) {
-				log(path);
+		}]);
+	
+		return Router;
+	}();
+	
+	Router.eventEmitter = new _events2.default.EventEmitter();
+	
+	if (history.pushState && ("development") == 'development') {
+		Object.assign(Router, {
+			setState: function setState(path, data) {
 				history.pushState({}, null, path);
-				this.handleState();
-			}
-		}, {
-			key: 'getHash',
-			value: function getHash() {
-				// Destructure an array to an object anyone?
-				var _window$location$hash = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
 	
-				var _window$location$hash2 = _slicedToArray(_window$location$hash, 2);
+				var _Router$getState = Router.getState();
 	
-				var type = _window$location$hash2[0];
-				var id = _window$location$hash2[1];
+				var type = _Router$getState.type;
+				var id = _Router$getState.id;
 	
-				return { type: type, id: id };
-			}
-		}, {
-			key: 'getHistory',
-			value: function getHistory() {
-				// Destructure an array to an object anyone?
+				Router.eventEmitter.emit('/' + type, { id: id });
+			},
+			getState: function getState() {
 				var _window$location$path = window.location.pathname.replace(/^\/?|\/$/g, '').split('/');
 	
 				var _window$location$path2 = _slicedToArray(_window$location$path, 2);
@@ -9217,25 +9208,31 @@
 	
 				return { type: type, id: id };
 			}
-		}, {
-			key: 'handleState',
-			value: function handleState() {
-				var _getState = this.getState();
+		});
+	} else {
+		Object.assign(Router, {
+			setState: function setState(path, data) {
+				location.hash = path;
 	
-				var type = _getState.type;
-				var id = _getState.id;
+				var _Router$getState2 = Router.getState();
 	
+				var type = _Router$getState2.type;
+				var id = _Router$getState2.id;
 	
-				if (type !== undefined) {
-					this.eventEmitter.emit('/' + type, { id: id });
-				} else {
-					this.eventEmitter.emit('/');
-				}
+				Router.eventEmitter.emit('/' + type, { id: id });
+			},
+			getState: function getState() {
+				var _window$location$hash = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
+	
+				var _window$location$hash2 = _slicedToArray(_window$location$hash, 2);
+	
+				var type = _window$location$hash2[0];
+				var id = _window$location$hash2[1];
+	
+				return { type: type, id: id };
 			}
-		}]);
-	
-		return Router;
-	}();
+		});
+	}
 	
 	exports.default = Router;
 
@@ -9676,6 +9673,10 @@
 	
 	var _tools2 = _interopRequireDefault(_tools);
 	
+	var _router = __webpack_require__(/*! utils/router */ 298);
+	
+	var _router2 = _interopRequireDefault(_router);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9694,32 +9695,10 @@
 				return;
 			}
 	
-			this.containerWidth = parseFloat(window.getComputedStyle(this.$container).width);
-			this.scrollWidth = window.innerWidth;
-			this.scrollGap = this.scrollWidth - this.containerWidth;
-			this.overContainer = false;
-			this.currentScrollPos = 0;
-	
 			var navItems = this.$container.querySelectorAll("*[data-js='projects__item']");
 			Array.from(navItems).forEach(function (item) {
-				var projectId = item.getAttribute('data-id');
-	
 				item.addEventListener('mouseenter', function (e) {
-					var rect = item.getBoundingClientRect();
-					var position = { left: rect.left, width: rect.width };
-	
 					_this.openItem(item);
-					_this.eventEmitter.emit('show', {
-						id: projectId,
-						position: position
-					});
-				});
-	
-				item.addEventListener('mouseleave', function (e) {
-					_this.eventEmitter.emit('hide', {
-						id: projectId,
-						position: item.getBoundingClientRect()
-					});
 				});
 	
 				item.addEventListener('click', function (e) {
@@ -9737,25 +9716,29 @@
 			key: 'trigger',
 			value: function trigger(id) {
 				var item = this.$container.querySelector('*[data-id=\'' + id + '\']');
-				var event = document.createEvent('HTMLEvents');
-				event.initEvent('click', true, false);
-				item.dispatchEvent(event);
+				var itemIsClosed = !item.classList.contains('active');
+	
+				if (itemIsClosed) {
+					var event = document.createEvent('HTMLEvents');
+					event.initEvent('click', true, false);
+					item.dispatchEvent(event);
+				}
+	
+				return itemIsClosed;
 			}
 		}, {
 			key: 'openItem',
 			value: function openItem(item) {
 				var items = this.$container.querySelectorAll("*[data-js='projects__item']");
+				var projectId = item.getAttribute('data-id');
 	
 				Array.from(items).forEach(function (el) {
 					el.classList.remove('active');
 				});
 	
 				item.classList.add('active');
-			}
-		}, {
-			key: 'open',
-			value: function open() {
-				this.$list.classList.add('open');
+	
+				_router2.default.setState('/projects/' + projectId);
 			}
 		}, {
 			key: 'close',
@@ -13770,6 +13753,10 @@
 	
 	var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
 	
+	var _router = __webpack_require__(/*! utils/router */ 298);
+	
+	var _router2 = _interopRequireDefault(_router);
+	
 	var _lodash = __webpack_require__(/*! lodash */ 306);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
@@ -13792,8 +13779,8 @@
 	
 			var $close = document.querySelector("*[data-js='pages__close']");
 			$close.addEventListener('click', function (e) {
+				_router2.default.setState('/');
 				_this.close();
-				_this.eventEmitter.emit('hide', {});
 			});
 		}
 	
@@ -30986,6 +30973,59 @@
 		return module;
 	}
 
+
+/***/ },
+/* 308 */
+/*!******************************************!*\
+  !*** ./src/js/components/information.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _events = __webpack_require__(/*! events */ 299);
+	
+	var _events2 = _interopRequireDefault(_events);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Information = function () {
+		function Information() {
+			_classCallCheck(this, Information);
+	
+			this.eventEmitter = new _events2.default.EventEmitter();
+			this.$container = document.querySelector("*[data-js='information']");
+		}
+	
+		_createClass(Information, [{
+			key: 'on',
+			value: function on() {
+				this.eventEmitter.on.apply(this.eventEmitter, arguments);
+			}
+		}, {
+			key: 'open',
+			value: function open() {
+				this.$container.classList.add('open');
+			}
+		}, {
+			key: 'close',
+			value: function close() {
+				this.$container.classList.remove('open');
+			}
+		}]);
+	
+		return Information;
+	}();
+	
+	exports.default = Information;
 
 /***/ }
 /******/ ]);

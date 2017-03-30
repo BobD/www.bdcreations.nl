@@ -2,9 +2,9 @@
 	<ul class="navigation__list">
 		{% for item in navigation.site %}
 			<li data-js="navigation__item" class="navigation__item" data-id="{{item.id}}">
-				<div class="navigation__link">
+				<a href="{{item.url}}" class="navigation__link">
 					<span class="navigation__label">{{item.label}}</span>
-				</div>
+				</a>
 			</li>
 		{% endfor %}
 	</ul>

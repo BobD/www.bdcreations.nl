@@ -1,6 +1,7 @@
 import Events from 'events';
 import Velocity from 'velocity-animate';
 import Tools from 'utils/tools';
+import Router from 'utils/router';
 
 class Projects {
 
@@ -13,34 +14,12 @@ class Projects {
 			return;
 		}
 
-		this.containerWidth = parseFloat(window.getComputedStyle(this.$container).width);
-		this.scrollWidth = window.innerWidth;
-		this.scrollGap =  this.scrollWidth - this.containerWidth;
-		this.overContainer = false;
-		this.currentScrollPos = 0;
-
 		let navItems = this.$container.querySelectorAll("*[data-js='projects__item']");
 		Array.from(navItems).forEach((item) => {
-			let projectId = item.getAttribute('data-id');
-
 			item.addEventListener('mouseenter', (e) => {
-				let rect = item.getBoundingClientRect();
-				let position = {left: rect.left, width: rect.width};
-
 				this.openItem(item);
-				this.eventEmitter.emit('show', {
-					id: projectId,
-					position: position
-				});
 			});
 			
-			item.addEventListener('mouseleave', (e) => {
-				this.eventEmitter.emit('hide', {
-					id: projectId,
-					position: item.getBoundingClientRect()
-				});
-			});
-
 			item.addEventListener('click', (e) => {
 				this.openItem(item);
 			});
@@ -53,23 +32,28 @@ class Projects {
 
 	trigger(id){
 		const item = this.$container.querySelector(`*[data-id='${id}']`);
-		const event = document.createEvent('HTMLEvents');
-		event.initEvent('click', true, false);
-		item.dispatchEvent(event);
+		const itemIsClosed = !item.classList.contains('active');
+
+		if(itemIsClosed){
+			const event = document.createEvent('HTMLEvents');
+			event.initEvent('click', true, false);
+			item.dispatchEvent(event);
+		}
+
+		return itemIsClosed;
 	}
 
 	openItem(item){
-		let items = this.$container.querySelectorAll("*[data-js='projects__item']");
+		const items = this.$container.querySelectorAll("*[data-js='projects__item']");
+		const projectId = item.getAttribute('data-id');
 
 		Array.from(items).forEach((el) => {
 			el.classList.remove('active');
 		});
 
 		item.classList.add('active');
-	}
 
-	open(){
-		this.$list.classList.add('open');
+		Router.setState(`/projects/${projectId}`);
 	}
 
 	close(){

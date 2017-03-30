@@ -1,5 +1,7 @@
 ---
 title: Geton
+meta: 
+- {name: website, label: www.geton.io, url: https://www.geton.io/}
 ---
 # Geton 
-Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.
+De afgelopen twee maanden heb ik in opdracht kunnen werken aan GetOn, dé online tool voor winkeliers om hun online vindbaarheid en zichtbaarheid te verbeteren. Ontwikkeld met onder andere React en Meteor, go check it out!

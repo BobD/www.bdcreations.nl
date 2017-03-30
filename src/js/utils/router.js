@@ -2,58 +2,47 @@ import Events from 'events';
 
 class Router {
 
-	constructor(){
-		this.eventEmitter = new Events.EventEmitter();
-
-		if (history.pushState && ENV == 'development') {
-		 	this.setState = this.setHistory;
-		 	this.getState = this.getHistory;
-		}else{
-		 	this.setState = this.setHash;
-		 	this.getState = this.getHash;
-		}
-
-		setTimeout(() => this.handleState(), 100);
+	static init(){
+		window.requestAnimationFrame(() => {
+			const {type = '', id} = this.getState();
+			this.eventEmitter.emit(`/${type}`, {id: id});
+		});
 	}
 
-	on(){
+	static on(){
 		this.eventEmitter.on.apply(this.eventEmitter, arguments);
 	}
+}
 
-	setHash(path, data){
-		location.hash = path;
-		this.handleState();
-	}
+Router.eventEmitter = new Events.EventEmitter();
 
-	setHistory(path, data){
-		log(path);
-		history.pushState({
-		}, null, path);
-		this.handleState();
-	}
+if (history.pushState && ENV == 'development') {
+	Object.assign(Router, {
+		setState: (path, data) => {
+			history.pushState({
+			}, null, path);
 
-	getHash(){
-		// Destructure an array to an object anyone?
-		const [type, id] = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
-		return {type: type, id: id};
-	}
-
-	getHistory(){
-		// Destructure an array to an object anyone?
-		const [type, id] = window.location.pathname.replace(/^\/?|\/$/g, '').split('/');
-		return {type: type, id: id};
-	}
-
-	handleState(){
-		const {type, id} = this.getState();
-
-		if(type !== undefined){
-			this.eventEmitter.emit(`/${type}`, {id: id});
-		}else{
-			this.eventEmitter.emit('/');
+			const {type, id} = Router.getState();
+			Router.eventEmitter.emit(`/${type}`, {id: id});
+		},
+		getState:() => {
+			const [type, id] = window.location.pathname.replace(/^\/?|\/$/g, '').split('/');
+			return {type: type, id: id};
 		}
+	});
+}else{
+	Object.assign(Router, {
+		setState: (path, data) => {
+			location.hash = path;
 
-	}
+			const {type, id} = Router.getState();
+			Router.eventEmitter.emit(`/${type}`, {id: id});
+		},
+		getState:() => {
+			const [type, id] = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
+			return {type: type, id: id};
+		}
+	});
 }
 
 export default Router;
