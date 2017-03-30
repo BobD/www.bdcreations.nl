@@ -1,0 +1,22 @@
+:root{
+
+	--information-max-width: 40vw;
+}
+
+.information{
+	background-color: white;
+	max-height: calc(100vh - var(--footer-height)  - var(--header-height));
+	max-width: 0;
+	transition: max-width ease .25s;
+
+	&.open{
+		max-width: var(--information-max-width);
+	}
+}
+
+.information__page{
+	position: relative;
+	height: 100%;
+	width: var(--information-max-width);
+	padding: var(--block-padding);
+}
